@@ -18,16 +18,23 @@ import { Mongo } from 'meteor/mongo';
 // });
 
 Meteor.methods({
-  'profiles.update'(profile) {
+  // Update Users Basic Information
+  'profiles.updateUserInformation'(updatedData) {
     return Meteor.users.update(Meteor.userId(), {
       $set: {
-        name: profile.name,
-        course: profile.course,
-        bio: profile.bio,
-        picture: profile.picture
+        profile: {
+          fullName: updatedData.fullName,
+          major: updatedData.major,
+          currentYear: updatedData.currentYear,
+          bio: updatedData.bio
+        }
       }
     });
   }
+  // Update Posted Sessions: Add ID of created session to postedSession
+
+  // Update Attending Sessions: Add ID of session user is attending to attendingSession
+  // Update Pending Sessions: Add ID of session user is waiting to get accepted at into pendingSession
 });
 
 // Meteor.users.attachSchema(UserSchema);
