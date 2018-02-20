@@ -1,7 +1,8 @@
 import React from 'react';
 import './styles.css';
-const App = () => {
-  return <div className="hello">hello world</div>;
+
+const Layout = () => {
+  return <div> hi </div>;
 };
 
-export default App;
+export default Layout;
