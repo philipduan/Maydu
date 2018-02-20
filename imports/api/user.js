@@ -1,20 +1,21 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-UserSchema = new SimpleSchema({
-  _id: ObjectId,
-  Fullname: String,
-  Email: String,
-  // School: University ObjectId,
-  Photo: String(url),
-  Major: String,
-  Year: Number,
-  Bio: String
-  // SocialMedia: [ String (url) ],
-  // Postedsession: [ Session id ],
-  // Attendingsession: [ Session id ],
-  // Pendingsession: [ Session.id ]
-});
+// UserSchema = new SimpleSchema({
+//   // _id: ObjectId,
+//   Profile: {
+//     fullName: String,
+//     photo: String(url),
+//     major: String,
+//     year: Number,
+//     bio: String
+
+//     // SocialMedia: [ String (url) ],
+//     // Postedsession: [ Session id ],
+//     // Attendingsession: [ Session id ],
+//     // Pendingsession: [ Session.id ]
+//   }
+// });
 
 Meteor.methods({
   'profiles.update'(profile) {
@@ -28,5 +29,7 @@ Meteor.methods({
     });
   }
 });
-Meteor.users.attachSchema(UserSchema);
+
+// Meteor.users.attachSchema(UserSchema);
+
 export const Profiles = Meteor.users;
