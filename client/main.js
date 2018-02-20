@@ -5,7 +5,6 @@ import Layout from '../imports/ui/components/App/App';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router';
 
-const text = $('#text').val();
 // class Maydu extends Component {
 //   render() {
 //     return (
