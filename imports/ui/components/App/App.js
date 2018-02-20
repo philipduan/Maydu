@@ -20,4 +20,4 @@ class App extends Component {
   }
 }
 
-export default Layout;
+export default App;
