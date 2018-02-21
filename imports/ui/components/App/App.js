@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import SignUp from '../SignUp/SignUp';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './styles.css';
-
-// const App = () => {
-//   return <div className="hello">hello world</div>;
-// };
 
 class App extends Component {
   constructor() {
@@ -13,9 +10,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <SignUp />
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <SignUp />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
