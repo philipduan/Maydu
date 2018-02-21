@@ -1,3 +1,3 @@
 export const SessionList = () => {
-    <div className='session-list'></div>
-}
+  <div className="session-list" />;
+};
