@@ -18,6 +18,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router';
 //     );
 //   }
 // }
+<MuiThemeProvider/>
 
 Meteor.startup(() => {
   ReactDOM.render(<Layout />, document.getElementById('root'))

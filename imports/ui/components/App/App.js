@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SignUp from '../SignUp/SignUp';
 import './styles.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // const App = () => {
 //   return <div className="hello">hello world</div>;
@@ -14,7 +15,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SignUp />
+        <MuiThemeProvider>
+          <SignUp />
+        </MuiThemeProvider>
       </div>
     );
   }
