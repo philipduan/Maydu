@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './main.css';
 import Layout from '../imports/ui/components/App/App';
 import { Meteor } from 'meteor/meteor';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 // class Maydu extends Component {
 //   render() {
@@ -18,7 +18,6 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router';
 //     );
 //   }
 // }
-<MuiThemeProvider/>
 
 Meteor.startup(() => {
   ReactDOM.render(<Layout />, document.getElementById('root'))
