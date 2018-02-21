@@ -18,8 +18,8 @@ const SessionCard = ({ data, history }) => (
       <CardHeader
         style={{ cursor: 'pointer' }}
         onClick={() => history.push(`/user/${data.sessionCreator._id}`)}
-        title={`Creator:&nbsp${data.sessionCreator.fullname}`}
-        subtitle={data.sessionCreator.bio}
+        title={`Creator:&nbsp${data.sessionCreator.profile.fullname}`}
+        subtitle={data.sessionCreator.profile.bio}
         // avatar={
         //   <Gravatar email={data.itemowner.email} className="GravatarImg" />
         // }
