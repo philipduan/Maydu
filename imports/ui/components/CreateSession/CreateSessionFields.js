@@ -5,5 +5,3 @@ const CreateSessionFields = ({}) => {
 };
 
 export default CreateSessionFields;
-
-//test
