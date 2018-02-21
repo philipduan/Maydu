@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './main.css';
-import Layout from '../imports/ui/components/App/App';
+import App from '../imports/ui/components/App/App';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router';
 
-// class Maydu extends Component {
+// class App extends Component {
 //   render() {
 //     return (
 //       // <BrowserRouter>
 //       //   <Switch>
 //       //     <Layout>
-//       //       {/* Routes */}
+//       //       <Route path="/Session" /> 
 //       //     </Layout>
 //       //   </Switch>
 //       // </BrowserRouter>
@@ -20,5 +20,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router';
 // }
 
 Meteor.startup(() => {
-  ReactDOM.render(<Layout />, document.getElementById('root'))
+  ReactDOM.render(<App />, document.getElementById('root'))
 });
+
+

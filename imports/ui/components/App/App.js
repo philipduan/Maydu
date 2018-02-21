@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import SignUp from '../SignUp/SignUp';
+import SignIn from '../SignIn/SignIn';
 import './styles.css';
-
-// const App = () => {
-//   return <div className="hello">hello world</div>;
-// };
 
 class App extends Component {
   constructor() {
@@ -14,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SignUp />
+        <SignIn />
       </div>
     );
   }

@@ -1,3 +1,63 @@
-.hello {
+@import url('https://fonts.googleapis.com/css?family=Lato:100,400,700');
+
+.Login-Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  width: 100vw; 
+  background-color: #66B9BF;
+}
+
+.Login-Box {
+  height: 60vh; 
+  width: 50vw;
+  background-color: #07889B;
+  border-radius: 80px;
+}
+
+.Login-Box h3 {
+  font-size:70px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
   color: white;
 }
+
+.Login-Box-Inputs {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.Login-Box-Inputs input {
+  width: 45%;
+  height: 40px;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 0px 10px;
+  color: #EEAA7B;
+  font-size: 16px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+}
+
+.Login-Box button {
+  width: 40%;
+  height: 40px;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 0px 10px;
+  background-color: #E37222;
+  color: white;
+  border: 5px solid white;
+  font-size: 16px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+}
+
+
+
+
