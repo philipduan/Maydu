@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-
+import CreateSessionFields from './CreateSessionFields';
 import './styles.css';
 
-export default class CreateSession extends Component {
+class CreateSession extends Component {
   constructor() {
     super();
   }
   render() {
-    return <h1>Hello</h1>;
+    return <CreateSessionFields />;
   }
 }
+
+export default CreateSession;

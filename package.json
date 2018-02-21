@@ -6,8 +6,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.40",
-    "material-ui": "^0.20.0",
-    "material-ui-datetimepicker": "^1.0.6",
     "meteor-node-stubs": "^0.3.2",
     "moment": "^2.20.1",
     "mongo": "^0.1.0",
