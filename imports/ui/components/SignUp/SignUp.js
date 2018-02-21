@@ -175,28 +175,51 @@ class SignUp extends Component {
     });
   };
 
-  render() {
-    const formElements = Object.entries(this.state.signUpForm).map(element => {
-      console.log('Element: ', element);
+  // This method transforms the signUpForm object in state into an actual form with jsx
+  renderFormElements = () => {
+    return Object.entries(this.state.signUpForm).map(element => {
+      let elementIdentifier = element[0]; // FullName, Email, Password
+      let elementFields = element[1]; // The fields in each identifier object
       return (
         <Input
-          key={element[0]}
-          elementType={element[1].elementType}
-          elementConfig={element[1].elementConfig}
-          value={element[1].value}
-          invalid={!element[1].valid}
-          shouldValidate={element[1].validation}
-          touched={element[1].touched}
-          changed={event => this.inputChangedHandler(event, element[0])}
+          key={elementIdentifier}
+          elementType={elementFields.elementType}
+          elementConfig={elementFields.elementConfig}
+          value={elementFields.value}
+          invalid={!elementFields.valid}
+          shouldValidate={elementFields.validation}
+          touched={elementFields.touched}
+          changed={event => this.inputChangedHandler(event, elementIdentifier)}
           // blurred={event => this.inputBlurredHandler(event, element[0])}
-          validationMsg={element[1].validationMessage}
+          validationMsg={elementFields.validationMessage}
         />
       );
     });
+  };
+
+  render() {
+    // const formElements = Object.entries(this.state.signUpForm).map(element => {
+    //   let elementIdentifier = element[0]; // FullName, Email, Password
+    //   let elementFields = element[1]; // The fields in each identifier object
+    //   return (
+    //     <Input
+    //       key={elementIdentifier}
+    //       elementType={elementFields.elementType}
+    //       elementConfig={elementFields.elementConfig}
+    //       value={elementFields.value}
+    //       invalid={!elementFields.valid}
+    //       shouldValidate={elementFields.validation}
+    //       touched={elementFields.touched}
+    //       changed={event => this.inputChangedHandler(event, elementIdentifier)}
+    //       // blurred={event => this.inputBlurredHandler(event, element[0])}
+    //       validationMsg={elementFields.validationMessage}
+    //     />
+    //   );
+    // });
 
     return (
       <div className="container container__signup">
-        <form>{formElements}</form>
+        <form>{this.renderFormElements()}</form>
       </div>
     );
   }
