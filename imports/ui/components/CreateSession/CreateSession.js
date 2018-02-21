@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Accounts } from 'meteor/accounts-base';
-import { Meteor } from 'meteor/meteor';
+import CreateSessionFields from './CreateSessionFields';
 import './styles.css';
 
-class SignIn extends Component {
+class CreateSession extends Component {
   constructor() {
     super();
     this.state = {
@@ -42,13 +40,9 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div className="Login-Container">
-        <div className="Login-Box">
-          <h3> MayDu </h3>
-          <p className="TagLine">
-            {' '}
-            Where students connect with fellow classmates{' '}
-          </p>
+      <div className="Create-Session-Container">
+        <div className="Create-Session-Box">
+          <h3> Create A Study Session </h3>
           <form onSubmit={this.handleSignInSubmit}>
             <input
               onChange={this.handleEmailAndPasswordState}
@@ -87,4 +81,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default CreateSession;
