@@ -21,7 +21,7 @@ class DropDown extends Component {
         />
       );
     });
-    console.log(this.props.floatingLabelStyle);
+
     return (
       <div>
         <SelectField

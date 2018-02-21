@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { Accounts } from 'meteor/accounts-base';
 // Components and Containers
 import Input from '../Input/Input';
+//utility
+import { updateObject, checkValidity } from '../../shared/utility';
 // Styles
 import './styles.css';
 
@@ -157,8 +159,25 @@ class SignUp extends Component {
     formIsValid: false
   };
 
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedFormElement = updateObject(
+      this.state.signUpForm[inputIdentifier],
+      {
+        value: event.target.value,
+        touched: false
+      }
+    );
+    const updatedForm = updateObject(this.state.signUpForm, {
+      [inputIdentifier]: updatedFormElement
+    });
+    this.setState({
+      signUpForm: updatedForm
+    });
+  };
+
   render() {
     const formElements = Object.entries(this.state.signUpForm).map(element => {
+      console.log('Element: ', element);
       return (
         <Input
           key={element[0]}
@@ -168,7 +187,7 @@ class SignUp extends Component {
           invalid={!element[1].valid}
           shouldValidate={element[1].validation}
           touched={element[1].touched}
-          // changed={event => this.inputChangedHandler(event, element[0])}
+          changed={event => this.inputChangedHandler(event, element[0])}
           // blurred={event => this.inputBlurredHandler(event, element[0])}
           validationMsg={element[1].validationMessage}
         />
