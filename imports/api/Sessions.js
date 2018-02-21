@@ -4,7 +4,7 @@ export const Sessions = new Mongo.Collection('sessions');
 Sessions.schema = new SimpleSchema({
     sessionCreator: { type: String, optional: false },
     title: { type: String, optional: false },
-    school: { type: String, optional: false },
+    institution: { type: String, optional: false },
     courseCode: { type: Number, defaultValue: null, optional: false },
     date: { type: String, optional: false },
     time: { type: String, optional: false },
@@ -18,7 +18,18 @@ Sessions.schema = new SimpleSchema({
 if (Meteor.isServer) { //Limiting and publishing/giving data to client
     Meteor.publish('sessions', function sessionsPublications() {
         const loggedInUser = Meteor.users.find(this.userId);
-        return Sessions.find({ school: loggedInUser.school });
+        return Sessions.find({ institution: loggedInUser.institution });
     });
 }
+
+
+
+Meteor.methods({
+
+    //// Method that filters session based on user query
+    'sessions.filterByCourseCode'(query) {
+      return Meteor.Sessions.find({courseCode: query});
+    }
+  
+  });
 

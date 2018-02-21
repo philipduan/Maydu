@@ -28,7 +28,7 @@ const SessionCard = ({ data, history }) => (
       />
       <CardTitle title={data.title} subtitle={data.courseCode} />
       <CardText>{data.intersection}</CardText>
-      <CardText>{data.school}</CardText>
+      <CardText>{data.institution}</CardText>
       <CardActions>
         {data ? (
           <FlatButton className="join-btn" label="Join" />
@@ -40,7 +40,7 @@ const SessionCard = ({ data, history }) => (
   </div>
 );
 
-export default withRouter(Session);
+export default withRouter(SessionCard);
 
 
 
