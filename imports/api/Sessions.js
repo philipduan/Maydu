@@ -22,5 +22,3 @@ if (Meteor.isServer) {
     return Sessions.find({ school: loggedInUser.school });
   });
 }
-
-//test
