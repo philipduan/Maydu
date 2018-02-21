@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SessionCard from './SessionCard';
 import SessionList from './SessionList';
 import SessionFilter from './SessionFilter';
-import './styles.css';
+import './style.css';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Sessions } from '../../../api/Sessions';
@@ -16,16 +16,22 @@ class SessionContainer extends Component {
     state = {
       sessions: [],
       allCourseCodes: []
-
     };
   }
   componentDidMount() {
+    console.log('props', this.props.sessions);
     this.setState({ sessions: this.props.sessions });
-    this.setState({ sessions: this.props.sessions.filter(session => {
-        let allCourseCodes = []
-        if (_.intersection(session.courseCode, allCourseCodes))
-    }) });
-
+    let allCourseCodes = [];
+    this.props.sessions.filter(session => {
+        let allCourseCodes = [];
+        if (!_.intersection(session.courseCode, allCourseCodes)) {
+            allCourseCodes.push(session.courseCode)
+        }
+        
+      })
+    this.setState({
+      sessions: allCourseCodes
+    });
   }
   handleFilter = value => {
     Meteor.call('sessions.filterByCourseCode', value, (err, sessions) => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './main.css';
-import Layout from '../imports/ui/components/App/App';
+import SessionContainer from '../imports/ui/components/SessionFeed/SessionContainer.js';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
@@ -20,5 +20,5 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 // }
 
 Meteor.startup(() => {
-  ReactDOM.render(<Layout />, document.getElementById('root'))
+  ReactDOM.render(<SessionContainer />, document.getElementById('root'));
 });
