@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import _ from 'lodash';
 export const Sessions = new Mongo.Collection('sessions');
 
 Sessions.schema = new SimpleSchema({
@@ -18,7 +19,25 @@ Sessions.schema = new SimpleSchema({
 if (Meteor.isServer) {
   //Limiting and publishing/giving data to client
   Meteor.publish('sessions', function sessionsPublications() {
-    const loggedInUser = Meteor.users.find(this.userId);
-    return Sessions.find({ school: loggedInUser.school });
+    //Original
+    //=========
+    // const loggedInUser = Meteor.users.find(this.userId);
+    //return Sessions.find({ institution: loggedInUser.institution });
+
+    //Faker data purposes
+    //===================
+    const simpleInstitutionArray = ['University of Toronto', 'Ryerson', 'RED'];
+    return Sessions.find({ institution: _.sample(simpleInstitutionArray) });
   });
 }
+
+Meteor.methods({
+  //// Method that filters session based on user query
+  'sessions.filterByCourseCode'(query) {
+    if (query) {
+      return Meteor.Sessions.find({ courseCode: query });
+    } else {
+      Meteor.Sessions.find({});
+    }
+  }
+});
