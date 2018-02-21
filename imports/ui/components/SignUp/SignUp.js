@@ -77,7 +77,9 @@ class SignUp extends Component {
         validation: {
           required: true
         },
-        valid: false
+        valid: false,
+        touched: false,
+        validationMessage: 'You must select an institution'
       },
       major: {
         elementType: 'input',
@@ -159,16 +161,18 @@ class SignUp extends Component {
     formIsValid: false
   };
 
-  inputChangedHandler = (event, inputIdentifier) => {
+  // This method updates the value of the elementIdentifier in state.
+  // The only purpose of this is to update the UI
+  inputChangedHandler = (event, elementIdentifier) => {
     const updatedFormElement = updateObject(
-      this.state.signUpForm[inputIdentifier],
+      this.state.signUpForm[elementIdentifier],
       {
         value: event.target.value,
         touched: false
       }
     );
     const updatedForm = updateObject(this.state.signUpForm, {
-      [inputIdentifier]: updatedFormElement
+      [elementIdentifier]: updatedFormElement
     });
     this.setState({
       signUpForm: updatedForm
@@ -198,25 +202,6 @@ class SignUp extends Component {
   };
 
   render() {
-    // const formElements = Object.entries(this.state.signUpForm).map(element => {
-    //   let elementIdentifier = element[0]; // FullName, Email, Password
-    //   let elementFields = element[1]; // The fields in each identifier object
-    //   return (
-    //     <Input
-    //       key={elementIdentifier}
-    //       elementType={elementFields.elementType}
-    //       elementConfig={elementFields.elementConfig}
-    //       value={elementFields.value}
-    //       invalid={!elementFields.valid}
-    //       shouldValidate={elementFields.validation}
-    //       touched={elementFields.touched}
-    //       changed={event => this.inputChangedHandler(event, elementIdentifier)}
-    //       // blurred={event => this.inputBlurredHandler(event, element[0])}
-    //       validationMsg={elementFields.validationMessage}
-    //     />
-    //   );
-    // });
-
     return (
       <div className="container container__signup">
         <form>{this.renderFormElements()}</form>

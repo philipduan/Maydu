@@ -1,6 +1,4 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
-import DropDown from '../DropDown/DropDown';
 
 const input = props => {
   styles = {
@@ -20,46 +18,35 @@ const input = props => {
   switch (props.elementType) {
     case 'input':
       inputElement = (
-        <TextField
-          hintText={props.elementConfig.placeholder}
-          floatingLabelText={props.elementConfig.placeholder}
+        <input
+          {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
-          errorText={validationError}
-          onBlur={props.blurred}
-          fullWidth={true}
-          floatingLabelStyle={styles.floatingLabel}
         />
       );
       break;
-    case 'textArea':
+    case 'texarea':
       inputElement = (
-        <TextField
-          hintText={props.elementConfig.placeholder}
-          floatingLabelText={props.elementConfig.placeholder}
+        <input
+          {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
-          onBlur={props.blurred}
-          errorText={validationError}
-          multiLine={true}
-          rows={5}
-          fullWidth={true}
-          floatingLabelStyle={styles.floatingLabel}
         />
       );
       break;
     case 'select':
       inputElement = (
-        <DropDown
-          value={props.value}
-          options={props.elementConfig.options}
-          floatingLabelText={props.elementConfig.label}
-          hintText="Select Institution"
-          floatingLabelStyle={styles.floatingLabel}
-        />
+        <select value={props.value} onChange={props.changed}>
+          {props.elementConfig.options.map(option => {
+            return (
+              <option key={option.value} value={option.value}>
+                {option.displayName}
+              </option>
+            );
+          })}
+        </select>
       );
       break;
-
     default:
       inputElement = <input />;
   }
