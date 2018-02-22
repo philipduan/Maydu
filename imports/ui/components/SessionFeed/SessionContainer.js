@@ -41,12 +41,9 @@ class SessionContainer extends Component {
     }, 550);
   }
   handleFilter = event => {
-    console.log('event', event);
     if (event) {
-      console.log('Filter if triggered');
 
       Meteor.call('sessions.filterByCourseCode', event, (error, sessions) => {
-        console.log(sessions);
         if (sessions.length > 0 || sessions) {
           this.setState({ sessions });
           console.log(sessions, 'if state set triggered');
@@ -54,7 +51,6 @@ class SessionContainer extends Component {
         console.log(error.message, 'Error');
       });
     }
-    console.log('Filter triggered');
   };
 
   render() {

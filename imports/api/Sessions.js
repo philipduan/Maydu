@@ -36,14 +36,9 @@ Meteor.methods({
   'sessions.filterByCourseCode'(query) {
     try {
       if (!query) {
-        console.log('null triggered in try');
         return null;
       }
-      console.log(query, 'query');
-    //   console.log(
-    //     'try method works',
-    //     Sessions.find({ courseCode: parseInt(query) }).fetch();
-    //   );
+
       return Sessions.find({ courseCode: parseInt(query) }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
