@@ -8,7 +8,6 @@ import Profile from '../imports/ui/components/Profile/Profile';
 import SessionContainer from '../imports/ui/components/SessionFeed/SessionContainer.js';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class Maydu extends Component {
   render() {
