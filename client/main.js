@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './main.css';
-import Layout from '../imports/ui/components/Layout';
-import App from '../imports/ui/containers/App/index.js';
+import Layout from '../imports/ui/components/App/App';
 import { Meteor } from 'meteor/meteor';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router';
 
-const Maydu = () => {
-  <BrowserRouter>
-    <Switch>
-      <Layout>
-      {/* Routes */}
-      </Layout>
-    </Switch>
-  </BrowserRouter>;
-};
+// class Maydu extends Component {
+//   render() {
+//     return (
+//       // <BrowserRouter>
+//       //   <Switch>
+//       //     <Layout>
+//       //       {/* Routes */}
+//       //     </Layout>
+//       //   </Switch>
+//       // </BrowserRouter>
+//     );
+//   }
+// }
 
 Meteor.startup(() => {
-  ReactDOM.render(<Maydu />, document.getElementById('root'));
+  ReactDOM.render(<Layout />, document.getElementById('root'))
 });

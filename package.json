@@ -5,10 +5,13 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.36",
+    "@babel/runtime": "^7.0.0-beta.40",
+    "material-ui": "^0.20.0",
     "meteor-node-stubs": "^0.3.2",
+    "mongo": "^0.1.0",
     "react": "^16.2.0",
     "react-addons-pure-render-mixin": "^15.6.2",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2"
   }
 }
