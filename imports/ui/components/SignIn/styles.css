@@ -92,3 +92,18 @@ button {
     color: white;
     font-size: 14px;
 }
+
+@media screen and (max-width: 426px) {
+   div .Login-Container {
+        background-color: #07889B;
+    }
+
+    .Login-Container .Login-Box {
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .Login-Box h3 {
+        margin-top: 30%;
+    }
+  } 

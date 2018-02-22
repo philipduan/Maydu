@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
+import Profile from '../Profile/Profile';
 import './styles.css';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
   constructor() {
@@ -12,9 +12,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <MuiThemeProvider> */}
-        <SignUp />
-        {/* </MuiThemeProvider> */}
+        <SignIn />
       </div>
     );
   }
