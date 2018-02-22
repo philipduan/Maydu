@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const SessionList = () => {
-  <div className="session-list" />;
+  return <div className="session-list">/ </div>;
 };
