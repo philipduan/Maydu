@@ -4,7 +4,7 @@ import './main.css';
 import './main.html';
 import App from '../imports/ui/components/App/App';
 import CreateSession from '../imports/ui/components/CreateSession';
-import Profile from '../imports/ui/components/Profile';
+import Profile from '../imports/ui/components/Profile/Profile';
 import SessionContainer from '../imports/ui/components/SessionFeed/SessionContainer.js';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
