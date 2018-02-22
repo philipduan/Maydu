@@ -34,15 +34,15 @@ if (Meteor.isServer) {
 Meteor.methods({
   //// Method that filters session based on user query
   'sessions.filterByCourseCode'(query) {
-
     try {
-        if (query) {
-            return Sessions.find({ courseCode: query });
-          }
-  
+      if (!query) {
+        console.log('null triggered in try');
         return null;
-      } catch (exception) {
-        throw new Meteor.Error('500', exception.message);
       }
+      console.log('try method works', Sessions.find({ courseCode: query }));
+      return Sessions.find({ courseCode: query });
+    } catch (exception) {
+      throw new Meteor.Error('500', exception.message);
+    }
   }
 });
