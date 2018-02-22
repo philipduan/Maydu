@@ -71,7 +71,7 @@ class SignUp extends Component {
               value: 'University of Toronto'
             }
           ],
-          label: 'Institution Name'
+          label: 'Select Institution'
         },
         value: '',
         validation: {
@@ -162,7 +162,7 @@ class SignUp extends Component {
   };
 
   // This method updates the value of the elementIdentifier in state.
-  // The only purpose of this is to update the UI
+  // The only purpose of this method is to update the input element user value
   inputChangedHandler = (event, elementIdentifier) => {
     const updatedFormElement = updateObject(
       this.state.signUpForm[elementIdentifier],

@@ -1,13 +1,6 @@
 import React from 'react';
 
 const input = props => {
-  styles = {
-    floatingLabel: {
-      color: 'black'
-    }
-  };
-
-  let inputElement = null;
   let validationError = null;
   if (props.invalid && props.shouldValidate && props.touched) {
     validationError = props.validationMsg
@@ -15,6 +8,7 @@ const input = props => {
       : 'Please enter a valid value!';
   }
 
+  let inputElement = null;
   switch (props.elementType) {
     case 'input':
       inputElement = (
@@ -25,7 +19,7 @@ const input = props => {
         />
       );
       break;
-    case 'texarea':
+    case 'textarea':
       inputElement = (
         <input
           {...props.elementConfig}
@@ -37,6 +31,9 @@ const input = props => {
     case 'select':
       inputElement = (
         <select value={props.value} onChange={props.changed}>
+          <option value="" disabled selected hidden>
+            {props.elementConfig.label}
+          </option>
           {props.elementConfig.options.map(option => {
             return (
               <option key={option.value} value={option.value}>
@@ -51,7 +48,12 @@ const input = props => {
       inputElement = <input />;
   }
 
-  return <div>{inputElement}</div>;
+  return (
+    <div>
+      {validationError ? <p> validationError </p> : null}
+      {inputElement}
+    </div>
+  );
 };
 
 export default input;
