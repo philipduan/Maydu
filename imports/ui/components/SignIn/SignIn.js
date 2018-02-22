@@ -18,7 +18,7 @@ class SignIn extends Component {
 
   //If user does not have an account - this takes them to SignUp form
   createAnAccount = () => {
-    <Link to={`/SignUp`} />;
+    <Link to={'/signup'} />;
     alert('i work');
   };
 
