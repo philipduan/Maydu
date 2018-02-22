@@ -56,6 +56,11 @@ form input {
   padding-left: 20px;
 }
 
+.DatePicker input[type='text'],
+.TimePicker input[type='text'] {
+  margin: 0;
+}
+
 form p {
   font-size: 14px;
   color: white;
@@ -64,6 +69,11 @@ form p {
 ::placeholder {
   color: #eeaa7b;
   opacity: 0.7;
+}
+form input[type='number']::-webkit-outer-spin-button,
+form input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 button {
