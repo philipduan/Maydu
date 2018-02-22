@@ -68,7 +68,7 @@ class SessionContainer extends Component {
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}
         />
-        {/* <SessionList>{sessionMap}</SessionList> */}
+        <SessionList>{sessionMap}</SessionList>
       </div>
     );
   }
