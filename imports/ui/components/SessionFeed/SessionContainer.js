@@ -56,7 +56,7 @@ class SessionContainer extends Component {
     const sessionMap = sessions.map(session => {
       return <SessionCard key={session._id} data={session} />;
     });
-    console.log('sessionmap', sessionMap);
+   // console.log('sessionmap', sessionMap);
 
     return (
       <div>
