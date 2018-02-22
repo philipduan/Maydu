@@ -14,8 +14,6 @@ import {
 import './styles.css';
 
 class SignUp extends Component {
-  // Make sure everything is trimmed
-
   state = {
     // Define the signup form
     signUpForm: {
@@ -162,59 +160,56 @@ class SignUp extends Component {
   // This method updates the value of the elementIdentifier in state.
   // The only purpose of this method is to update the input element user value
   inputChangedHandler = (event, elementIdentifier) => {
-    // We do this to avoid manipulating the state directly
-    const updatedElement = this.updateElementAndClearErrors(
-      event.target.value,
-      elementIdentifier
+    const valuesToUpdate = {
+      value: event.target.value,
+      touched: false, // Clear errors so they don't appear as user types
+      validationErrors: []
+    };
+    this.updateForm(valuesToUpdate, elementIdentifier);
+  };
+
+  // Update the form elementIdentifier with valuesToUpdate
+  updateForm = (valuesToUpdate, elementIdentifier) => {
+    const updatedElement = updateObject(
+      this.state.signUpForm[elementIdentifier],
+      valuesToUpdate
     );
-    const updatedForm = this.updateForm(updatedElement, elementIdentifier);
-    this.setState({ signUpForm: updatedForm });
-  };
-
-  // This method returns a NEW object. It copies state.elementIdentifier, then updates
-  // it's value with updatedValue. ValidationErrors is set to empty, and touched to false
-  updateElementAndClearErrors = (updatedValue, elementIdentifier) => {
-    return updateObject(this.state.signUpForm[elementIdentifier], {
-      value: updatedValue,
-      touched: false, // Just so that errors don't appear as user types
-      validationErrors: [] // clear all errors
-    });
-  };
-
-  // This method returns a NEW object. It copies state.signUpForm, and updates the field
-  // corresponding to elementIdentifier with updatedElement
-  updateForm = (updatedElement, elementIdentifier) => {
-    return updateObject(this.state.signUpForm, {
+    const updatedForm = updateObject(this.state.signUpForm, {
       [elementIdentifier]: updatedElement
     });
+    this.setState({ signUpForm: updatedForm });
   };
 
   // When inputfield is blurred, check that the user entered valid data, and update
   // state.formIsValid based on this validity. If data isn't valid, display error
   inputBlurredHandler = (event, elementIdentifier) => {
-    validationErrors = getValidationErrors(
-      event.target.value,
+    this.validateFormField(event.target.value, elementIdentifier);
+  };
+
+  // This input checks that newValue is a valid value for the elementIdentifier, and
+  // updates state.formIsValid based on this validity. If data isn't valid, display an error
+  validateFormField = (newValue, elementIdentifier) => {
+    const validationErrors = getValidationErrors(
+      newValue.trim(),
       this.state.signUpForm[elementIdentifier].validation
     );
-    const updatedFormElement = updateObject(
-      this.state.signUpForm[elementIdentifier],
-      {
-        value: event.target.value,
-        validationErrors: validationErrors,
-        touched: true
-      }
-    );
-    const updatedForm = updateObject(this.state.signUpForm, {
-      [elementIdentifier]: updatedFormElement
-    });
-    // let formIsValid = true;
-    // for (let inputIdentifier in updatedForm) {
-    //   formIsValid = updatedForm[elementIdentifier].valid && formIsValid;
-    // }
-    // this.setState({
-    //   signUpForm: updatedForm,
-    //   formIsValid: formIsValid
-    // });
+    const valuesToUpdate = {
+      value: newValue.trim(),
+      validationErrors: validationErrors,
+      touched: true,
+      formIsValid: this.updateFormValidity()
+    };
+    this.updateForm(valuesToUpdate, elementIdentifier);
+  };
+
+  // This method returns true if every field in the form is valid, false otherwise
+  updateFormValidity = () => {
+    let formIsValid = true;
+    for (let elementIdentifier in this.state.signUpForm) {
+      formIsValid =
+        this.state.signUpForm[elementIdentifier].valid && formIsValid;
+    }
+    return formIsValid;
   };
 
   // This method transforms the signUpForm object in state into an actual form with jsx
@@ -228,8 +223,6 @@ class SignUp extends Component {
           elementType={elementFields.elementType}
           elementConfig={elementFields.elementConfig}
           value={elementFields.value}
-          // invalid={!elementFields.valid}
-          // shouldValidate={elementFields.validation}
           touched={elementFields.touched}
           changed={event => this.inputChangedHandler(event, elementIdentifier)}
           blurred={event => this.inputBlurredHandler(event, elementIdentifier)}
@@ -239,10 +232,20 @@ class SignUp extends Component {
     });
   };
 
+  handleSubmit = () => {
+    this.state.signUpForm.forEach(formField=> {
+      console.log(formField);
+    })
+  };
+
   render() {
     return (
       <div className="container container__signup">
-        <form>{this.renderFormElements()}</form>
+        <h1> Sign Up </h1>
+        <form onSubmit={this.handleSubmit}>
+          {this.renderFormElements()}
+          <button disabled={!this.state.formIsValid}>Sign Up</button>
+        </form>
       </div>
     );
   }
