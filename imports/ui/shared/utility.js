@@ -21,7 +21,7 @@ export const getValidationErrors = (value, rules) => {
   if (rules.required) {
     isValid = value.trim() !== '' && isValid;
     !isValid ? errors.push(`This field is required`) : null;
-    return errors; // Don't do any of the other checks if required fails
+    if (!isValid) return errors;
   }
   if (rules.minLength) {
     isValid = value.replace(/ /g, '').length >= rules.minLength && isValid;
