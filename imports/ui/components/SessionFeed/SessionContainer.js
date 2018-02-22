@@ -41,16 +41,14 @@ class SessionContainer extends Component {
     }, 550);
   }
   handleFilter = event => {
-    if (event) {
-
-      Meteor.call('sessions.filterByCourseCode', event, (error, sessions) => {
-        if (sessions.length > 0 || sessions) {
-          this.setState({ sessions });
-          console.log(sessions, 'if state set triggered');
-        }
-        console.log(error.message, 'Error');
-      });
-    }
+    Meteor.call('sessions.filterByCourseCode', event, (error, sessions) => {
+      if (sessions.length > 0 || sessions) {
+        this.setState({ sessions });
+        console.log(this.state.sessions, 'if state set triggered');
+      } else {
+        console.log('Error');
+      }
+    });
   };
 
   render() {
@@ -65,7 +63,11 @@ class SessionContainer extends Component {
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}
         />
-        <SessionList>{sessionMap}</SessionList>
+        <SessionList>
+          {sessions.map(session => {
+            return <SessionCard key={session._id} data={session} />;
+          })}
+        </SessionList>
       </div>
     );
   }
