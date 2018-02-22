@@ -56,6 +56,7 @@ class SessionContainer extends Component {
     const sessionMap = sessions.map(session => {
       return <SessionCard key={session._id} data={session} />;
     });
+    console.log('sessionmap', sessionMap);
 
     return (
       <div>
@@ -63,11 +64,7 @@ class SessionContainer extends Component {
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}
         />
-        <SessionList>
-          {sessions.map(session => {
-            return <SessionCard key={session._id} data={session} />;
-          })}
-        </SessionList>
+        <SessionList>dsadas{sessionMap}</SessionList>
       </div>
     );
   }
