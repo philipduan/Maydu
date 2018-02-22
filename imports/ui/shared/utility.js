@@ -11,33 +11,34 @@ export const updateObject = (oldObject, updatedProperties) => {
 // This method takes two arguments, a value and a rules object. The rules object
 // specifies the set of rules that value must be validated against. If value
 // doesn't satisfy all rules, an error array consisting of failed validation
-// messages is returned. Otherwise, an empty array is returned.
+// messages is returned. Otherwise, an empty array is returned. Note, if the
+// required validation fails, all other rules are ignored and an array with a
+// single element ('This field is required') is returned
 export const getValidationErrors = (value, rules) => {
   if (!rules) {
     return true;
   }
   let errors = [];
   let isValid = true;
+
   if (rules.required) {
-    isValid = value.trim() !== '' && isValid;
-    !isValid ? errors.push(`This field is required`) : null;
-    if (!isValid) return errors;
-  }
-  if (rules.minLength) {
-    isValid = value.replace(/ /g, '').length >= rules.minLength && isValid;
-    !isValid
-      ? errors.push(`Minumum number of characters: ${rules.minLength}`)
-      : null;
-  }
-  if (rules.maxLength) {
-    isValid = value.replace(/ /g, '').length <= rules.maxLength && isValid;
-    !isValid
-      ? errors.push(`Maximum number of characters: ${rules.maxLength}`)
-      : null;
-  }
-  if (rules.email) {
-    isValid = emailPattern.test(value) && isValid;
-    !isValid ? errors.push(`Please enter a valid email address`) : null;
+    value.trim() !== '' ? errors.push(`This field is required`) : null;
+  } else {
+    if (rules.minLength) {
+      value.trim().length >= rules.minLength
+        ? errors.push(`Minumum number of characters: ${rules.minLength}`)
+        : null;
+    }
+    if (rules.maxLength) {
+      value.trim().length <= rules.maxLength
+        ? errors.push(`Maximum number of characters: ${rules.maxLength}`)
+        : null;
+    }
+    if (rules.email) {
+      emailPattern.test(value)
+        ? errors.push(`Please enter a valid email address`)
+        : null;
+    }
   }
   return errors;
 };
