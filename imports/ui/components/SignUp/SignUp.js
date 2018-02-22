@@ -14,6 +14,7 @@ class SignUp extends Component {
 
   state = {
     signUpForm: {
+      // Define the signup form
       fullName: {
         elementType: 'input',
         elementConfig: {
@@ -110,7 +111,7 @@ class SignUp extends Component {
         validationMessage: 'Please enter your academic year'
       },
       bio: {
-        elementType: 'textArea',
+        elementType: 'textarea',
         elementConfig: {
           placeholder: 'Bio: Tell us something intersting about yourself!'
         },
@@ -164,18 +165,29 @@ class SignUp extends Component {
   // This method updates the value of the elementIdentifier in state.
   // The only purpose of this method is to update the input element user value
   inputChangedHandler = (event, elementIdentifier) => {
-    const updatedFormElement = updateObject(
-      this.state.signUpForm[elementIdentifier],
-      {
-        value: event.target.value,
-        touched: false
-      }
+    // We do this to avoid manipulating the state directly
+    const updatedElement = this.updateElement(
+      event.target.value,
+      elementIdentifier
     );
-    const updatedForm = updateObject(this.state.signUpForm, {
-      [elementIdentifier]: updatedFormElement
+    const updatedForm = this.updateForm(updatedElement, elementIdentifier);
+    this.setState({ signUpForm: updatedForm });
+  };
+
+  // This method returns a NEW object. It copies state.elementIdentifier, then updates
+  // it's value with updatedValue
+  updateElement = (updatedValue, elementIdentifier) => {
+    return updateObject(this.state.signUpForm[elementIdentifier], {
+      value: updatedValue,
+      touched: false // Just so that errors don't appear as user types
     });
-    this.setState({
-      signUpForm: updatedForm
+  };
+
+  // This method returns a NEW object. It copies state.signUpForm, and updates the field
+  // corresponding to elementIdentifier with updatedElement
+  updateForm = (updatedElement, elementIdentifier) => {
+    return updateObject(this.state.signUpForm, {
+      [elementIdentifier]: updatedElement
     });
   };
 

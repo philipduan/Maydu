@@ -21,10 +21,12 @@ const input = props => {
       break;
     case 'textarea':
       inputElement = (
-        <input
+        <textarea
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
+          cols="5"
+          rows="5"
         />
       );
       break;
