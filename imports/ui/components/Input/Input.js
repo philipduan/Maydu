@@ -1,13 +1,6 @@
 import React from 'react';
 
 const input = props => {
-  let validationError = null;
-  if (props.invalid && props.shouldValidate && props.touched) {
-    validationError = props.validationMsg
-      ? props.validationMsg
-      : 'Please enter a valid value!';
-  }
-
   let inputElement = null;
   switch (props.elementType) {
     case 'input':
@@ -16,6 +9,7 @@ const input = props => {
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
+          onBlur={props.blurred}
         />
       );
       break;
@@ -25,6 +19,7 @@ const input = props => {
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
+          onBlur={props.blurred}
           cols="5"
           rows="5"
         />
@@ -50,9 +45,13 @@ const input = props => {
       inputElement = <input />;
   }
 
+  let i = 0;
+  const errors = props.validationErrors.map(error => (
+    <p key={i++}> {error} </p>
+  ));
   return (
     <div>
-      {validationError ? <p> validationError </p> : null}
+      {errors}
       {inputElement}
     </div>
   );
