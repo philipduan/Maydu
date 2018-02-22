@@ -5,7 +5,11 @@ import { Accounts } from 'meteor/accounts-base';
 // Components and Containers
 import Input from '../Input/Input';
 //utility
-import { updateObject, checkValidity } from '../../shared/utility';
+import {
+  updateObject,
+  checkValidity,
+  getValidationErrors
+} from '../../shared/utility';
 // Styles
 import './styles.css';
 
@@ -13,8 +17,8 @@ class SignUp extends Component {
   // Make sure everything is trimmed
 
   state = {
+    // Define the signup form
     signUpForm: {
-      // Define the signup form
       fullName: {
         elementType: 'input',
         elementConfig: {
@@ -25,9 +29,8 @@ class SignUp extends Component {
         validation: {
           required: true
         },
-        valid: false,
-        touched: false,
-        validationMessage: `You must enter your name`
+        validationErrors: [],
+        touched: false
       },
       email: {
         elementType: 'input',
@@ -38,11 +41,10 @@ class SignUp extends Component {
         value: '',
         validation: {
           required: true,
-          isEmail: true
+          email: true
         },
-        valid: false,
-        touched: false,
-        validationMessage: 'Please enter a valid email address'
+        validationErrors: [],
+        touched: false
       },
       password: {
         elementType: 'input',
@@ -55,9 +57,8 @@ class SignUp extends Component {
           required: true,
           minLength: 8
         },
-        valid: false,
-        touched: false,
-        validationMessage: 'Your password must be at least 8 characters long'
+        validationErrors: [],
+        touched: false
       },
       institution: {
         elementType: 'select',
@@ -78,9 +79,8 @@ class SignUp extends Component {
         validation: {
           required: true
         },
-        valid: false,
-        touched: false,
-        validationMessage: 'You must select an institution'
+        validationErrors: [],
+        touched: false
       },
       major: {
         elementType: 'input',
@@ -92,9 +92,8 @@ class SignUp extends Component {
         validation: {
           required: true
         },
-        valid: false,
-        touched: false,
-        validationMessage: 'Please enter your major.'
+        validationErrors: [],
+        touched: false
       },
       academicYear: {
         elementType: 'input',
@@ -106,9 +105,8 @@ class SignUp extends Component {
         validation: {
           required: true
         },
-        valid: false,
-        touched: false,
-        validationMessage: 'Please enter your academic year'
+        validationErrors: [],
+        touched: false
       },
       bio: {
         elementType: 'textarea',
@@ -121,41 +119,40 @@ class SignUp extends Component {
           minLength: 50,
           maxLength: 300
         },
-        valid: false,
-        touched: false,
-        validationMessage: 'Your bio must be 50-300 characters long'
+        validationErrors: [],
+        touched: false
       },
       facebook: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Facebook (otional)'
+          placeholder: 'Facebook'
         },
         value: '',
         validation: {},
-        valid: false,
+        validationErrors: [],
         touched: false
       },
       instagram: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Instagram (optional)'
+          placeholder: 'Instagram'
         },
         value: '',
         validation: {},
-        valid: false,
+        validationErrors: [],
         touched: false
       },
       linkedIn: {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'LinkedIn (optional)'
+          placeholder: 'LinkedIn'
         },
         value: '',
         validation: {},
-        valid: false,
+        validationErrors: [],
         touched: false
       }
     },
@@ -176,10 +173,12 @@ class SignUp extends Component {
 
   // This method returns a NEW object. It copies state.elementIdentifier, then updates
   // it's value with updatedValue
+  // This method needs to be updated so as to remove touched and validationErrors
   updateElement = (updatedValue, elementIdentifier) => {
     return updateObject(this.state.signUpForm[elementIdentifier], {
       value: updatedValue,
-      touched: false // Just so that errors don't appear as user types
+      touched: false, // Just so that errors don't appear as user types
+      validationErrors: [] // clear all errors
     });
   };
 
@@ -188,6 +187,32 @@ class SignUp extends Component {
   updateForm = (updatedElement, elementIdentifier) => {
     return updateObject(this.state.signUpForm, {
       [elementIdentifier]: updatedElement
+    });
+  };
+
+  inputBlurredHandler = (event, elementIdentifier) => {
+    validationErrors = getValidationErrors(
+      event.target.value,
+      this.state.signUpForm[elementIdentifier].validation
+    );
+    const updatedFormElement = updateObject(
+      this.state.signUpForm[elementIdentifier],
+      {
+        value: event.target.value,
+        validationErrors: validationErrors,
+        touched: true
+      }
+    );
+    const updatedForm = updateObject(this.state.signUpForm, {
+      [elementIdentifier]: updatedFormElement
+    });
+    let formIsValid = true;
+    for (let inputIdentifier in updatedForm) {
+      formIsValid = updatedForm[elementIdentifier].valid && formIsValid;
+    }
+    this.setState({
+      signUpForm: updatedForm,
+      formIsValid: formIsValid
     });
   };
 
@@ -206,7 +231,7 @@ class SignUp extends Component {
           shouldValidate={elementFields.validation}
           touched={elementFields.touched}
           changed={event => this.inputChangedHandler(event, elementIdentifier)}
-          // blurred={event => this.inputBlurredHandler(event, element[0])}
+          blurred={event => this.inputBlurredHandler(event, elementIdentifier)}
           validationMsg={elementFields.validationMessage}
         />
       );
