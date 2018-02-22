@@ -26,12 +26,12 @@ export const getValidationErrors = (value, rules) => {
   }
   if (errors.length === 0) {
     if (rules.minLength) {
-      value.trim().length <= rules.minLength
+      value.trim().length < rules.minLength
         ? errors.push(`Minumum number of characters: ${rules.minLength}`)
         : null;
     }
     if (rules.maxLength) {
-      value.trim().length >= rules.maxLength
+      value.trim().length > rules.maxLength
         ? errors.push(`Maximum number of characters: ${rules.maxLength}`)
         : null;
     }

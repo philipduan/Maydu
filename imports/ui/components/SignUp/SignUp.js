@@ -30,6 +30,19 @@ class SignUp extends Component {
         validationErrors: [],
         touched: false
       },
+      username: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Username'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        validationErrors: [],
+        touched: false
+      },
       email: {
         elementType: 'input',
         elementConfig: {
@@ -186,15 +199,15 @@ class SignUp extends Component {
     this.validateFormField(event.target.value, elementIdentifier);
   };
 
-  // This input checks that newValue is a valid value for the elementIdentifier, and
+  // This input checks that value is a valid value for the elementIdentifier, and
   // updates state.formIsValid based on this validity. If data isn't valid, display an error
-  validateFormField = (newValue, elementIdentifier) => {
+  validateFormField = (value, elementIdentifier) => {
     const validationErrors = getValidationErrors(
-      newValue.trim(),
+      value,
       this.state.signUpForm[elementIdentifier].validation
     );
     const valuesToUpdate = {
-      value: newValue.trim(),
+      value: value.trim(),
       validationErrors: validationErrors,
       touched: true,
       formIsValid: this.updateFormValidity()
@@ -206,9 +219,13 @@ class SignUp extends Component {
   updateFormValidity = () => {
     let formIsValid = true;
     for (let elementIdentifier in this.state.signUpForm) {
-      formIsValid =
-        this.state.signUpForm[elementIdentifier].valid && formIsValid;
+      let errors = this.state.signUpForm[elementIdentifier].validationErrors;
+      let touched = this.state.signUpForm[elementIdentifier].touched;
+      formIsValid = errors.length === 0 && touched && formIsValid;
+      // touched and errors.length === 0 then valid
+      // not touched and errors.length === 0 then NOT valid
     }
+    console.log('FormisValid: ', formIsValid);
     return formIsValid;
   };
 
@@ -232,10 +249,29 @@ class SignUp extends Component {
     });
   };
 
-  handleSubmit = () => {
-    this.state.signUpForm.forEach(formField=> {
-      console.log(formField);
-    })
+  handleSubmit = e => {
+    e.preventDefault();
+    const suf = this.state.signUpForm;
+    Accounts.createUser(
+      {
+        username: suf.username.value,
+        email: suf.email.value,
+        password: suf.password.value,
+        profile: {
+          fullName: suf.fullname.value,
+          major: suf.major.value,
+          institution: suf.institution.value,
+          bio: suf.bio.value,
+          academicYear: suf.academicYear.value,
+          linkedIn: suf.linkedIn.value,
+          facebook: suf.facebook.value,
+          instagram: suf.instagram.value
+        }
+      },
+      err => {
+        console.log(err.reason);
+      }
+    );
   };
 
   render() {
@@ -244,7 +280,7 @@ class SignUp extends Component {
         <h1> Sign Up </h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderFormElements()}
-          <button disabled={!this.state.formIsValid}>Sign Up</button>
+          <button disabled={!this.state.signUpForm.formIsValid}>Sign Up</button>
         </form>
       </div>
     );

@@ -4,3 +4,7 @@
   border: 2px solid black;
   padding: 3rem;
 }
+
+button:disabled {
+  border: 5px solid blue;
+}

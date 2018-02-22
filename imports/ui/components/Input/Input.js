@@ -49,6 +49,7 @@ const input = props => {
   const errors = props.validationErrors.map(error => (
     <p key={i++}> {error} </p>
   ));
+
   return (
     <div>
       {errors}
