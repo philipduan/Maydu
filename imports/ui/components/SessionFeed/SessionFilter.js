@@ -1,31 +1,28 @@
 import React, { Component } from 'react';
-import SearchBar from 'material-ui-search-bar'
+import SearchBar from 'material-ui-search-bar';
 
+export default class SessionFilter extends Component {
+  constructor() {
+    super();
+    this.state = {
+      allCourseCodes: [],
+      value: ''
+    };
+  }
 
-
-
-class SessionFilter extends Component {
-    constructor(){
-        super()
-        this.state = {
-            allCourseCodes: []
-        }
-    }
-    componentDidMount(){
-       this.setState({allCourseCodes: this.props.allCourseCodes}) 
-
-    }
-    render(){
-        return(
-            <SearchBar
-            dataSource={state.dataSource}
-            onChange={(value) => setState({dataSource: [ value, value+value, value+value+value]})}
-            onRequestSearch={() => console.log('onRequestSearch')}
-            style={{
-              margin: '0 auto',
-              maxWidth: 800
-            }}
-          />
-        )
-    }
+  render() {
+    const stateValue = this.state.value;
+    return (
+      <SearchBar
+        value={this.state.value}
+        dataSource={this.props.allCourseCodes}
+        onChange={value => this.setState({ value })}
+        onRequestSearch={()=>this.props.handleFilter(stateValue)}
+        style={{
+          margin: '0 auto',
+          maxWidth: 800
+        }}
+      />
+    );
+  }
 }

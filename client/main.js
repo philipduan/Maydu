@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './main.css';
-import './main.html';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from '../imports/ui/components/App/App';
 import CreateSession from '../imports/ui/components/CreateSession';
 import Profile from '../imports/ui/components/Profile/Profile';
@@ -17,6 +17,12 @@ class Maydu extends Component {
         <MuiThemeProvider>
           <Switch>
             {/* <Layout> */}
+            <Route
+              exact
+              path="/session-container"
+              component={SessionContainer}
+            />
+
             <Route exact path="/" component={App} />
             <Route path="/createsession" component={CreateSession} />
             {/* </Layout> */}
