@@ -42,7 +42,7 @@ form {
   align-items: center;
 }
 
-form input:not(.DatePicker) {
+form input {
   width: 45%;
   height: 40px;
   border-radius: 20px;
@@ -54,6 +54,11 @@ form input:not(.DatePicker) {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   padding-left: 20px;
+}
+
+.DatePicker input[type='text'],
+.TimePicker input[type='text'] {
+  margin: 0;
 }
 
 form p {

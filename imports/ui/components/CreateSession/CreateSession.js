@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CreateSessionFields from './CreateSessionFields';
 import DatePicker from 'material-ui/DatePicker';
+import TimePicker from 'material-ui/TimePicker';
 import moment from 'moment';
 import './styles.css';
 
@@ -76,6 +77,15 @@ class CreateSession extends Component {
               hintText={moment().format('YYYY MM DD')}
               minDate={today}
               onChange={this.handleDatePicker}
+            />
+
+            <TimePicker
+              className="TimePicker"
+              hintText="12:00 AM"
+              minutesStep={5}
+              onChange={(event, x) => {
+                console.log(moment(x).format('hh:mm A'));
+              }}
             />
 
             <p> {this.state.error} </p>
