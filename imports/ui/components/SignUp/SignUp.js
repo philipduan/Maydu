@@ -227,12 +227,12 @@ class SignUp extends Component {
           elementType={elementFields.elementType}
           elementConfig={elementFields.elementConfig}
           value={elementFields.value}
-          invalid={!elementFields.valid}
-          shouldValidate={elementFields.validation}
+          // invalid={!elementFields.valid}
+          // shouldValidate={elementFields.validation}
           touched={elementFields.touched}
           changed={event => this.inputChangedHandler(event, elementIdentifier)}
           blurred={event => this.inputBlurredHandler(event, elementIdentifier)}
-          validationMsg={elementFields.validationMessage}
+          validationErrors={elementFields.validationErrors}
         />
       );
     });
