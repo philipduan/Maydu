@@ -11,6 +11,7 @@ class CreateSession extends Component {
       title: '',
       courseCode: '',
       capacity: '',
+      date: '',
       error: ''
     };
   }
@@ -26,6 +27,12 @@ class CreateSession extends Component {
     });
   };
 
+  handleDatePicker = (event, date) => {
+    this.setState({
+      date: moment(date).format('YYYY-MM-DD')
+    });
+  };
+
   //Checking DB if the user and password match - if no user exists or their password is inncorect, throw an error
   handleSignInSubmit = event => {
     event.preventDefault();
@@ -37,6 +44,7 @@ class CreateSession extends Component {
   };
 
   render() {
+    const today = new Date();
     return (
       <div className="Create-Session-Container">
         <div className="Create-Session-Box">
@@ -64,10 +72,10 @@ class CreateSession extends Component {
               className=""
             />
             <DatePicker
-              hintText={moment().format('YYYY MM D')}
-              shouldDisableDate={() => {
-                return temp < moment().format('D');
-              }}
+              className="DatePicker"
+              hintText={moment().format('YYYY MM DD')}
+              minDate={today}
+              onChange={this.handleDatePicker}
             />
 
             <p> {this.state.error} </p>

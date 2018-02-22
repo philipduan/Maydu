@@ -12,9 +12,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <MuiThemeProvider>
-          <SignUp />
-        </MuiThemeProvider>
+        {/* <MuiThemeProvider> */}
+        <SignUp />
+        {/* </MuiThemeProvider> */}
       </div>
     );
   }

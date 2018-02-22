@@ -6,17 +6,20 @@ import CreateSession from '../imports/ui/components/CreateSession';
 import SessionContainer from '../imports/ui/components/SessionFeed/SessionContainer.js';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class Maydu extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          {/* <Layout> */}
-          <Route exact path="/app" component={App} />
-          <Route path="/createsession" component={CreateSession} />
-          {/* </Layout> */}
-        </Switch>
+        <MuiThemeProvider>
+          <Switch>
+            {/* <Layout> */}
+            <Route exact path="/app" component={App} />
+            <Route path="/createsession" component={CreateSession} />
+            {/* </Layout> */}
+          </Switch>
+        </MuiThemeProvider>
       </BrowserRouter>
     );
   }
