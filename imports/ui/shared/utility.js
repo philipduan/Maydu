@@ -22,20 +22,22 @@ export const getValidationErrors = (value, rules) => {
   let isValid = true;
 
   if (rules.required) {
-    value.trim() !== '' ? errors.push(`This field is required`) : null;
-  } else {
+    value.trim() === '' ? errors.push(`This field is required`) : null;
+  }
+  if (errors.length === 0) {
     if (rules.minLength) {
-      value.trim().length >= rules.minLength
+      value.trim().length <= rules.minLength
         ? errors.push(`Minumum number of characters: ${rules.minLength}`)
         : null;
     }
     if (rules.maxLength) {
-      value.trim().length <= rules.maxLength
+      value.trim().length >= rules.maxLength
         ? errors.push(`Maximum number of characters: ${rules.maxLength}`)
         : null;
     }
     if (rules.email) {
-      emailPattern.test(value)
+      console.log(emailPattern.test(value));
+      !emailPattern.test(value)
         ? errors.push(`Please enter a valid email address`)
         : null;
     }
