@@ -21,8 +21,8 @@ export default class SessionFilter extends Component {
 
     if (window.pageYOffset >= sticky) {
       header.classList.add('sticky');
-    } else {
-      console.log('else');
+    }
+    if (sticky >= window.pageYOffset) {
       header.classList.remove('sticky');
     }
   };
@@ -45,7 +45,6 @@ export default class SessionFilter extends Component {
               value: value.trim().toUpperCase()
             });
           }}
-          onScroll={console.log('works')}
           onRequestSearch={() => this.props.handleFilter(stateValue)}
           style={{
             zIndex: '9999',
