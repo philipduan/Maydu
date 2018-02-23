@@ -65,7 +65,7 @@ class SessionContainer extends Component {
     // console.log('sessionmap', sessionMap);
 
     return (
-      <div>
+      <div className="sessionContainer">
         <SessionFilter
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}

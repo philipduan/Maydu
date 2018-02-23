@@ -12,13 +12,14 @@ import './style.css';
 import { withRouter } from 'react-router-dom';
 
 const SessionCard = ({ data, history }) => (
-  <div className="session">
+  <div className="sessionCard">
+    {/* {console.log('data', data)} */}
     <Card>
       {/* <img src={data.imageurl} alt={data.title} /> */}
       <CardHeader
         style={{ cursor: 'pointer' }}
         onClick={() => history.push(`/user/${data.sessionCreator._id}`)}
-        title={`Creator:&nbsp${data.sessionCreator.profile.fullname}`}
+        title={`Creator: ${data.sessionCreator.profile.fullName}`}
         subtitle={data.sessionCreator.profile.bio}
         // avatar={
         //   <Gravatar email={data.itemowner.email} className="GravatarImg" />

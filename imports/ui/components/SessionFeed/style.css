@@ -1,0 +1,15 @@
+.sessionCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sessionContainer {
+}
+.session-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.SearchBar {
+}

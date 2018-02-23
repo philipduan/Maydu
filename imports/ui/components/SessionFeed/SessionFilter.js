@@ -15,6 +15,7 @@ export default class SessionFilter extends Component {
     console.log(this.props.allCourseCodes);
     return (
       <SearchBar
+      className="SearchBar"
         value={this.state.value}
         dataSource={this.props.allCourseCodes}
         onChange={value =>
