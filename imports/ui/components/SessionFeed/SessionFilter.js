@@ -12,7 +12,6 @@ export default class SessionFilter extends Component {
 
   render() {
     const stateValue = this.state.value;
-    console.log(stateValue);
     return (
       <SearchBar
         value={this.state.value}

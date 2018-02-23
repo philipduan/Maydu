@@ -44,8 +44,7 @@ Meteor.methods({
       }
 
       console.log('query is def');
-      console.log(Sessions.find({ courseCode: query }).fetch(), 'foundquery');
-      return Sessions.find({ courseCode: query }).fetch();
+      return Sessions.find({ courseCode: query, institution: sample }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
     }

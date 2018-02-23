@@ -24,7 +24,6 @@ class SessionContainer extends Component {
       console.log('props', this.props.sessions);
 
       let allCourseCodes = [];
-
       this.props.sessions.filter(session => {
         if (_.intersection(session.courseCode, allCourseCodes).length > 0) {
           null;
@@ -34,7 +33,7 @@ class SessionContainer extends Component {
       });
 
       this.setState({
-        allCourseCodes: allCourseCodes
+        allCourseCodes
       });
       console.log('state', this.state.sessions);
       console.log('codes', this.state.allCourseCodes);
@@ -56,7 +55,7 @@ class SessionContainer extends Component {
     const sessionMap = sessions.map(session => {
       return <SessionCard key={session._id} data={session} />;
     });
-   // console.log('sessionmap', sessionMap);
+    // console.log('sessionmap', sessionMap);
 
     return (
       <div>
