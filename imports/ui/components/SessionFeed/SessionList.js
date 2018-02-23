@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SessionCard from './SessionCard';
+import './style.css';
 
 export default class SessionList extends Component {
   constructor() {
