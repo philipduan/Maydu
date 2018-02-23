@@ -10,6 +10,17 @@ import _ from 'lodash';
 
 PER_PAGE = 20;
 
+// Find unique values in an array
+Array.prototype.unique = function() {
+  var arr = [];
+  for (var i = 0; i < this.length; i++) {
+    if (!arr.includes(this[i])) {
+      arr.push(this[i]);
+    }
+  }
+  return arr;
+};
+
 class SessionContainer extends Component {
   constructor() {
     super();
@@ -23,15 +34,11 @@ class SessionContainer extends Component {
       this.setState({ sessions: this.props.sessions });
       console.log('props', this.props.sessions);
 
-      let allCourseCodes = [];
+      let courseCodes = [];
       this.props.sessions.filter(session => {
-        if (_.intersection(session.courseCode, allCourseCodes).length > 0) {
-          null;
-        } else {
-          allCourseCodes.push(session.courseCode);
-        }
+        courseCodes.push(session.courseCode);
       });
-
+      const allCourseCodes = courseCodes.unique();
       this.setState({
         allCourseCodes
       });
