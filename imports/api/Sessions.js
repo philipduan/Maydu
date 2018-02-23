@@ -43,7 +43,7 @@ Meteor.methods({
       }
 
       console.log('query is def');
-      return Sessions.find({ courseCode: parseInt(query) }).fetch();
+      return Sessions.find({ courseCode: query }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
     }
