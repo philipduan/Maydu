@@ -10,51 +10,51 @@ export default class SessionFilter extends Component {
       value: ''
     };
   }
-  handleChange = () => {
-    // When the user scrolls the page, execute myFunction
-    window.onscroll = function() {
-      myFunction();
-    };
-
+  handleScroll = () => {
     // Get the header
-    var header = document.getElementById('idSearchbar');
+    let header = document.getElementById('idSearchbar');
 
     // Get the offset position of the navbar
-    var sticky = header.offsetTop;
+    let sticky = header.offsetTop;
 
     // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-    function myFunction() {
-      if (window.pageYOffset >= sticky) {
-        header.classList.add('sticky');
-      } else {
-        header.classList.remove('sticky');
-      }
+
+    if (window.pageYOffset >= sticky) {
+      header.classList.add('sticky');
+    } else {
+      console.log('else');
+      header.classList.remove('sticky');
     }
   };
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
 
   render() {
     const stateValue = this.state.value;
     console.log(this.props.allCourseCodes);
     return (
-      <SearchBar
-        id="idSearchbar"
-        className="SearchBar"
-        value={this.state.value}
-        dataSource={this.props.allCourseCodes}
-        onChange={value => {
-          this.handleChange;
-          this.setState({
-            value: value.trim().toUpperCase()
-          });
-        }}
-        onRequestSearch={() => this.props.handleFilter(stateValue)}
-        style={{
-          zIndex: '9999',
-        //   margin: '0 auto 5rem',
-          maxWidth: 800,
-          width: '100vw'
-        }}
-      />
+      <div id="idSearchbar" className="SearchBar">
+        <SearchBar
+          value={this.state.value}
+          dataSource={this.props.allCourseCodes}
+          onChange={value => {
+            this.handleChange;
+            this.setState({
+              value: value.trim().toUpperCase()
+            });
+          }}
+          onScroll={console.log('works')}
+          onRequestSearch={() => this.props.handleFilter(stateValue)}
+          style={{
+            zIndex: '9999',
+            //   margin: '0 auto 5rem',
+            maxWidth: 800,
+            width: '100vw'
+          }}
+        />
+      </div>
     );
   }
 }
