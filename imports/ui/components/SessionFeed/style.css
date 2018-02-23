@@ -13,6 +13,7 @@
   align-items: center;
   text-align: center;
   font-size: 2rem;
+  margin: 1.5rem 0;
 }
 .session-list {
   margin-top: 2rem;
@@ -26,12 +27,7 @@
   width: 100vw;
   justify-content: center;
   align-items: center;
-  padding: 10px 16px;
-}
-/* Style the header */
-.header {
-  background: #555;
-  color: #f1f1f1;
+  /* padding: 10px 16px; */
 }
 
 /* Page content */
