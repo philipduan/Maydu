@@ -11,13 +11,18 @@ export default class SessionFilter extends Component {
   }
 
   render() {
-    const stateValue = this.state.value.trim().toUpperCase();
+    const stateValue = this.state.value;
+    console.log(stateValue);
     return (
       <SearchBar
         value={this.state.value}
         dataSource={this.props.allCourseCodes}
-        onChange={value => this.setState({ value })}
-        onRequestSearch={()=>this.props.handleFilter(stateValue)}
+        onChange={value =>
+          this.setState({
+            value: value.trim().toUpperCase()
+          })
+        }
+        onRequestSearch={() => this.props.handleFilter(stateValue)}
         style={{
           margin: '0 auto',
           maxWidth: 800

@@ -17,10 +17,9 @@ Meteor.startup(() => {
       Sessions.insert({
         //Saves data to mongodb using Meteor
         sessionCreator: {
-          _id:
-            Math.floor(
-              Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
-            ) + 1,
+          _id: `${Math.floor(
+            Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
+          ) + 1}`,
           profile: {
             fullName: name,
             photo: email,
@@ -31,16 +30,16 @@ Meteor.startup(() => {
         },
         title: name,
         institution: _.sample(simpleInstitutionArray),
-        courseCode:
-          Math.floor(Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)) +
-          1,
+        courseCode: `${Math.floor(
+          Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
+        ) + 1}`,
         date: name,
         time: name,
         location: name,
         description: name,
-        maxCapacity:
-          Math.floor(Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)) +
-          1
+        maxCapacity: `${Math.floor(
+          Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
+        ) + 1}`
       });
     });
   }
