@@ -1,5 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+import SessionCard from './SessionCard';
 
-export const SessionList = () => {
-  return <div className="session-list">/ </div>;
-};
+export default class SessionList extends Component {
+  constructor() {
+    super();
+  }
+  render() {
+    const { sessions } = this.props;
+
+    return (
+      <div className="session-list">
+        {sessions.map((session, index) => {
+          return <SessionCard key={index} data={session} />;
+        })}
+      </div>
+    );
+  }
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SessionCard from './SessionCard';
-import { SessionList } from './SessionList';
+import SessionList from './SessionList';
 import SessionFilter from './SessionFilter';
 import './style.css';
 import { Meteor } from 'meteor/meteor';
@@ -59,8 +59,8 @@ class SessionContainer extends Component {
 
   render() {
     const { sessions } = this.state;
-    const sessionMap = sessions.map(session => {
-      return <SessionCard key={session._id} data={session} />;
+    const sessionMap = sessions.map((session, index) => {
+      return <SessionCard key={index} data={session} />;
     });
     // console.log('sessionmap', sessionMap);
 
@@ -70,7 +70,9 @@ class SessionContainer extends Component {
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}
         />
-        <SessionList>dsadas{sessionMap}</SessionList>
+        <SessionList sessions={sessions} />
+
+        {/* </SessionList> */}
       </div>
     );
   }
