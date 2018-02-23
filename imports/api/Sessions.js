@@ -36,6 +36,7 @@ if (Meteor.isServer) {
 Meteor.methods({
   //// Method that filters session based on user query
   'sessions.filterByCourseCode'(query) {
+    // console.log(query.toString(), 'query');
     try {
       if (!query) {
         console.log('query undef');
@@ -43,6 +44,7 @@ Meteor.methods({
       }
 
       console.log('query is def');
+      console.log(Sessions.find({ courseCode: query }).fetch(), 'foundquery');
       return Sessions.find({ courseCode: query }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
