@@ -9,7 +9,7 @@ Sessions.schema = new SimpleSchema({
   sessionCreator: { type: String, optional: false },
   title: { type: String, optional: false },
   institution: { type: String, optional: false },
-  courseCode: { type: Number, defaultValue: null, optional: false },
+  courseCode: { type: String, defaultValue: null, optional: false },
   date: { type: String, optional: false },
   time: { type: String, optional: false },
   location: { type: String, optional: false },
