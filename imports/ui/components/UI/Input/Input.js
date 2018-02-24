@@ -27,6 +27,7 @@ const input = props => {
           value={props.value}
           onChange={props.changed}
           onBlur={props.blurred}
+          maxLength={400}
         />
       );
       break;
