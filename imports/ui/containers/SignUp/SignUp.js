@@ -203,7 +203,8 @@ class SignUp extends Component {
       url: '',
       file: '',
       error: ''
-    }
+    },
+    backendError: null
   };
 
   // This method shows userInput on screen, validates it, and updates state.formIsValid accordingly
@@ -290,12 +291,7 @@ class SignUp extends Component {
       file: file,
       error: error
     });
-    this.setState(
-      {
-        imageData: updatedImageData
-      },
-      this.updateFormIsValidState
-    );
+    this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
   // Displays image on screen, saves associated file in state
@@ -316,11 +312,7 @@ class SignUp extends Component {
     if (!imageType.test(file.type)) {
       this.updateImageField('', '', 'Invalid File Type. Must upload an image');
     } else if (file.size > 500000) {
-      this.updateImageField(
-        '',
-        '',
-        'File too large. Maximum upload size: 500KB.'
-      );
+      this.updateImageField('', '', 'File too large. Max upload size: 500KB.');
     } else {
       this.displayAndSaveImage(file);
     }
@@ -351,7 +343,12 @@ class SignUp extends Component {
     event.preventDefault();
     const form = this.state.form; // for readability
     Accounts.createUser(this.getProfile(), err => {
-      console.log(err);
+      if (err) {
+        this.setState({
+          backendError: err.reason
+        });
+        scroll(0, 0);
+      }
     });
   };
 
@@ -359,6 +356,7 @@ class SignUp extends Component {
     return (
       <div className="container">
         <form>
+          {this.state.backendError ? <p> {this.state.backendError} </p> : null}
           {this.renderFormElements()}
           <ImageUpload
             label="Upload A Photo"
