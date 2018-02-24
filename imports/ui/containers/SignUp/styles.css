@@ -4,3 +4,7 @@
   margin: 0 auto;
   padding: 5rem;
 }
+
+:disabled {
+  border: 2px solid orange;
+}
