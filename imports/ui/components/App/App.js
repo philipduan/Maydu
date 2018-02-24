@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignUp from '../SignUp/SignUp';
+import SignUp from '../../containers/SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
 import './styles.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

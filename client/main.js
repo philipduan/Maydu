@@ -23,5 +23,5 @@ class Maydu extends Component {
 }
 
 Meteor.startup(() => {
-  ReactDOM.render(<Maydu />, document.getElementById('root'));
+  ReactDOM.render(<App />, document.getElementById('root'));
 });
