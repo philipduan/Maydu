@@ -1,3 +1,5 @@
+//AIzaSyDPLX_ninGSSp3B9Jk0iKSyFkhyco86hVc place
+//AIzaSyBZwHx5OGDGyYJm0oHQksjYKrrtv-hoSe8 map
 import React, { Component } from 'react';
 import CreateSessionFields from './CreateSessionFields';
 import TextField from 'material-ui/TextField';
@@ -169,6 +171,14 @@ class CreateSession extends Component {
               component={this.renderTimePicker}
             />
 
+            <Field
+              className="Field"
+              label="Street Adress"
+              name="capacity"
+              type="number"
+              component={this.renderInput}
+            />
+
             <p> {this.state.error} </p>
             <button type="submit" className="Sign-In-Submit">
               {' '}
@@ -182,22 +192,22 @@ class CreateSession extends Component {
 }
 function validate(values) {
   const errors = {};
-  courseCode = /^[a-zA-Z0-9 ]+$/;
-  if (!values.title) {
-    errors.title = 'Please enter a title';
-  }
-  if (!courseCode.test(values.courseCode)) {
-    errors.courseCode = 'Only letters and numbers';
-  }
-  if (!values.capacity) {
-    errors.capacity = 'Please enter a number';
-  }
-  if (!values.date) {
-    errors.date = 'Please choose a date';
-  }
-  if (!values.time) {
-    errors.time = 'Please choose a time';
-  }
+  // courseCode = /^[a-zA-Z0-9 ]+$/;
+  // if (!values.title) {
+  //   errors.title = 'Please enter a title';
+  // }
+  // if (!courseCode.test(values.courseCode)) {
+  //   errors.courseCode = 'Only letters and numbers';
+  // }
+  // if (!values.capacity) {
+  //   errors.capacity = 'Please enter a number';
+  // }
+  // if (!values.date) {
+  //   errors.date = 'Please choose a date';
+  // }
+  // if (!values.time) {
+  //   errors.time = 'Please choose a time';
+  // }
 
   return errors;
 }
