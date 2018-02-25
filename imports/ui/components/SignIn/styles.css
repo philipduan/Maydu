@@ -4,67 +4,66 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
-  width: 100vw; 
-  background-color: #66B9BF;
+  height: 100vh;
+  width: 100vw;
+  background-color: #66b9bf;
 }
 
 .Login-Box {
-  height: 60vh; 
+  height: 60vh;
   width: 50vw;
-  background-color: #07889B;
+  background-color: #07889b;
   border-radius: 80px;
 }
 
 .Login-Box h3 {
-  font-size:70px;
+  font-size: 70px;
   text-align: center;
   font-family: 'Lato', sans-serif;
   color: white;
   font-weight: 400;
 }
 
-.TagLine { 
-    font-size: 18px; 
-    color: white;
-    font-weight: 100;
-    font-family: 'Lato', sans-serif;
-    text-align: center;
-    line-height: 0;
+.TagLine {
+  font-size: 18px;
+  color: white;
+  font-weight: 100;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  line-height: 0;
 }
 
-form {
-    margin-top: 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.Login-Box form {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-form input {
-    width: 45%;
-    height: 40px;
-    border-radius: 20px;
-    margin: 10px;
-    padding: 0px 10px;
-    color: #EEAA7B;
-    font-size: 16px;
-    border: none;
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
-    padding-left: 20px;
+.Login-Box form input {
+  width: 45%;
+  height: 40px;
+  border-radius: 20px;
+  margin: 10px;
+  padding: 0px 10px;
+  color: #eeaa7b;
+  font-size: 16px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  padding-left: 20px;
 }
 
-form p {
-    font-size: 14px; 
-    color: white;
+.Login-Box form p {
+  font-size: 14px;
+  color: white;
 }
 
 ::placeholder {
-    color: #EEAA7B;
-    opacity: 0.7;
+  color: #eeaa7b;
+  opacity: 0.7;
 }
-
 
 button {
   width: 40%;
@@ -72,7 +71,7 @@ button {
   border-radius: 20px;
   margin: 10px;
   padding: 0px 10px;
-  background-color: #E37222;
+  background-color: #e37222;
   color: white;
   font-size: 16px;
   border: none;
@@ -81,29 +80,29 @@ button {
 }
 
 .Create-Account-SignIn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .Create-Account-SignIn p {
-    margin-top: 11%;
-    color: white;
-    font-size: 14px;
+  margin-top: 11%;
+  color: white;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 426px) {
-   div .Login-Container {
-        background-color: #07889B;
-    }
+  div .Login-Container {
+    background-color: #07889b;
+  }
 
-    .Login-Container .Login-Box {
-        height: 100vh;
-        width: 100vw;
-    }
+  .Login-Container .Login-Box {
+    height: 100vh;
+    width: 100vw;
+  }
 
-    .Login-Box h3 {
-        margin-top: 30%;
-    }
-  } 
+  .Login-Box h3 {
+    margin-top: 30%;
+  }
+}

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import CreateSessionFields from './CreateSessionFields';
+import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
+import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 import './styles.css';
 
 class CreateSession extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: '',
       courseCode: '',
@@ -51,52 +53,122 @@ class CreateSession extends Component {
     Meteor.loggingIn();
   };
 
-  render() {
+  renderInput = field => (
+    <div className="inputWrapper  ">
+      <TextField
+        className={field.className}
+        hintText={field.label}
+        name={field.name}
+        type={field.type}
+        fullWidth={true}
+        errorText={field.meta.touched ? field.meta.error : null}
+        {...field.input}
+      />
+    </div>
+  );
+
+  renderDatePicker = ({
+    input,
+    meta: { touched, error },
+    children,
+    ...custom
+  }) => {
     const today = new Date();
+    return (
+      <div className="inputWrapper  ">
+        <DatePicker
+          hintText={moment().format('YYYY-MM-DD')}
+          minDate={today}
+          errorText={touched && error}
+          onChange={(event, date) =>
+            input.onChange(moment(date).format('YYYY-MM-DD'))
+          }
+          fullWidth={true}
+        />
+      </div>
+    );
+  };
+
+  renderTimePicker = ({
+    input,
+    meta: { touched, error },
+    children,
+    ...custom
+  }) => {
+    return (
+      <div className="inputWrapper  ">
+        <TimePicker
+          hintText="12:00 AM "
+          minutesStep={5}
+          errorText={touched && error}
+          onChange={(event, time) =>
+            input.onChange(moment(time).format('hh:mm A'))
+          }
+          fullWidth={true}
+        />
+      </div>
+    );
+  };
+
+  onSubmit(values) {
+    console.log(values);
+  }
+
+  render() {
+    const { handleSubmit } = this.props;
     return (
       <div className="Create-Session-Container">
         <div className="Create-Session-Box">
           <h3> Create A Study Session </h3>
-          <form onSubmit={this.handleSignInSubmit}>
-            <CreateSessionFields
+          {/* <form onSubmit={this.handleSignInSubmit}> */}
+          <form
+            className="Create-Session-Form"
+            onSubmit={handleSubmit(this.onSubmit.bind(this))}
+          >
+            <Field
+              className="Field"
+              label="Title"
               name="title"
-              inputOnChange={this.handleInputChange}
               type="text"
-              placeholder="Title"
-              className=""
+              component={this.renderInput}
             />
-            <CreateSessionFields
+            <Field
+              className="Field"
+              label="Course Code"
               name="courseCode"
-              inputOnChange={this.handleInputChange}
               type="text"
-              placeholder="Course Code"
-              className=""
+              component={this.renderInput}
             />
-            <CreateSessionFields
+            <Field
+              className="Field"
+              label="Description"
+              name="description"
+              type="text"
+              component={this.renderInput}
+            />
+            <Field
+              className="Field"
+              label="Capacity"
               name="capacity"
-              inputOnChange={this.handleInputChange}
               type="number"
-              placeholder="Capacity"
-              className=""
+              component={this.renderInput}
             />
-            <DatePicker
-              className="DatePicker"
-              hintText={moment().format('YYYY MM DD')}
-              minDate={today}
-              onChange={this.handleDatePicker}
+            <Field
+              name="date"
+              className="Field DatePicker"
+              component={this.renderDatePicker}
             />
 
-            <TimePicker
-              className="TimePicker"
-              hintText="12:00 AM"
-              minutesStep={5}
-              onChange={this.handleTimePicker}
+            <Field
+              name="time"
+              className="Field TimePicker"
+              component={this.renderTimePicker}
             />
 
             <p> {this.state.error} </p>
             <button type="submit" className="Sign-In-Submit">
               {' '}
-              Sign In{' '}
+              Submit{' '}
             </button>
           </form>
         </div>
@@ -104,5 +176,29 @@ class CreateSession extends Component {
     );
   }
 }
+function validate(values) {
+  const errors = {};
+  // courseCode = /[^A-Za-z0-9]/;
+  // if (!values.title) {
+  //   errors.title = 'Please enter a title';
+  // }
+  // if (courseCode.test(values.courseCode)) {
+  //   errors.courseCode = 'Only letters and numbers';
+  // }
+  // if (!values.capacity) {
+  //   errors.capacity = 'Please enter a number';
+  // }
+  // if (!values.date) {
+  //   errors.date = 'Please choose a date';
+  // }
+  // if (!values.time) {
+  //   errors.time = 'Please choose a time';
+  // }
 
-export default CreateSession;
+  return errors;
+}
+
+export default reduxForm({
+  validate: validate,
+  form: 'createSessionForm'
+})(CreateSession);
