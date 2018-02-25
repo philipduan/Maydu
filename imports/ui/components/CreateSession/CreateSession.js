@@ -56,6 +56,7 @@ class CreateSession extends Component {
   renderInput = field => (
     <div className="inputWrapper  ">
       <TextField
+        autoComplete="off"
         className={field.className}
         hintText={field.label}
         name={field.name}
@@ -111,7 +112,10 @@ class CreateSession extends Component {
   };
 
   onSubmit(values) {
-    console.log(values);
+    console.table({
+      ...values,
+      courseCode: values.courseCode.replace(/\s/g, '').toUpperCase()
+    });
   }
 
   render() {
@@ -178,22 +182,22 @@ class CreateSession extends Component {
 }
 function validate(values) {
   const errors = {};
-  // courseCode = /[^A-Za-z0-9]/;
-  // if (!values.title) {
-  //   errors.title = 'Please enter a title';
-  // }
-  // if (courseCode.test(values.courseCode)) {
-  //   errors.courseCode = 'Only letters and numbers';
-  // }
-  // if (!values.capacity) {
-  //   errors.capacity = 'Please enter a number';
-  // }
-  // if (!values.date) {
-  //   errors.date = 'Please choose a date';
-  // }
-  // if (!values.time) {
-  //   errors.time = 'Please choose a time';
-  // }
+  courseCode = /^[a-zA-Z0-9 ]+$/;
+  if (!values.title) {
+    errors.title = 'Please enter a title';
+  }
+  if (!courseCode.test(values.courseCode)) {
+    errors.courseCode = 'Only letters and numbers';
+  }
+  if (!values.capacity) {
+    errors.capacity = 'Please enter a number';
+  }
+  if (!values.date) {
+    errors.date = 'Please choose a date';
+  }
+  if (!values.time) {
+    errors.time = 'Please choose a time';
+  }
 
   return errors;
 }
