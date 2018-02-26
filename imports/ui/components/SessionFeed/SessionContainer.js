@@ -29,22 +29,36 @@ class SessionContainer extends Component {
       allCourseCodes: []
     };
   }
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ sessions: this.props.sessions });
-      console.log('props', this.props.sessions);
+  componentWillReceiveProps(nextProps) {
+    this.setState({ sessions: nextProps.sessions });
+    console.log('props', nextProps.sessions);
 
-      let courseCodes = [];
-      this.props.sessions.filter(session => {
-        courseCodes.push(session.courseCode);
-      });
-      const allCourseCodes = courseCodes.unique();
-      this.setState({
-        allCourseCodes
-      });
-      console.log('state', this.state.sessions);
-      console.log('codes', this.state.allCourseCodes);
-    }, 550);
+    let courseCodes = [];
+    nextProps.sessions.filter(session => {
+      courseCodes.push(session.courseCode);
+    });
+    const allCourseCodes = courseCodes.unique();
+    this.setState({
+      allCourseCodes
+    });
+    console.log('state', this.state.sessions);
+    console.log('codes', this.state.allCourseCodes);
+  }
+  componentDidMount() {
+    // setTimeout(() => {
+    //   this.setState({ sessions: this.props.sessions });
+    //   console.log('props', this.props.sessions);
+    //   let courseCodes = [];
+    //   this.props.sessions.filter(session => {
+    //     courseCodes.push(session.courseCode);
+    //   });
+    //   const allCourseCodes = courseCodes.unique();
+    //   this.setState({
+    //     allCourseCodes
+    //   });
+    //   console.log('state', this.state.sessions);
+    //   console.log('codes', this.state.allCourseCodes);
+    // }, 550);
   }
   handleFilter = event => {
     Meteor.call('sessions.filterByCourseCode', event, (error, sessions) => {
@@ -62,12 +76,12 @@ class SessionContainer extends Component {
     const sessionMap = sessions.map((session, index) => {
       return <SessionCard key={index} data={session} />;
     });
-    
+
     // console.log('sessionmap', sessionMap);
 
     return (
       <div className="sessionContainer">
-      <h1 className="sessionHeader">Sessions</h1>
+        <h1 className="sessionHeader">Sessions</h1>
         <SessionFilter
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}

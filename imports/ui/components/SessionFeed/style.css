@@ -1,6 +1,10 @@
 /* Mobile */
 
 .session-brief-header {
+  display: flex;
+  height: 20%;
+  background: white;
+  color: #015458;
 }
 .session-brief-date {
 }
@@ -11,12 +15,14 @@
 .session-brief-moreInfo {
   width: 30%;
   background-color: transparent;
+  text-decoration-style: underline;
 }
 .rsvp {
   background-color: #fbb506;
-  width: 30%;
+  width: 40%;
 }
 .btn-contain {
+  padding-top: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -25,11 +31,13 @@
 .session-brief-contain {
   justify-content: space-evenly;
   display: flex;
+  box-shadow: 1px 0px 1px 1px #015458;
+  border: 1px solid #015458;
   flex-direction: column;
   color: white;
   height: 20rem;
-  width: 15rem;
-  margin: 1rem 0;
+  width: 85vw;
+  margin: 0.7rem 0;
   padding: 0.5rem;
   font-size: 1rem;
   background-color: #028389;
