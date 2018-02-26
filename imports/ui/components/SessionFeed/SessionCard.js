@@ -19,17 +19,28 @@ class SessionCard extends Component {
       expanded: false
     };
   }
-  showMore = () => {
+  showMore = event => {
+    console.log('event', this.props.data._id);
     this.setState({ showStatus: 'Less' });
     this.setState({ expanded: true });
-    document.querySelector('.session-expand').style.maxHeight = 'auto';
-    document.querySelector('.session-location').style.display = 'flex';
+    document.querySelector(`.${this.props.data._id}info`).style.maxHeight =
+      'auto';
+    document.querySelector(
+      `.${this.props.data._id}session-location`
+    ).style.display =
+      'flex';
   };
-  showLess = () => {
+  showLess = event => {
+    console.log('event', this.props.data._id);
+
     this.setState({ showStatus: 'More Info' });
     this.setState({ expanded: false });
-    document.querySelector('.session-expand').style.maxHeight = '3,5rem';
-    document.querySelector('.session-location').style.display = 'none';
+    document.querySelector(`.${this.props.data._id}info`).style.maxHeight =
+      '3.5rem';
+    document.querySelector(
+      `.${this.props.data._id}session-location`
+    ).style.display =
+      'none';
   };
   render() {
     return (
@@ -42,10 +53,20 @@ class SessionCard extends Component {
             Date:&#160; {this.props.data.date}
           </h2>
           <h2 className="session-brief-time">Time: {this.props.data.time}</h2>
-          <h2 className="session-location">
+          <h2
+            className={`${this.props.data._id}session-location`}
+            style={{ display: 'none' }}
+          >
             Location: {this.props.data.location}
           </h2>
-          <div className="session-expand">
+          <div
+            className={`${this.props.data._id}info`}
+            style={{
+              maxHeight: '3.5rem',
+              overflow: 'hidden',
+              transition: ' max-height 2s ease-in-out'
+            }}
+          >
             <p className="session-brief-bio">
               I'm going to lap some water out of my master's cup meow lick human
               with sandpaper tongue. Throwup on your pillow climb a tree, wait

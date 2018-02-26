@@ -64,14 +64,13 @@
   background-color: #028389;
 }
 /* Expanded session card */
-.session-location {
-  display: none;
-}
-.session-expand {
+
+/* Added to inline instead
+ .session-expand {
   max-height: 3.5rem;
   overflow: hidden;
   transition: max-height 2s ease-in-out;
-}
+} */
 
 /* Session card Styling ends */
 .sessionContainer {
