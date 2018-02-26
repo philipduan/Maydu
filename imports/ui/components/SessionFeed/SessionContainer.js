@@ -87,8 +87,12 @@ class SessionContainer extends Component {
           allCourseCodes={this.state.allCourseCodes}
         />
         <SessionList sessions={sessions} />
-
-        {/* </SessionList> */}
+        <button
+          className="create-session-link"
+          onClick={() => this.props.history.push('/createsession')}
+        >
+          Create Session
+        </button>
       </div>
     );
   }

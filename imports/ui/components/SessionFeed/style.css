@@ -72,6 +72,12 @@
 }
 
 /* Session card Styling ends */
+.sessionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .sessionHeader {
   display: flex;
   width: 100vw;
@@ -82,12 +88,21 @@
   font-size: 2rem;
   margin: 1.5rem 0;
 }
+.create-session-link {
+  position: fixed;
+  z-index: 9999;
+  bottom: 0.2rem;
+  right: auto;
+  left: auto;
+  background-color: #fbb506;
+}
 .session-list {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3.5rem;
 }
 .SearchBar {
   display: flex;
