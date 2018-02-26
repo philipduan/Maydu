@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100,400,700');
+
 /* Mobile */
 
 /* ========================================= */
 
 /* Brief session info */
 .session-brief-wrap {
+  font-family: 'Lato', sans-serif;
 }
 
 .session-brief-header {
@@ -32,7 +35,6 @@
 .session-brief-moreInfo {
   text-decoration: underline;
   text-decoration-style: solid;
-
   width: 30%;
   background-color: transparent;
 }
@@ -73,6 +75,8 @@
 
 /* Session card Styling ends */
 .sessionContainer {
+  font-family: 'Lato', sans-serif;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
