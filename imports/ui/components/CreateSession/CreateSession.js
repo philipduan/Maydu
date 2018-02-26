@@ -1,5 +1,6 @@
 //AIzaSyDPLX_ninGSSp3B9Jk0iKSyFkhyco86hVc place
 //AIzaSyBZwHx5OGDGyYJm0oHQksjYKrrtv-hoSe8 map
+//AIzaSyDpRfCNlC3iEZlflpSlhrUtxVBZODM1B4c js
 import React, { Component } from 'react';
 import CreateSessionFields from './CreateSessionFields';
 import TextField from 'material-ui/TextField';
@@ -22,38 +23,38 @@ class CreateSession extends Component {
     };
   }
 
-  //Setting state of user email and passworld on each keystroke
-  handleInputChange = event => {
-    event.preventDefault();
-    const value = event.target.value;
-    const name = event.target.name;
-    console.log(name, value);
-    this.setState({
-      [name]: value
-    });
-  };
+  // //Setting state of user email and passworld on each keystroke
+  // handleInputChange = event => {
+  //   event.preventDefault();
+  //   const value = event.target.value;
+  //   const name = event.target.name;
+  //   console.log(name, value);
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
 
-  handleDatePicker = (event, date) => {
-    this.setState({
-      date: moment(date).format('YYYY-MM-DD')
-    });
-  };
+  // handleDatePicker = (event, date) => {
+  //   this.setState({
+  //     date: moment(date).format('YYYY-MM-DD')
+  //   });
+  // };
 
-  handleTimePicker = (event, time) => {
-    this.setState({
-      time: moment(time).format('hh:mm A')
-    });
-  };
+  // handleTimePicker = (event, time) => {
+  //   this.setState({
+  //     time: moment(time).format('hh:mm A')
+  //   });
+  // };
 
-  //Checking DB if the user and password match - if no user exists or their password is inncorect, throw an error
-  handleSignInSubmit = event => {
-    event.preventDefault();
+  // //Checking DB if the user and password match - if no user exists or their password is inncorect, throw an error
+  // handleSignInSubmit = event => {
+  //   event.preventDefault();
 
-    Meteor.loginWithPassword(this.state.email, this.state.password, err => {
-      this.setState({ error: `${err.reason}, please try again!` });
-    });
-    Meteor.loggingIn();
-  };
+  //   Meteor.loginWithPassword(this.state.email, this.state.password, err => {
+  //     this.setState({ error: `${err.reason}, please try again!` });
+  //   });
+  //   Meteor.loggingIn();
+  // };
 
   renderInput = field => (
     <div className="inputWrapper  ">
@@ -64,7 +65,11 @@ class CreateSession extends Component {
         name={field.name}
         type={field.type}
         fullWidth={true}
-        errorText={field.meta.touched ? field.meta.error : null}
+        errorText={
+          field.name === 'postalCode'
+            ? this.state.error
+            : field.meta.touched ? field.meta.error : null
+        }
         {...field.input}
       />
     </div>
@@ -78,7 +83,7 @@ class CreateSession extends Component {
   }) => {
     const today = new Date();
     return (
-      <div className="inputWrapper  ">
+      <div className="inputWrapper">
         <DatePicker
           hintText={moment().format('YYYY-MM-DD')}
           minDate={today}
@@ -114,9 +119,31 @@ class CreateSession extends Component {
   };
 
   onSubmit(values) {
-    console.table({
-      ...values,
-      courseCode: values.courseCode.replace(/\s/g, '').toUpperCase()
+    // console.table({
+    //   ...values,
+    //   courseCode: values.courseCode.replace(/\s/g, '').toUpperCase()
+    // });
+    this.state.error === '' ? null : this.setState({ error: '' });
+    const geocoder = new google.maps.Geocoder();
+    const address = `${values.street},${values.city},${values.province},${
+      values.postalCode
+    }`;
+    console.log('address', address);
+    console.table(values);
+    geocoder.geocode({ address }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === google.maps.GeocoderStatus.OK) {
+        console.log({
+          ...values,
+          lat: results[0].geometry.location.lat(),
+          lng: results[0].geometry.location.lng()
+        });
+      } else {
+        this.setState({
+          error: 'No result found. Please verify your address'
+        });
+      }
     });
   }
 
@@ -174,8 +201,32 @@ class CreateSession extends Component {
             <Field
               className="Field"
               label="Street Adress"
-              name="capacity"
-              type="number"
+              name="street"
+              type="text"
+              component={this.renderInput}
+            />
+
+            <Field
+              className="Field"
+              label="City"
+              name="city"
+              type="text"
+              component={this.renderInput}
+            />
+
+            <Field
+              className="Field"
+              label="Province"
+              name="province"
+              type="text"
+              component={this.renderInput}
+            />
+
+            <Field
+              className="Field"
+              label="Postal Code"
+              name="postalCode"
+              type="text"
               component={this.renderInput}
             />
 
@@ -208,7 +259,18 @@ function validate(values) {
   // if (!values.time) {
   //   errors.time = 'Please choose a time';
   // }
-
+  if (!values.street) {
+    errors.street = 'This field is required';
+  }
+  if (!values.city) {
+    errors.city = 'This field is required';
+  }
+  if (!values.province) {
+    errors.province = 'This field is required';
+  }
+  if (!values.postalCode) {
+    errors.postalCode = 'This field is required';
+  }
   return errors;
 }
 
