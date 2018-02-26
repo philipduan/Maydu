@@ -1,5 +1,41 @@
 /* Mobile */
 
+.session-brief-header {
+}
+.session-brief-date {
+}
+.session-brief-time {
+}
+.session-brief-bio {
+}
+.session-brief-moreInfo {
+  width: 30%;
+  background-color: transparent;
+}
+.rsvp {
+  background-color: #fbb506;
+  width: 30%;
+}
+.btn-contain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.session-brief-contain {
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  height: 20rem;
+  width: 15rem;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: #028389;
+}
+
+/* Card */
 .sessionCard {
   display: flex;
   justify-content: center;
@@ -30,7 +66,7 @@
 }
 
 .sticky {
-    /* The sticky class is added to the header with JS when it reaches its scroll position */
+  /* The sticky class is added to the header with JS when it reaches its scroll position */
 
   position: fixed;
   top: 0;
