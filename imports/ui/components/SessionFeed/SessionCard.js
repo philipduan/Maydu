@@ -12,7 +12,7 @@ import './style.css';
 import { withRouter } from 'react-router-dom';
 
 const SessionCard = ({ data, history }) => (
-  <div>
+  <div className="session-brief-wrap">
     <header className="session-brief-header">
       {data.courseCode}:{data.title}
     </header>
