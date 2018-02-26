@@ -8,13 +8,12 @@ export default class SessionList extends Component {
   }
   render() {
     const { sessions } = this.props;
-
-    return (
-      <div className="session-list">
-        {sessions.map((session, index) => {
-          return <SessionCard key={index} data={session} />;
-        })}
-      </div>
-    );
+    const list =
+      sessions.length > 0
+        ? sessions.map((session, index) => {
+            return <SessionCard key={index} data={session} />;
+          })
+        : 'There are no sessions matching your search :( ';
+    return <div className="session-list">{list}</div>;
   }
 }

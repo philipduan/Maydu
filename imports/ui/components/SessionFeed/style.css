@@ -29,8 +29,9 @@
   align-items: center;
 }
 
-/* The sticky class is added to the header with JS when it reaches its scroll position */
 .sticky {
+    /* The sticky class is added to the header with JS when it reaches its scroll position */
+
   position: fixed;
   top: 0;
   left: 0;

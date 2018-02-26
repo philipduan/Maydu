@@ -12,9 +12,11 @@ export default class SessionFilter extends Component {
   }
   handleScroll = () => {
     // Get the header
+
     let header = document.getElementById('idSearchbar');
 
     // Get the offset position of the navbar
+
     let sticky = header.offsetTop;
 
     // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
