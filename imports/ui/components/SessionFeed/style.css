@@ -13,10 +13,14 @@
   /* box-shadow: 1px 0px 1px 1px #015458; */
 }
 .session-brief-date {
+  margin: 0.5rem 0 0;
 }
 .session-brief-time {
+  margin: 0.5rem 0;
 }
 .session-brief-bio {
+  max-height: 3.5rem;
+  overflow: hidden;
   font-size: 0.8rem;
   font-style: italic;
   font-weight: 100;
@@ -46,10 +50,10 @@
   border: 1px solid #015458;
   flex-direction: column;
   color: white;
-  height: 16rem;
+  height: auto;
   width: 85vw;
   margin: 0 0 0.7rem 0;
-  padding: 0.5rem;
+  padding: 0.2rem 0.5rem;
   font-size: 1rem;
   background-color: #028389;
 }
@@ -64,6 +68,7 @@
 .sessionHeader {
   display: flex;
   width: 100vw;
+  color: #015458;
   justify-content: center;
   align-items: center;
   text-align: center;

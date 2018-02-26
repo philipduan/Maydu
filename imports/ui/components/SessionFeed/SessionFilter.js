@@ -49,6 +49,7 @@ export default class SessionFilter extends Component {
           }}
           onRequestSearch={() => this.props.handleFilter(stateValue)}
           style={{
+            color: '#015458',
             zIndex: '9999',
             //   margin: '0 auto 5rem',
             maxWidth: 800,

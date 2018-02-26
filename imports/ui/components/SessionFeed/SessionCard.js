@@ -20,9 +20,9 @@ const SessionCard = ({ data, history }) => (
       <h2 className="session-brief-date">Date:&#160; {data.date}</h2>
       <h2 className="session-brief-time">Time: {data.time}</h2>
       <p className="session-brief-bio">
-        {/* I'm going to lap some water out of my master's cup meow lick human with
+        I'm going to lap some water out of my master's cup meow lick human with
         sandpaper tongue. Throwup on your pillow climb a tree, wait for a
-        fireman jump to */}
+        fireman jump to
         {data.description}
       </p>
       <div className="btn-contain">
