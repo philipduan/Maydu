@@ -1,16 +1,21 @@
 /* Mobile */
 
+/* ========================================= */
+
+/* Brief session info */
+.session-brief-wrap {
+}
+
 .session-brief-header {
   display: flex;
   height: 2.7rem;
   align-items: center;
   font-weight: 400;
-  padding-left: 0.7rem;
+  padding-left: 0.8rem;
   font-size: 1.1rem;
   background: white;
   color: #015458;
   border: 3px solid #028389;
-  /* box-shadow: 1px 0px 1px 1px #015458; */
 }
 .session-brief-date {
   margin: 0.5rem 0 0;
@@ -19,8 +24,6 @@
   margin: 0.5rem 0;
 }
 .session-brief-bio {
-  max-height: 3.5rem;
-  overflow: hidden;
   font-size: 0.8rem;
   font-style: italic;
   font-weight: 100;
@@ -38,6 +41,7 @@
   width: 40%;
 }
 .btn-contain {
+  font-size: 0.7rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -57,14 +61,17 @@
   font-size: 1rem;
   background-color: #028389;
 }
-
-/* Card */
-.sessionCard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Expanded session card */
+.session-location {
+  display: none;
+}
+.session-expand {
+  max-height: 3.5rem;
+  overflow: hidden;
+  transition: max-height 2s ease-in-out;
 }
 
+/* Session card Styling ends */
 .sessionHeader {
   display: flex;
   width: 100vw;
@@ -91,19 +98,18 @@
 
 .sticky {
   /* The sticky class is added to the header with JS when it reaches its scroll position */
-
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 9999;
 }
-/* ======================== */
+/* =========================================  */
 
 /* Tablet */
 
-/* ======================== */
+/* =========================================  */
 
 /* Desktop */
 
-/* ======================== */
+/* =========================================  */
