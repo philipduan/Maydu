@@ -2,27 +2,38 @@
 
 .session-brief-header {
   display: flex;
-  height: 20%;
+  height: 2.7rem;
+  align-items: center;
+  font-weight: 400;
+  padding-left: 0.7rem;
+  font-size: 1.1rem;
   background: white;
   color: #015458;
+  border: 3px solid #028389;
+  /* box-shadow: 1px 0px 1px 1px #015458; */
 }
 .session-brief-date {
 }
 .session-brief-time {
 }
 .session-brief-bio {
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.733);
 }
 .session-brief-moreInfo {
+  text-decoration: underline;
+  text-decoration-style: solid;
+
   width: 30%;
   background-color: transparent;
-  text-decoration-style: underline;
 }
 .rsvp {
   background-color: #fbb506;
   width: 40%;
 }
 .btn-contain {
-  padding-top: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -31,13 +42,13 @@
 .session-brief-contain {
   justify-content: space-evenly;
   display: flex;
-  box-shadow: 1px 0px 1px 1px #015458;
+  /* box-shadow: 1px 0px 1px 1px #015458; */
   border: 1px solid #015458;
   flex-direction: column;
   color: white;
-  height: 20rem;
+  height: 16rem;
   width: 85vw;
-  margin: 0.7rem 0;
+  margin: 0 0 0.7rem 0;
   padding: 0.5rem;
   font-size: 1rem;
   background-color: #028389;

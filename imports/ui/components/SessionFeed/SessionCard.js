@@ -13,14 +13,17 @@ import { withRouter } from 'react-router-dom';
 
 const SessionCard = ({ data, history }) => (
   <div>
-    <header className="session-brief-header">CS350 World of Code</header>
+    <header className="session-brief-header">
+      {data.courseCode}:{data.title}
+    </header>
     <div className="session-brief-contain">
-      <h2 className="session-brief-date">Date: tues, march 11</h2>
-      <h2 className="session-brief-time">Time: 4:30pm</h2>
+      <h2 className="session-brief-date">Date:&#160; {data.date}</h2>
+      <h2 className="session-brief-time">Time: {data.time}</h2>
       <p className="session-brief-bio">
-        I'm going to lap some water out of my master's cup meow lick human with
+        {/* I'm going to lap some water out of my master's cup meow lick human with
         sandpaper tongue. Throwup on your pillow climb a tree, wait for a
-        fireman jump to{' '}
+        fireman jump to */}
+        {data.description}
       </p>
       <div className="btn-contain">
         <button className="session-brief-moreInfo">More Info</button>
