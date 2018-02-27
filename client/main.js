@@ -4,7 +4,6 @@ import './main.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SignUp from '../imports/ui/containers/SignUp/SignUp';
 import SignIn from '../imports/ui/containers/SignIn/SignIn';
-
 import Profile from '../imports/ui/containers/Profile/Profile';
 import CreateSession from '../imports/ui/containers/CreateSession';
 import SessionContainer from '../imports/ui/containers/SessionFeed/SessionContainer.js';
