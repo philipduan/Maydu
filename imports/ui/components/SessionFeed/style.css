@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100,400,700');
+
+/* Mobile */
+
+/* ========================================= */
+
+/* Brief session info */
+.session-brief-wrap {
+  font-family: 'Lato', sans-serif;
+}
+
+.session-brief-header {
+  display: flex;
+  height: 2.7rem;
+  align-items: center;
+  font-weight: 400;
+  padding-left: 0.8rem;
+  font-size: 1.1rem;
+  background: white;
+  color: #015458;
+  border: 3px solid #028389;
+}
+.session-brief-date {
+  margin: 0.5rem 0 0;
+}
+.session-brief-time {
+  margin: 0.5rem 0;
+}
+.session-brief-bio {
+  min-height: 3.1rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.733);
+}
+.session-brief-moreInfo {
+  text-decoration: underline;
+  text-decoration-style: solid;
+  width: 30%;
+  background-color: transparent;
+}
+.rsvp {
+  background-color: #fbb506;
+  width: 40%;
+}
+.btn-contain {
+  font-size: 0.7rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.session-brief-contain {
+  justify-content: space-evenly;
+  display: flex;
+  /* box-shadow: 1px 0px 1px 1px #015458; */
+  border: 1px solid #015458;
+  flex-direction: column;
+  color: white;
+  height: auto;
+  width: 85vw;
+  margin: 0 0 0.7rem 0;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  background-color: #028389;
+}
+/* Expanded session card */
+
+/* Added to inline instead
+ .session-expand {
+  max-height: 3.5rem;
+  overflow: hidden;
+  transition: max-height 2s ease-in-out;
+} */
+
+/* Session card Styling ends */
+.sessionContainer {
+  font-family: 'Lato', sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sessionHeader {
+  display: flex;
+  width: 100vw;
+  color: #015458;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  margin: 1.5rem 0;
+}
+.create-session-link {
+  position: fixed;
+  z-index: 9999;
+  bottom: 0.2rem;
+  right: auto;
+  left: auto;
+  background-color: #fbb506;
+}
+.session-list {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+.SearchBar {
+  background: rgba(255, 255, 255, 0.671);
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.sticky {
+  /* The sticky class is added to the header with JS when it reaches its scroll position */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+/* =========================================  */
+
+/* Tablet */
+
+/* =========================================  */
+
+/* Desktop */
+
+/* =========================================  */

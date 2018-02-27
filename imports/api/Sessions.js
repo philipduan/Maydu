@@ -2,14 +2,14 @@ import { Mongo } from 'meteor/mongo';
 import _ from 'lodash';
 export const Sessions = new Mongo.Collection('sessions');
 
-const simpleInstitutionArray = ['University of Toronto', 'Ryerson', 'RED'];
+const simpleInstitutionArray = ['University of Toronto', 'Ryerson'];
 const sample = _.sample(simpleInstitutionArray);
 
 Sessions.schema = new SimpleSchema({
   sessionCreator: { type: String, optional: false },
   title: { type: String, optional: false },
   institution: { type: String, optional: false },
-  courseCode: { type: Number, defaultValue: null, optional: false },
+  courseCode: { type: String, defaultValue: null, optional: false },
   date: { type: String, optional: false },
   time: { type: String, optional: false },
   location: { type: String, optional: false },
@@ -29,6 +29,7 @@ if (Meteor.isServer) {
 
     //Faker data purposes
     //===================
+
     return Sessions.find({ institution: sample });
   });
 }
@@ -36,6 +37,7 @@ if (Meteor.isServer) {
 Meteor.methods({
   //// Method that filters session based on user query
   'sessions.filterByCourseCode'(query) {
+    // console.log(query.toString(), 'query');
     try {
       if (!query) {
         console.log('query undef');
@@ -43,7 +45,11 @@ Meteor.methods({
       }
 
       console.log('query is def');
-      return Sessions.find({ courseCode: parseInt(query) }).fetch();
+      console.log(
+        'All Sessions ',
+        Sessions.find({}).fetch()
+      );
+      return Sessions.find({ courseCode: query, institution: sample }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
     }

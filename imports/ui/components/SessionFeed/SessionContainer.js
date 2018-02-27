@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SessionCard from './SessionCard';
-import { SessionList } from './SessionList';
+import SessionList from './SessionList';
 import SessionFilter from './SessionFilter';
 import './style.css';
 import { Meteor } from 'meteor/meteor';
@@ -10,6 +10,17 @@ import _ from 'lodash';
 
 PER_PAGE = 20;
 
+// Find unique values in an array
+Array.prototype.unique = function() {
+  var arr = [];
+  for (var i = 0; i < this.length; i++) {
+    if (!arr.includes(this[i])) {
+      arr.push(this[i]);
+    }
+  }
+  return arr;
+};
+
 class SessionContainer extends Component {
   constructor() {
     super();
@@ -18,27 +29,36 @@ class SessionContainer extends Component {
       allCourseCodes: []
     };
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({ sessions: nextProps.sessions });
+    console.log('props', nextProps.sessions);
+
+    let courseCodes = [];
+    nextProps.sessions.filter(session => {
+      courseCodes.push(session.courseCode);
+    });
+    const allCourseCodes = courseCodes.unique();
+    this.setState({
+      allCourseCodes
+    });
+    console.log('state', this.state.sessions);
+    console.log('codes', this.state.allCourseCodes);
+  }
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ sessions: this.props.sessions });
-      console.log('props', this.props.sessions);
-
-      let allCourseCodes = [];
-
-      this.props.sessions.filter(session => {
-        if (_.intersection(session.courseCode, allCourseCodes).length > 0) {
-          null;
-        } else {
-          allCourseCodes.push(session.courseCode);
-        }
-      });
-
-      this.setState({
-        allCourseCodes: allCourseCodes
-      });
-      console.log('state', this.state.sessions);
-      console.log('codes', this.state.allCourseCodes);
-    }, 550);
+    // setTimeout(() => {
+    //   this.setState({ sessions: this.props.sessions });
+    //   console.log('props', this.props.sessions);
+    //   let courseCodes = [];
+    //   this.props.sessions.filter(session => {
+    //     courseCodes.push(session.courseCode);
+    //   });
+    //   const allCourseCodes = courseCodes.unique();
+    //   this.setState({
+    //     allCourseCodes
+    //   });
+    //   console.log('state', this.state.sessions);
+    //   console.log('codes', this.state.allCourseCodes);
+    // }, 550);
   }
   handleFilter = event => {
     Meteor.call('sessions.filterByCourseCode', event, (error, sessions) => {
@@ -53,18 +73,23 @@ class SessionContainer extends Component {
 
   render() {
     const { sessions } = this.state;
-    const sessionMap = sessions.map(session => {
-      return <SessionCard key={session._id} data={session} />;
-    });
-    console.log('sessionmap', sessionMap);
+
+    // console.log('sessionmap', sessionMap);
 
     return (
-      <div>
+      <div className="sessionContainer">
+        <h1 className="sessionHeader">Sessions</h1>
         <SessionFilter
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}
         />
-        <SessionList>dsadas{sessionMap}</SessionList>
+        <SessionList sessions={sessions} />
+        <button
+          className="create-session-link"
+          onClick={() => this.props.history.push('/createsession')}
+        >
+          Create Session
+        </button>
       </div>
     );
   }
