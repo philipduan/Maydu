@@ -1,8 +1,8 @@
 // React
 import React, { Component } from 'react';
 // Components and Containers
-import Input from '../../components/UI/Input/Input';
-import ImageUpload from '../../components/UI/ImageUpload/ImageUpload';
+import Input from '../../components/Input/Input';
+import ImageUpload from '../../components/ImageUpload/ImageUpload';
 //Utility
 import { updateObject, checkValidity } from '../../shared/utility';
 // Styles
