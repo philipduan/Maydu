@@ -19,7 +19,6 @@ class SignIn extends Component {
   //If user does not have an account - this takes them to SignUp form
   createAnAccount = () => {
     <Link to={'/signup'} />;
-    alert('i work');
   };
 
   //Setting state of user email and passworld on each keystroke
@@ -37,7 +36,7 @@ class SignIn extends Component {
     Meteor.loginWithPassword(this.state.email, this.state.password, err => {
       this.setState({ error: `${err.reason}, please try again!` });
     });
-    Meteor.loggingIn();
+    Meteor.loggingIn() ? <Link to={'/session'} /> : '';
   };
 
   render() {
@@ -77,8 +76,7 @@ class SignIn extends Component {
               type="submit"
               className="Create-Account-Submit"
             >
-              {' '}
-              Create An Account{' '}
+              <Link to={`/signup`}> Create An Account </Link>
             </button>
           </div>
         </div>

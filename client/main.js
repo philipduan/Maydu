@@ -8,6 +8,7 @@ import Profile from '../imports/ui/components/Profile/Profile';
 import SessionContainer from '../imports/ui/components/SessionFeed/SessionContainer.js';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import SignUp from '../imports/ui/components/SignUp/SignUp';
 
 class Maydu extends Component {
   render() {
@@ -21,9 +22,10 @@ class Maydu extends Component {
               path="/session-container"
               component={SessionContainer}
             />
-
+            <Route path="/signup" component={SignUp} />
             <Route exact path="/" component={App} />
             <Route path="/createsession" component={CreateSession} />
+            <Route path="/profile" component={Profile} />
             {/* </Layout> */}
           </Switch>
         </MuiThemeProvider>
