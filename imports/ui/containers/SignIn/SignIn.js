@@ -15,12 +15,6 @@ class SignIn extends Component {
   }
 
   //SignIn Methods
-
-  //If user does not have an account - this takes them to SignUp form
-  createAnAccount = () => {
-    <Link to={'/signup'} />;
-  };
-
   //Setting state of user email and passworld on each keystroke
   handleEmailAndPasswordState = event => {
     event.preventDefault();
@@ -34,9 +28,12 @@ class SignIn extends Component {
   handleSignInSubmit = event => {
     event.preventDefault();
     Meteor.loginWithPassword(this.state.email, this.state.password, err => {
-      this.setState({ error: `${err.reason}, please try again!` });
+      if (err) {
+        this.setState({ error: `${err.reason}, please try again!` });
+      } else {
+        this.props.history.push('/sessions');
+      }
     });
-    Meteor.loggingIn() ? <Link to={'/session'} /> : '';
   };
 
   render() {
@@ -72,7 +69,6 @@ class SignIn extends Component {
           <div className="Create-Account-SignIn">
             <p> Don't have an account? </p>
             <button
-              onClick={this.createAnAccount}
               type="submit"
               className="Create-Account-Submit"
             >

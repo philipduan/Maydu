@@ -9,6 +9,7 @@ import SessionContainer from '../imports/ui/containers/SessionFeed/SessionContai
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import SignIn from '../imports/ui/containers/SignIn/SignIn';
 import store from '../imports/ui/redux/store.js';
 class Maydu extends Component {
   render() {
@@ -19,10 +20,10 @@ class Maydu extends Component {
             <Switch>
               {/* <Layout> */}
               <Route exact path="/sessions" component={SessionContainer} />
-
+              <Route exact path="/" component={SignIn} />
               <Route path="/signup" component={SignUp} />
               <Route path="/createsession" component={CreateSession} />
-              <Route path="/profile" component={Profile} />
+              <Route path="/user/:id" component={Profile} />
               {/* </Layout> */}
             </Switch>
           </Provider>

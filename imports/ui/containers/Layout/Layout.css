@@ -1,0 +1,26 @@
+.Header-Container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh; 
+    width: 100vw; 
+    background-color: white;
+}
+
+.Header-Title {
+    font-size: 40px;
+    color: orange;
+    margin: 2.5%;
+    width: 60%;
+}
+
+.Header-Button-Div {
+    width: 25%;
+    display: flex;
+}
+.Header-Buttons {
+    width: 50%;
+    height: 5vh;
+    border-radius: 2px;
+    background-color: grey;
+}

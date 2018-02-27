@@ -333,7 +333,10 @@ class SignUp extends Component {
         bio: form.bio.value,
         facebook: form.facebook.value,
         instagram: form.instagram.value,
-        linkedIn: form.linkedIn.value
+        linkedIn: form.linkedIn.value,
+        acceptedSessions: [],
+        pendingSessions: [],
+        createdSessions: []
       }
     };
   };
@@ -348,6 +351,8 @@ class SignUp extends Component {
           backendError: err.reason
         });
         scroll(0, 0);
+      } else {
+        this.props.history.push('/sessions');
       }
     });
   };
