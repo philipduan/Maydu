@@ -31,6 +31,7 @@ Meteor.methods({
       }
     });
   }
+
   // Update Posted Sessions: Add ID of created session to postedSession
 
   // Update Attending Sessions: Add ID of session user is attending to attendingSession
