@@ -1,7 +1,14 @@
 import React from 'react';
+import './styles.css';
 
 const input = props => {
   let inputElement = null;
+  let validationError = null;
+  if (props.invalid && props.shouldValidate && props.touched) {
+    validationError = props.validationMsg
+      ? props.validationMsg
+      : 'Please enter a valid value!';
+  }
   switch (props.elementType) {
     case 'input':
       inputElement = (
@@ -20,16 +27,19 @@ const input = props => {
           value={props.value}
           onChange={props.changed}
           onBlur={props.blurred}
-          cols="5"
-          rows="5"
+          maxLength={400}
         />
       );
       break;
     case 'select':
       inputElement = (
-        <select value={props.value} onChange={props.changed}>
-          <option value="" disabled selected hidden>
-            {props.elementConfig.label}
+        <select
+          defaultValue={props.elementConfig.defaultSelect}
+          onChange={props.changed}
+          onBlur={props.blurred}
+        >
+          <option disabled hidden>
+            {props.elementConfig.defaultSelect}
           </option>
           {props.elementConfig.options.map(option => {
             return (
@@ -41,18 +51,23 @@ const input = props => {
         </select>
       );
       break;
+    case 'input_image':
+      inputElement = (
+        <input
+          {...props.elementConfig}
+          onChange={props.changed}
+          value={props.value}
+        />
+      );
+      break;
     default:
       inputElement = <input />;
   }
 
-  let i = 0;
-  const errors = props.validationErrors.map(error => (
-    <p key={i++}> {error} </p>
-  ));
-
   return (
     <div>
-      {errors}
+      <p> {props.elementConfig.label} </p>
+      <p className="error">{validationError}</p>
       {inputElement}
     </div>
   );
