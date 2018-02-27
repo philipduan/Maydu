@@ -73,9 +73,6 @@ class SessionContainer extends Component {
 
   render() {
     const { sessions } = this.state;
-    const sessionMap = sessions.map((session, index) => {
-      return <SessionCard key={index} data={session} />;
-    });
 
     // console.log('sessionmap', sessionMap);
 

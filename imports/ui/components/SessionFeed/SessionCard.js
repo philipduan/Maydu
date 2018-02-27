@@ -73,6 +73,19 @@ class SessionCard extends Component {
               for a fireman jump to
               {this.props.data.description}
             </p>
+            <hr />
+            <h2
+              onClick={() =>
+                this.props.history.push(
+                  `/user/${this.props.data.sessionCreator._id}`
+                )
+              }
+              style={{ cursor: 'pointer' }}
+              className="session-creator"
+            >
+              Creator: {this.props.data.sessionCreator.profile.fullName}
+            </h2>
+            <hr />
           </div>
           <div className="btn-contain">
             <button
