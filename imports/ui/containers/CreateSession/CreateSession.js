@@ -162,6 +162,7 @@ class CreateSession extends Component {
         ];
         values = {
           ...values,
+          courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
           exactGeoCode: {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()

@@ -30,7 +30,7 @@ if (Meteor.isServer) {
     //Faker data purposes
     //===================
 
-    return Sessions.find({ institution: sample });
+    return Sessions.find({ institution: 'Ryerson' });
   });
 }
 
@@ -41,7 +41,7 @@ Meteor.methods({
     try {
       if (!query) {
         console.log('query undef');
-        return Sessions.find({ institution: sample }).fetch();
+        return Sessions.find({ institution: 'Ryerson' }).fetch();
       }
 
       console.log('query is def');
