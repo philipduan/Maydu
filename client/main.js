@@ -19,7 +19,6 @@ class Maydu extends Component {
             <Switch>
               {/* <Layout> */}
               <Route exact path="/sessions" component={SessionContainer} />
-
               <Route path="/signup" component={SignUp} />
               <Route path="/createsession" component={CreateSession} />
               <Route path="/profile" component={Profile} />
