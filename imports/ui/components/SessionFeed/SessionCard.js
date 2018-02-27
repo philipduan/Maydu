@@ -47,7 +47,7 @@ class SessionCard extends Component {
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
-          {this.props.data.courseCode}:{this.props.data.title}
+          {` ${this.props.data.courseCode}:  ${this.props.data.title}`}
         </header>
         <div className="session-brief-contain">
           <h2 className="session-brief-date">
