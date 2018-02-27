@@ -30,7 +30,7 @@ if (Meteor.isServer) {
     //Faker data purposes
     //===================
 
-    return Sessions.find({ institution: sample });
+    return Sessions.find({ institution: 'RED' });
   });
 }
 
@@ -41,17 +41,18 @@ Meteor.methods({
     try {
       if (!query) {
         console.log('query undef');
-        return Sessions.find({ institution: sample }).fetch();
+        return Sessions.find({ institution: 'RED' }).fetch();
       }
 
       console.log('query is def');
-      console.log(
-        'All Sessions ',
-        Sessions.find({}).fetch()
-      );
-      return Sessions.find({ courseCode: query, institution: sample }).fetch();
+      console.log('All Sessions ', Sessions.find({}).fetch());
+      return Sessions.find({ courseCode: query, institution: 'RED' }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
     }
+  },
+
+  'sessions.saveNewSession'(session) {
+    Sessions.insert(session);
   }
 });

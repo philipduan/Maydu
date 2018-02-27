@@ -336,7 +336,9 @@ class SignUp extends Component {
         linkedIn: form.linkedIn.value,
         acceptedSessions: [],
         pendingSessions: [],
-        createdSessions: []
+        createdSessions: [],
+        imageURL:
+          'https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png'
       }
     };
   };
