@@ -19,7 +19,7 @@ class Maydu extends Component {
           <Provider store={store}>
             <Switch>
               {/* <Layout> */}
-              <Route path="/sessions" component={SessionContainer} />
+              <Route exact path="/sessions" component={SessionContainer} />
               <Route exact path="/" component={SignIn} />
               <Route path="/signup" component={SignUp} />
               <Route path="/createsession" component={CreateSession} />

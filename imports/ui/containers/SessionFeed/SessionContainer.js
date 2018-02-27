@@ -72,6 +72,7 @@ class SessionContainer extends Component {
   };
 
   render() {
+    console.log();
     const { sessions } = this.state;
 
     // console.log('sessionmap', sessionMap);

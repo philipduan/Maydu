@@ -20,6 +20,7 @@ class SessionCard extends Component {
     };
   }
   showMore = event => {
+    //identification query bug
     console.log('more', this.props.data._id);
     this.setState({ showStatus: 'Less' });
     this.setState({ expanded: true });

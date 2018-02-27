@@ -334,7 +334,12 @@ class SignUp extends Component {
         facebook: form.facebook.value,
         instagram: form.instagram.value,
         linkedIn: form.linkedIn.value,
+<<<<<<< HEAD
+        imageURL:
+          'https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png'
+=======
         imageURL: '....'
+>>>>>>> master
       }
     };
   };
