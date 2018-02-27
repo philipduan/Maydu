@@ -6,6 +6,8 @@ import CreateSessionFields from './CreateSessionFields';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 import './styles.css';
@@ -118,6 +120,27 @@ class CreateSession extends Component {
     );
   };
 
+  renderSelectField = ({
+    className,
+    input,
+    label,
+    meta: { touched, error },
+    children,
+    ...custom
+  }) => (
+    <div className="inputWrapper  ">
+      <SelectField
+        className={className}
+        floatingLabelText={label}
+        errorText={touched && error}
+        {...input}
+        onChange={(event, index, value) => input.onChange(value)}
+        children={children}
+        {...custom}
+      />
+    </div>
+  );
+
   onSubmit(values) {
     // console.table({
     //   ...values,
@@ -128,17 +151,16 @@ class CreateSession extends Component {
     const address = `${values.street},${values.city},${values.province},${
       values.postalCode
     }`;
-    console.log('address', address);
-    console.table(values);
     geocoder.geocode({ address }, (results, status) => {
       console.log(results);
-      console.log(status);
       if (status === google.maps.GeocoderStatus.OK) {
-        console.log({
+        values = {
           ...values,
           lat: results[0].geometry.location.lat(),
-          lng: results[0].geometry.location.lng()
-        });
+          lng: results[0].geometry.location.lng(),
+          address
+        };
+        console.log(values);
       } else {
         this.setState({
           error: 'No result found. Please verify your address'
@@ -147,8 +169,30 @@ class CreateSession extends Component {
     });
   }
 
+  menuItems = provinces => {
+    return provinces.map(province => (
+      <MenuItem
+        key={province.key}
+        value={province.value}
+        primaryText={province.value}
+      />
+    ));
+  };
+
   render() {
     const { handleSubmit } = this.props;
+    const provinces = [
+      { key: 1, value: 'Alberta' },
+      { key: 2, value: 'British Columbia' },
+      { key: 3, value: 'Manitoba' },
+      { key: 4, value: 'New Brunswick' },
+      { key: 5, value: 'NewFoundland and Labrador' },
+      { key: 6, value: 'Nova Scotia' },
+      { key: 7, value: 'Ontario' },
+      { key: 8, value: 'Prince Edward Island' },
+      { key: 9, value: 'Quebec' },
+      { key: 10, value: 'Saskatchewan' }
+    ];
     return (
       <div className="Create-Session-Container">
         <div className="Create-Session-Box">
@@ -218,9 +262,10 @@ class CreateSession extends Component {
               className="Field"
               label="Province"
               name="province"
-              type="text"
-              component={this.renderInput}
-            />
+              component={this.renderSelectField}
+            >
+              {this.menuItems(provinces)}
+            </Field>
 
             <Field
               className="Field"
@@ -243,6 +288,7 @@ class CreateSession extends Component {
 }
 function validate(values) {
   const errors = {};
+  var postalCode = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
   // courseCode = /^[a-zA-Z0-9 ]+$/;
   // if (!values.title) {
   //   errors.title = 'Please enter a title';
@@ -270,6 +316,9 @@ function validate(values) {
   }
   if (!values.postalCode) {
     errors.postalCode = 'This field is required';
+  }
+  if (!postalCode.test(values.postalCode)) {
+    errors.postalCode = 'Please enter a valid postal code';
   }
   return errors;
 }
