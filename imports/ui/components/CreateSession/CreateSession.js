@@ -13,6 +13,7 @@ class CreateSession extends Component {
       courseCode: '',
       capacity: '',
       date: '',
+      time: '',
       error: ''
     };
   }
@@ -31,6 +32,12 @@ class CreateSession extends Component {
   handleDatePicker = (event, date) => {
     this.setState({
       date: moment(date).format('YYYY-MM-DD')
+    });
+  };
+
+  handleTimePicker = (event, time) => {
+    this.setState({
+      time: moment(time).format('hh:mm A')
     });
   };
 
@@ -83,9 +90,7 @@ class CreateSession extends Component {
               className="TimePicker"
               hintText="12:00 AM"
               minutesStep={5}
-              onChange={(event, x) => {
-                console.log(moment(x).format('hh:mm A'));
-              }}
+              onChange={this.handleTimePicker}
             />
 
             <p> {this.state.error} </p>
