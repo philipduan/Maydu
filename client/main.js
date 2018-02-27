@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './main.css';
-import App from '../imports/ui/components/App/App';
+import SignUp from '../imports/ui/containers/SignUp/SignUp';
+import Profile from '../imports/ui/containers/Profile/Profile';
 import CreateSession from '../imports/ui/components/CreateSession';
 import SessionContainer from '../imports/ui/components/SessionFeed/SessionContainer.js';
 import { Meteor } from 'meteor/meteor';
@@ -12,10 +13,9 @@ class Maydu extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          {/* <Layout> */}
-          <Route exact path="/app" component={App} />
-          <Route path="/createsession" component={CreateSession} />
-          {/* </Layout> */}
+ 
+          <Route path="/signup" component={SignUp} />
+       
         </Switch>
       </BrowserRouter>
     );
