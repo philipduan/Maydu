@@ -67,11 +67,7 @@ class CreateSession extends Component {
         name={field.name}
         type={field.type}
         fullWidth={true}
-        errorText={
-          field.name === 'postalCode'
-            ? this.state.error
-            : field.meta.touched ? field.meta.error : null
-        }
+        errorText={field.meta.touched ? field.meta.error : null}
         {...field.input}
       />
     </div>
@@ -146,25 +142,49 @@ class CreateSession extends Component {
     //   ...values,
     //   courseCode: values.courseCode.replace(/\s/g, '').toUpperCase()
     // });
-    this.state.error === '' ? null : this.setState({ error: '' });
     const geocoder = new google.maps.Geocoder();
     const address = `${values.street},${values.city},${values.province},${
       values.postalCode
     }`;
     geocoder.geocode({ address }, (results, status) => {
-      console.log(results);
       if (status === google.maps.GeocoderStatus.OK) {
         values = {
           ...values,
-          lat: results[0].geometry.location.lat(),
-          lng: results[0].geometry.location.lng(),
+          exactGeoCode: {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          },
           address
         };
-        console.log(values);
-      } else {
-        this.setState({
-          error: 'No result found. Please verify your address'
-        });
+        fetch(
+          `https://roads.googleapis.com/v1/nearestRoads?key=AIzaSyDpRfCNlC3iEZlflpSlhrUtxVBZODM1B4c&points=${
+            values.exactGeoCode.lat
+          },${values.exactGeoCode.lng}`
+        )
+          .then(res => res.json())
+          .then(data => {
+            console.log('data', data);
+            values = {
+              ...values,
+              closestIntersectionGeoCode: {
+                lat: data.snappedPoints[0].location.latitude,
+                lng: data.snappedPoints[0].location.longitude
+              }
+            };
+            console.log(
+              'exact address',
+              `https://maps.google.com/maps?q=${values.exactGeoCode.lat},${
+                values.exactGeoCode.lng
+              }`
+            );
+            console.log(
+              'near address',
+              `https://maps.google.com/maps?q=${
+                values.closestIntersectionGeoCode.lat
+              },${values.closestIntersectionGeoCode.lng}`
+            );
+          })
+          .catch(err => console.log(err));
       }
     });
   }
@@ -174,7 +194,7 @@ class CreateSession extends Component {
       <MenuItem
         key={province.key}
         value={province.value}
-        primaryText={province.value}
+        primaryText={province.primaryText}
       />
     ));
   };
@@ -182,22 +202,22 @@ class CreateSession extends Component {
   render() {
     const { handleSubmit } = this.props;
     const provinces = [
-      { key: 1, value: 'Alberta' },
-      { key: 2, value: 'British Columbia' },
-      { key: 3, value: 'Manitoba' },
-      { key: 4, value: 'New Brunswick' },
-      { key: 5, value: 'NewFoundland and Labrador' },
-      { key: 6, value: 'Nova Scotia' },
-      { key: 7, value: 'Ontario' },
-      { key: 8, value: 'Prince Edward Island' },
-      { key: 9, value: 'Quebec' },
-      { key: 10, value: 'Saskatchewan' }
+      { key: 1, primaryText: 'AB', value: 'Alberta' },
+      { key: 2, primaryText: 'BC', value: 'British Columbia' },
+      { key: 3, primaryText: 'MB', value: 'Manitoba' },
+      { key: 4, primaryText: 'NB', value: 'New Brunswick' },
+      { key: 5, primaryText: 'NL', value: 'NewFoundland and Labrador' },
+      { key: 6, primaryText: 'NS', value: 'Nova Scotia' },
+      { key: 7, primaryText: 'ON', value: 'Ontario' },
+      { key: 8, primaryText: 'PE', value: 'Prince Edward Island' },
+      { key: 9, primaryText: 'QC', value: 'Quebec' },
+      { key: 10, primaryText: 'SK', value: 'Saskatchewan' },
+      { key: 11, primaryText: 'YK', value: 'Yukon' }
     ];
     return (
       <div className="Create-Session-Container">
         <div className="Create-Session-Box">
           <h3> Create A Study Session </h3>
-          {/* <form onSubmit={this.handleSignInSubmit}> */}
           <form
             className="Create-Session-Form"
             onSubmit={handleSubmit(this.onSubmit.bind(this))}
@@ -289,6 +309,10 @@ class CreateSession extends Component {
 function validate(values) {
   const errors = {};
   var postalCode = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+  const address = `${values.street},${values.city},${values.province},${
+    values.postalCode
+  }`;
+  console.log('address', address);
   // courseCode = /^[a-zA-Z0-9 ]+$/;
   // if (!values.title) {
   //   errors.title = 'Please enter a title';
@@ -316,8 +340,15 @@ function validate(values) {
   }
   if (!values.postalCode) {
     errors.postalCode = 'This field is required';
-  }
-  if (!postalCode.test(values.postalCode)) {
+  } else if (!address.includes(undefined)) {
+    const geocoder = new google.maps.Geocoder();
+    errors.postalCode = geocoder.geocode({ address }, (results, status) => {
+      console.log(results, status);
+      if (status != google.maps.GeocoderStatus.OK) {
+        return 'No result found. Please verify your address';
+      }
+    });
+  } else if (!postalCode.test(values.postalCode)) {
     errors.postalCode = 'Please enter a valid postal code';
   }
   return errors;
