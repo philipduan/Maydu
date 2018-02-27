@@ -10,6 +10,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { withTracker } from 'meteor/react-meteor-data';
 import './styles.css';
+import { withRouter } from 'react-router-dom';
 
 class CreateSession extends Component {
   constructor(props) {
@@ -148,6 +149,7 @@ class CreateSession extends Component {
 
             console.log('values', values);
             Meteor.call('sessions.saveNewSession', values);
+            this.props.history.push('/sessions');
           })
           .catch(err => console.log(err));
       } else {
@@ -340,5 +342,5 @@ export default (CreateSession = withTracker(() => {
   reduxForm({
     validate: validate,
     form: 'createSessionForm'
-  })(CreateSession)
+  })(withRouter(CreateSession))
 ));
