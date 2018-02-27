@@ -20,18 +20,19 @@ class SessionCard extends Component {
     };
   }
   showMore = event => {
-    console.log('event', this.props.data._id);
+    console.log('more', this.props.data._id);
     this.setState({ showStatus: 'Less' });
     this.setState({ expanded: true });
-    document.querySelector(`.${this.props.data._id}info`).style.maxHeight =
-      'auto';
+    document.querySelector(
+      `.${this.props.data._id}info`
+    ).style.maxHeight = null;
     document.querySelector(
       `.${this.props.data._id}session-location`
     ).style.display =
       'flex';
   };
   showLess = event => {
-    console.log('event', this.props.data._id);
+    console.log('less', this.props.data._id);
 
     this.setState({ showStatus: 'More Info' });
     this.setState({ expanded: false });
@@ -63,8 +64,7 @@ class SessionCard extends Component {
             className={`${this.props.data._id}info`}
             style={{
               maxHeight: '3.5rem',
-              overflow: 'hidden',
-              transition: ' max-height 2s ease-in-out'
+              overflow: 'hidden'
             }}
           >
             <p className="session-brief-bio">
