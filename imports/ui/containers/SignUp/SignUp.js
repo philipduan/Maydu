@@ -333,7 +333,9 @@ class SignUp extends Component {
         bio: form.bio.value,
         facebook: form.facebook.value,
         instagram: form.instagram.value,
-        linkedIn: form.linkedIn.value
+        linkedIn: form.linkedIn.value,
+        imageURL:
+          'https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png'
       }
     };
   };
