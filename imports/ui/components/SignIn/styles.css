@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:100,400,700');
+/* @import url('https://fonts.googleapis.com/css?family=Lato:100,400,700');
 
 .Login-Container {
   display: flex;
@@ -91,6 +91,7 @@ button {
     margin-top: 11%;
     color: white;
     font-size: 14px;
+<<<<<<< HEAD
 }
 
 @media screen and (max-width: 426px) {
@@ -107,3 +108,6 @@ button {
         margin-top: 30%;
     }
   } 
+=======
+} */
+>>>>>>> 40932b4659fa408564c26fd11eb217b2e3b6284d

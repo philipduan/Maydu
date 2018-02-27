@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './main.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from '../imports/ui/components/App/App';
+import SignUp from '../imports/ui/containers/SignUp/SignUp';
+import Profile from '../imports/ui/containers/Profile/Profile';
 import CreateSession from '../imports/ui/components/CreateSession';
 import Profile from '../imports/ui/components/Profile/Profile';
 import SessionContainer from '../imports/ui/components/SessionFeed/SessionContainer.js';
