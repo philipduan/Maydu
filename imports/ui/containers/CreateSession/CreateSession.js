@@ -9,7 +9,10 @@ import TimePicker from 'material-ui/TimePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Field, reduxForm } from 'redux-form';
+import { image, helpers } from 'faker';
+import _ from 'lodash';
 import moment from 'moment';
+import { withTracker } from 'meteor/react-meteor-data';
 import './styles.css';
 
 class CreateSession extends Component {
@@ -137,24 +140,46 @@ class CreateSession extends Component {
     </div>
   );
 
-  onSubmit(values) {
+  onSubmit = values => {
     // console.table({
     //   ...values,
     //   courseCode: values.courseCode.replace(/\s/g, '').toUpperCase()
     // });
+    console.log(this.props.currentUser);
     const geocoder = new google.maps.Geocoder();
     const address = `${values.street},${values.city},${values.province},${
       values.postalCode
     }`;
+    this.state.error ? null : this.setState({ error: '' });
     geocoder.geocode({ address }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
+        this.setState({ error: '' });
+        const { name, email, phone } = helpers.createCard(); //generates a full profile from faker library
+        const simpleInstitutionArray = [
+          'University of Toronto',
+          'Ryerson',
+          'RED'
+        ];
         values = {
           ...values,
           exactGeoCode: {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           },
-          address
+          address,
+          institution: _.sample(simpleInstitutionArray),
+          sessionCreator: {
+            _id: `${Math.floor(
+              Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
+            ) + 1}`,
+            profile: {
+              fullName: name,
+              photo: email,
+              major: name,
+              year: name,
+              bio: name
+            }
+          }
         };
         fetch(
           `https://roads.googleapis.com/v1/nearestRoads?key=AIzaSyDpRfCNlC3iEZlflpSlhrUtxVBZODM1B4c&points=${
@@ -183,11 +208,15 @@ class CreateSession extends Component {
                 values.closestIntersectionGeoCode.lat
               },${values.closestIntersectionGeoCode.lng}`
             );
+            console.log('values', values);
+            Meteor.call('sessions.saveNewSession', values);
           })
           .catch(err => console.log(err));
+      } else {
+        this.setState({ error: 'No result found. Please verify your address' });
       }
     });
-  }
+  };
 
   menuItems = provinces => {
     return provinces.map(province => (
@@ -312,23 +341,22 @@ function validate(values) {
   const address = `${values.street},${values.city},${values.province},${
     values.postalCode
   }`;
-  console.log('address', address);
-  // courseCode = /^[a-zA-Z0-9 ]+$/;
-  // if (!values.title) {
-  //   errors.title = 'Please enter a title';
-  // }
-  // if (!courseCode.test(values.courseCode)) {
-  //   errors.courseCode = 'Only letters and numbers';
-  // }
-  // if (!values.capacity) {
-  //   errors.capacity = 'Please enter a number';
-  // }
-  // if (!values.date) {
-  //   errors.date = 'Please choose a date';
-  // }
-  // if (!values.time) {
-  //   errors.time = 'Please choose a time';
-  // }
+  courseCode = /^[a-zA-Z0-9 ]+$/;
+  if (!values.title) {
+    errors.title = 'Please enter a title';
+  }
+  if (!courseCode.test(values.courseCode)) {
+    errors.courseCode = 'Only letters and numbers';
+  }
+  if (!values.capacity) {
+    errors.capacity = 'Please enter a number';
+  }
+  if (!values.date) {
+    errors.date = 'Please choose a date';
+  }
+  if (!values.time) {
+    errors.time = 'Please choose a time';
+  }
   if (!values.street) {
     errors.street = 'This field is required';
   }
@@ -340,21 +368,20 @@ function validate(values) {
   }
   if (!values.postalCode) {
     errors.postalCode = 'This field is required';
-  } else if (!address.includes(undefined)) {
-    const geocoder = new google.maps.Geocoder();
-    errors.postalCode = geocoder.geocode({ address }, (results, status) => {
-      console.log(results, status);
-      if (status != google.maps.GeocoderStatus.OK) {
-        return 'No result found. Please verify your address';
-      }
-    });
   } else if (!postalCode.test(values.postalCode)) {
     errors.postalCode = 'Please enter a valid postal code';
   }
   return errors;
 }
 
-export default reduxForm({
-  validate: validate,
-  form: 'createSessionForm'
-})(CreateSession);
+export default (CreateSession = withTracker(() => {
+  return {
+    currentUser: Meteor.user(),
+    currentId: Meteor.userId()
+  };
+})(
+  reduxForm({
+    validate: validate,
+    form: 'createSessionForm'
+  })(CreateSession)
+));

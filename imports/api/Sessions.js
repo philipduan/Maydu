@@ -45,13 +45,14 @@ Meteor.methods({
       }
 
       console.log('query is def');
-      console.log(
-        'All Sessions ',
-        Sessions.find({}).fetch()
-      );
+      console.log('All Sessions ', Sessions.find({}).fetch());
       return Sessions.find({ courseCode: query, institution: sample }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
     }
+  },
+
+  'sessions.saveNewSession'(session) {
+    Sessions.insert(session);
   }
 });

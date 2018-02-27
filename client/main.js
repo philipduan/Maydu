@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './main.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SignUp from '../imports/ui/containers/SignUp/SignUp';
+import SignIn from '../imports/ui/containers/SignIn/SignIn';
 import Profile from '../imports/ui/containers/Profile/Profile';
 import CreateSession from '../imports/ui/containers/CreateSession';
 import SessionContainer from '../imports/ui/containers/SessionFeed/SessionContainer.js';
@@ -18,8 +19,8 @@ class Maydu extends Component {
           <Provider store={store}>
             <Switch>
               {/* <Layout> */}
-              <Route exact path="/sessions" component={SessionContainer} />
-
+              <Route path="/sessions" component={SessionContainer} />
+              <Route exact path="/" component={SignIn} />
               <Route path="/signup" component={SignUp} />
               <Route path="/createsession" component={CreateSession} />
               <Route path="/profile" component={Profile} />
