@@ -68,10 +68,7 @@ class SignIn extends Component {
           </form>
           <div className="Create-Account-SignIn">
             <p> Don't have an account? </p>
-            <button
-              type="submit"
-              className="Create-Account-Submit"
-            >
+            <button type="submit" className="Create-Account-Submit">
               <Link to={`/signup`}> Create An Account </Link>
             </button>
           </div>
