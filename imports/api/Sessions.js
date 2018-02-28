@@ -30,7 +30,7 @@ if (Meteor.isServer) {
     //Faker data purposes
     //===================
 
-    return Sessions.find({ institution: 'RED' });
+    return Sessions.find({ institution: 'Ryerson' });
   });
 }
 
@@ -41,12 +41,15 @@ Meteor.methods({
     try {
       if (!query) {
         console.log('query undef');
-        return Sessions.find({ institution: 'RED' }).fetch();
+        return Sessions.find({ institution: 'Ryerson' }).fetch();
       }
 
       console.log('query is def');
       console.log('All Sessions ', Sessions.find({}).fetch());
-      return Sessions.find({ courseCode: query, institution: 'RED' }).fetch();
+      return Sessions.find({
+        courseCode: query,
+        institution: 'Ryerson'
+      }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
     }
