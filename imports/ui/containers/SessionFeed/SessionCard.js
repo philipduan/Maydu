@@ -100,7 +100,9 @@ class SessionCard extends Component {
               {this.state.showStatus}
             </button>
             <button
-              onClick={() => this.props.history.push(`/sessions/${this.props.data._id}`)}
+              onClick={() =>
+                this.props.history.push(`/sessions/${this.props.data._id}`)
+              }
               className="rsvp"
             >
               RSVP
