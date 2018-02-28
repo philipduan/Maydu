@@ -291,6 +291,7 @@ class SignUp extends Component {
       file: file,
       error: error
     });
+    console.log("FILE: ", file);
     this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
@@ -300,6 +301,7 @@ class SignUp extends Component {
     reader.onloadend = () => {
       this.updateImageField(reader.result, file, '');
     };
+    console.log("FILE 2: ", file);
     reader.readAsDataURL(file);
   };
 
@@ -333,7 +335,8 @@ class SignUp extends Component {
         bio: form.bio.value,
         facebook: form.facebook.value,
         instagram: form.instagram.value,
-        linkedIn: form.linkedIn.value
+        linkedIn: form.linkedIn.value, 
+        file: this.state.imageData.file
       }
     };
   };
@@ -348,6 +351,8 @@ class SignUp extends Component {
           backendError: err.reason
         });
         scroll(0, 0);
+      } else {
+        this.props.history.push('/sessions');
       }
     });
   };
