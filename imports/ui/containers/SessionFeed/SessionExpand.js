@@ -18,14 +18,14 @@ class SessionExpand extends Component {
     console.log('chicken');
 
     console.log(nextProps);
-    const session = nextProps.sessions.filter(
-      sesh => (sesh._id === nextProps.match.params.id ? sesh : null)
+    let session = nextProps.sessions.filter(
+      sesh => sesh._id === this.props.match.params.id
     );
     // console.log('dsadad', session);
     this.setState({ session });
   }
   render() {
-    const session = this.state.session;
+    const session = this.state.session[0] ?;
     console.log('dsadasds', session);
     return (
       <div className="session-brief-wrap">
