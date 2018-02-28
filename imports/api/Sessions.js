@@ -2,7 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import _ from 'lodash';
 export const Sessions = new Mongo.Collection('sessions');
 
-const simpleInstitutionArray = ['University of Toronto', 'Ryerson'];
+const simpleInstitutionArray = ['University of Toronto', 'Ryerson', 'RED'];
 const sample = _.sample(simpleInstitutionArray);
 
 Sessions.schema = new SimpleSchema({
@@ -30,7 +30,7 @@ if (Meteor.isServer) {
     //Faker data purposes
     //===================
 
-    return Sessions.find({ institution: 'Ryerson' });
+    return Sessions.find({ institution: sample });
   });
 }
 
@@ -41,7 +41,7 @@ Meteor.methods({
     try {
       if (!query) {
         console.log('query undef');
-        return Sessions.find({ institution: 'Ryerson' }).fetch();
+        return Sessions.find({ institution: sample }).fetch();
       }
 
       console.log('query is def');
