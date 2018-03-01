@@ -152,33 +152,17 @@ class CreateSession extends Component {
   onSubmit = values => {
     this.state.error ? null : this.setState({ error: '' });
     if (this.state.address) {
-      const { name, email, phone } = helpers.createCard(); //generates a full profile from faker library
-      const simpleInstitutionArray = [
-        'University of Toronto',
-        'Ryerson',
-        'RED'
-      ];
       values = {
         ...values,
+        title: values.title.replace(/\b\w/g, l => l.toUpperCase()),
         courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
         geoCode: this.state.geoCode,
         address: this.state.address,
         addressForm: this.state.addressForm,
         attending: [this.props.currentUserId],
         pending: [],
-        institution: _.sample(simpleInstitutionArray),
-        sessionCreator: {
-          _id: `${Math.floor(
-            Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
-          ) + 1}`,
-          profile: {
-            fullName: name,
-            photo: email,
-            major: name,
-            year: name,
-            bio: name
-          }
-        }
+        institution: this.props.currentUser.profile.institution,
+        sessionCreator: this.props.currentUser
       };
       // console.log(
       //   'exact address',

@@ -73,7 +73,9 @@ class SessionContainer extends Component {
   };
 
   render() {
-    console.log();
+    if (this.props.currentUser) {
+      console.log(this.props.currentUser, 'meteor user');
+    }
     const { sessions } = this.state;
 
     return (
@@ -83,7 +85,7 @@ class SessionContainer extends Component {
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}
         />
-        <SessionList sessions={sessions} />
+        {sessions ? <SessionList sessions={sessions} /> : null}
         <button
           className="create-session-link"
           onClick={() => this.props.history.push('/createsession')}
