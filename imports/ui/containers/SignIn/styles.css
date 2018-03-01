@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css?family=Lato:100,400,700');
+@import url('https://fonts.googleapis.com/css?family=Lato:100,400,700');
 
 .Login-Container {
   display: flex;
@@ -65,7 +65,7 @@
   opacity: 0.7;
 }
 
-button {
+.Login-Box button {
   width: 40%;
   height: 40px;
   border-radius: 20px;
@@ -87,39 +87,7 @@ button {
 }
 
 .Create-Account-SignIn p {
-<<<<<<< HEAD
   margin-top: 11%;
   color: white;
   font-size: 14px;
-=======
-    margin-top: 11%;
-    color: white;
-    font-size: 14px;
-<<<<<<< HEAD
->>>>>>> master
 }
-
-@media screen and (max-width: 426px) {
-  div .Login-Container {
-    background-color: #07889b;
-  }
-
-  .Login-Container .Login-Box {
-    height: 100vh;
-    width: 100vw;
-  }
-
-<<<<<<< HEAD
-  .Login-Box h3 {
-    margin-top: 30%;
-  }
-}
-=======
-    .Login-Box h3 {
-        margin-top: 30%;
-    }
-  } 
-=======
-} */
->>>>>>> 40932b4659fa408564c26fd11eb217b2e3b6284d
->>>>>>> master
