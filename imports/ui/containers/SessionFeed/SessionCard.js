@@ -10,7 +10,6 @@ import {
 import FlatButton from 'material-ui/FlatButton';
 import './style.css';
 import { withRouter } from 'react-router-dom';
-import { Location } from './GoogleApiComponent';
 
 class SessionCard extends Component {
   constructor() {
@@ -21,16 +20,15 @@ class SessionCard extends Component {
     };
   }
   showMore = event => {
-    //identification query bug
     console.log('more', this.props.data._id);
     this.setState({ showStatus: 'Less' });
     this.setState({ expanded: true });
-    document.getElementsByClassName(
-      `${this.props.data._id}info`
-    )[0].style.maxHeight = null;
-    document.getElementsByClassName(
-      `${this.props.data._id}session-location`
-    )[0].style.display =
+    document.querySelector(
+      `.${this.props.data._id}info`
+    ).style.maxHeight = null;
+    document.querySelector(
+      `.${this.props.data._id}session-location`
+    ).style.display =
       'flex';
   };
   showLess = event => {
@@ -38,17 +36,14 @@ class SessionCard extends Component {
 
     this.setState({ showStatus: 'More Info' });
     this.setState({ expanded: false });
-    document.getElementsByClassName(
-      `${this.props.data._id}info`
-    )[0].style.maxHeight =
+    document.querySelector(`.${this.props.data._id}info`).style.maxHeight =
       '3.5rem';
-    document.getElementsByClassName(
-      `${this.props.data._id}session-location`
-    )[0].style.display =
+    document.querySelector(
+      `.${this.props.data._id}session-location`
+    ).style.display =
       'none';
   };
   render() {
-    console.log(this.props);
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -63,7 +58,7 @@ class SessionCard extends Component {
             className={`${this.props.data._id}session-location`}
             style={{ display: 'none' }}
           >
-            Location: {this.props.data.street}
+            Location: {this.props.data.location}
           </h2>
           <div
             className={`${this.props.data._id}info session-transition`}
@@ -112,14 +107,7 @@ class SessionCard extends Component {
             >
               {this.state.showStatus}
             </button>
-            <button
-              onClick={() =>
-                this.props.history.push(`/sessions/${this.props.data._id}`)
-              }
-              className="rsvp"
-            >
-              RSVP
-            </button>
+            <button className="rsvp">RSVP</button>
           </div>
         </div>
       </div>
@@ -132,7 +120,6 @@ export default withRouter(SessionCard);
 // Old Card Components
 //====================
 
-//Delete
 // <div className="sessionCard">
 //     {/* {console.log('data', data)} */}
 //     <Card>
