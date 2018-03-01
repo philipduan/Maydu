@@ -66,10 +66,12 @@ class SessionCard extends Component {
             Location: {this.props.data.street}
           </h2>
           <div
-            className={`${this.props.data._id}info`}
+            className={`${this.props.data._id}info session-transition`}
             style={{
               maxHeight: '3.5rem',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              transition: 'max-height 1s ease-in'
+              // note that we're transitioning max-height, not height!
             }}
           >
             <p className="session-brief-bio">
