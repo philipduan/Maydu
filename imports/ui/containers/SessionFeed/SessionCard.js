@@ -59,7 +59,7 @@ class SessionCard extends Component {
             className={`${this.props.data._id}session-location`}
             style={{ display: 'none' }}
           >
-            Location: {this.props.data.location}
+            Location: {this.props.data.address}
           </h2>
           <div
             className={`${this.props.data._id}info session-transition`}
