@@ -110,6 +110,7 @@ export default withRouter(SessionCard);
 // Old Card Components
 //====================
 
+//Delete
 // <div className="sessionCard">
 //     {/* {console.log('data', data)} */}
 //     <Card>
