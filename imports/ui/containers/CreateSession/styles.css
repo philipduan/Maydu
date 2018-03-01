@@ -1,11 +1,11 @@
 .Create-Session-Container {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   background-color: #028389;
 }
 
 .Create-Session-Box {
-  height: 80vh;
+  height: 80%;
   width: 80vw;
   margin: 0 auto;
   border-radius: 80px;
@@ -85,7 +85,7 @@
   height: 50px;
   border-radius: 30px;
   border: none;
-  margin-top: 25px;
+  margin: 25px 0;
   background-color: #20494c;
   color: white;
   font-size: 1.2em;
