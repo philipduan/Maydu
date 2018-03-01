@@ -10,6 +10,7 @@ import {
 import FlatButton from 'material-ui/FlatButton';
 import './style.css';
 import { withRouter } from 'react-router-dom';
+import { Location } from './GoogleApiComponent';
 
 class SessionCard extends Component {
   constructor() {
@@ -58,7 +59,7 @@ class SessionCard extends Component {
             className={`${this.props.data._id}session-location`}
             style={{ display: 'none' }}
           >
-            Location: {this.props.data.location}
+            Location: {this.props.data.address}
           </h2>
           <div
             className={`${this.props.data._id}info session-transition`}
@@ -76,6 +77,7 @@ class SessionCard extends Component {
               {this.props.data.description}
             </p>
             <hr />
+            {/* test comment */}
             <h2
               onClick={() =>
                 this.props.history.push(
