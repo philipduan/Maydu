@@ -6,8 +6,6 @@ import { Accounts } from 'meteor/accounts-base';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 
-
-
 class Header extends Component {
     constructor(props) {
         super(props);
