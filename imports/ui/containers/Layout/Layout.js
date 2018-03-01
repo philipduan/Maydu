@@ -7,34 +7,54 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.handleSignOut = this.handleSignOut.bind(this);
-    }
+    this.handleSignOut = this.handleSignOut.bind(this);
+  }
 
-    handleSignOut() {
-        Meteor.logout(err => {
-            if (err) {
-                console.log('user no logged out', err)
-            } else {
-                console.log('user successfully logged out');
-                this.props.history.push('/');
-            }
-        })
-    }
+  handleSignOut() {
+    Meteor.logout(err => {
+      if (err) {
+        console.log('user no logged out', err);
+      } else {
+        console.log('user successfully logged out');
+        this.props.history.push('/');
+      }
+    });
+  }
 
-    render() {
-        return (
-            <div className="Header-Container">
-                <h1 className="Header-Title"> <Link to={'/sessions'}> MayDu </Link> </h1>
-                <div className="Header-Button-Div">
-                    <button className="Header-Buttons"> <Link to={'/user/:id'}>My Profile</Link> </button>
-                    <button onClick={this.handleSignOut} className="Header-Buttons"> SignOut </button>
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="Header-Container">
+        <h1
+          onClick={() => this.props.history.push('/sessions')}
+          className="Header-Title"
+        >
+          MayDu
+        </h1>
+        <div className="Header-Button-Div">
+          <button className="Header-profile">
+            <i class="fas fa-user" />
+
+            {/* <Link to={'/user/:id'}>My Profile</Link>Switch to history.push when you get userid */}
+          </button>
+          <button onClick={this.handleSignOut} className="Header-signout">
+            <i class="fas fa-sign-out-alt" />
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default withRouter(Header);
+const Layout = ({ children, history }) => {
+  return (
+    <div>
+      <Header history={history} />
+      <div>{children}</div>
+    </div>
+  );
+};
+
+export default withRouter(Layout);
