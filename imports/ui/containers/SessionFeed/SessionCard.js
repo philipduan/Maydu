@@ -81,6 +81,7 @@ class SessionCard extends Component {
               {this.props.data.description}
             </p>
             <hr />
+            {/* test comment */}
             <h2
               onClick={() =>
                 this.props.history.push(

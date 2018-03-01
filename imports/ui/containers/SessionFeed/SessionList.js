@@ -6,7 +6,9 @@ export default class SessionList extends Component {
   constructor() {
     super();
   }
+
   render() {
+    //test comment
     const { sessions } = this.props;
     const list =
       sessions.length > 0
