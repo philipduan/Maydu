@@ -4,25 +4,36 @@ import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import { Field, reduxForm } from 'redux-form';
 import { image, helpers } from 'faker';
-import _ from 'lodash';
 import moment from 'moment';
 import { withTracker } from 'meteor/react-meteor-data';
-import './styles.css';
 import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
+import './styles.css';
 
-const hintStyle = {
-  fontFamily: 'Montserrat, sans-serif',
-  fontStyle: 'italic',
-  fontWeight: 'bold'
+const styles = {
+  general: {
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    margin: '10px 0',
+    padding: '0 10px'
+  },
+  hintStyle: {
+    color: '#546E7A',
+    fontFamily: 'Montserrat, sans-serif',
+    fontStyle: 'italic',
+    fontWeight: '550'
+  }
 };
 
 class CreateSession extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      error: '',
       address: '',
-      addressForm: {}
+      addressForm: {},
+      error: '',
+      geoCode: {}
     };
   }
 
@@ -34,11 +45,11 @@ class CreateSession extends Component {
         typeof window.google !== 'undefined' &&
         typeof window.google.maps !== 'undefined'
       ) {
-        console.log('i am here');
         const autocomplete = new window.google.maps.places.Autocomplete(
           input,
           options
         );
+
         autocomplete.addListener('place_changed', () => {
           const selectedPlace = autocomplete.getPlace();
           const componentForm = {
@@ -60,6 +71,7 @@ class CreateSession extends Component {
                 addressComponent[componentForm[addressType]];
             }
           }
+
           // input.value = selectedPlace.name // Code injection risk (check doc)
           input.value = `${selectedSuggest.street_number} ${
             selectedSuggest.route
@@ -68,7 +80,11 @@ class CreateSession extends Component {
           }, ${selectedSuggest.postal_code}`;
           this.setState({
             address: input.value,
-            addressForm: selectedSuggest
+            addressForm: selectedSuggest,
+            geoCode: {
+              lat: selectedPlace.geometry.location.lat(),
+              lng: selectedPlace.geometry.location.lng()
+            }
           });
         });
       } else {
@@ -80,14 +96,15 @@ class CreateSession extends Component {
   renderInput = field => (
     <TextField
       id={field.label === 'Location' ? 'autocomplete' : null}
-      multiLine={field.name === 'description' ? true : false}
-      rows={field.name === 'description' ? 5 : 1}
-      rowsMax={field.name === 'description' ? 5 : 1}
+      multiLine={field.input.name === 'description' ? true : false}
+      rows={field.input.name === 'description' ? 5 : 1}
+      rowsMax={field.input.name === 'description' ? 5 : 1}
       placeholder=""
       autoComplete="off"
       className={field.className}
-      hintStyle={hintStyle}
+      style={styles.general}
       hintText={field.label}
+      hintStyle={styles.hintStyle}
       type={field.type}
       underlineShow={false}
       fullWidth={true}
@@ -95,14 +112,14 @@ class CreateSession extends Component {
       {...field.input}
     />
   );
-
   renderDatePicker = field => {
     const today = new Date();
     return (
       <DatePicker
         className={field.className}
         hintText="Select Date"
-        hintStyle={hintStyle}
+        hintStyle={styles.hintStyle}
+        style={styles.general}
         underlineShow={false}
         minDate={today}
         errorText={field.meta.touched && field.meta.error}
@@ -119,7 +136,8 @@ class CreateSession extends Component {
       <TimePicker
         className={field.className}
         hintText="Select Time"
-        hintStyle={hintStyle}
+        hintStyle={styles.hintStyle}
+        style={styles.general}
         minutesStep={5}
         underlineShow={false}
         errorText={field.meta.touched && field.meta.error}
@@ -132,58 +150,50 @@ class CreateSession extends Component {
   };
 
   onSubmit = values => {
-    const geocoder = new google.maps.Geocoder();
-    p;
     this.state.error ? null : this.setState({ error: '' });
-    geocoder.geocode({ address: this.state.address }, (results, status) => {
-      if (status === google.maps.GeocoderStatus.OK) {
-        this.setState({ error: '' });
-        const { name, email, phone } = helpers.createCard(); //generates a full profile from faker library
-        const simpleInstitutionArray = [
-          'University of Toronto',
-          'Ryerson',
-          'RED'
-        ];
-        values = {
-          ...values,
-          courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
-          exactGeoCode: {
-            lat: results[0].geometry.location.lat(),
-            lng: results[0].geometry.location.lng()
-          },
-          address: this.state.address,
-          addressForm: this.state.addressForm,
-          attending: [this.props.currentUserId],
-          pending: [],
-          institution: _.sample(simpleInstitutionArray),
-          sessionCreator: {
-            _id: `${Math.floor(
-              Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
-            ) + 1}`,
-            profile: {
-              fullName: name,
-              photo: email,
-              major: name,
-              year: name,
-              bio: name
-            }
+    if (this.state.address) {
+      const { name, email, phone } = helpers.createCard(); //generates a full profile from faker library
+      const simpleInstitutionArray = [
+        'University of Toronto',
+        'Ryerson',
+        'RED'
+      ];
+      values = {
+        ...values,
+        courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
+        geoCode: this.state.geoCode,
+        address: this.state.address,
+        addressForm: this.state.addressForm,
+        attending: [this.props.currentUserId],
+        pending: [],
+        institution: _.sample(simpleInstitutionArray),
+        sessionCreator: {
+          _id: `${Math.floor(
+            Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
+          ) + 1}`,
+          profile: {
+            fullName: name,
+            photo: email,
+            major: name,
+            year: name,
+            bio: name
           }
-        };
-        console.log(
-          'exact address',
-          `https://maps.google.com/maps?q=${values.exactGeoCode.lat},${
-            values.exactGeoCode.lng
-          }`
-        );
-        console.log('values', values);
-        Meteor.call('sessions.saveNewSession', values);
-        this.props.history.push('/sessions');
-      } else {
-        this.setState({
-          error: 'No result found. Please verify your address'
-        });
-      }
-    });
+        }
+      };
+      // console.log(
+      //   'exact address',
+      //   `https://maps.google.com/maps?q=${values.geoCode.lat},${
+      //     values.geoCode.lng
+      //   }`
+      // );
+      delete values.location;
+      Meteor.call('sessions.saveNewSession', values);
+      this.props.history.push('/sessions');
+    } else {
+      this.setState({
+        error: 'No result found. Please verify your address'
+      });
+    }
   };
 
   render() {
@@ -229,7 +239,7 @@ class CreateSession extends Component {
         component: this.renderInput
       },
       {
-        className: 'Field',
+        className: 'Field Description',
         label: 'Session Description...',
         name: 'description',
         type: 'text',
@@ -254,20 +264,9 @@ class CreateSession extends Component {
                 component={item.component}
               />
             ))}
-            {/* <TextField
-              autoComplete="off"
-              
-              hintText={'Location'}
-              hintStyle={hintStyle}
-              className="Field"
-              id="autocomplete"
-              type="text"
-              underlineShow={false}
-              fullWidth={true}
-            /> */}
             <p> {this.state.error} </p>
             <button type="submit" className="Create-Session-Submit">
-              Submit
+              Create
             </button>
           </form>
         </div>
@@ -296,6 +295,9 @@ function validate(values) {
   }
   if (!values.time) {
     errors.time = 'Please choose a time';
+  }
+  if (!values.location) {
+    errors.location = 'Please enter an address';
   }
   return errors;
 }
