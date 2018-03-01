@@ -10,6 +10,7 @@ import {
 import FlatButton from 'material-ui/FlatButton';
 import './style.css';
 import { withRouter } from 'react-router-dom';
+import { Location } from './GoogleApiComponent';
 
 class SessionCard extends Component {
   constructor() {
