@@ -10,12 +10,20 @@ import { withTracker } from 'meteor/react-meteor-data';
 import './styles.css';
 import { withRouter } from 'react-router-dom';
 
-const hintStyle = {
-  fontFamily: 'Montserrat, sans-serif',
-  fontStyle: 'italic',
-  fontWeight: 'bold'
+const styles = {
+  general: {
+    borderRadius: '5px',
+    margin: '10px 0',
+    backgroundColor: 'white',
+    padding: '0 10px'
+  },
+  hintStyle: {
+    fontFamily: 'Montserrat, sans-serif',
+    color: '#546E7A',
+    fontStyle: 'italic',
+    fontWeight: '550'
+  }
 };
-
 class CreateSession extends Component {
   constructor(props) {
     super(props);
@@ -80,14 +88,15 @@ class CreateSession extends Component {
   renderInput = field => (
     <TextField
       id={field.label === 'Location' ? 'autocomplete' : null}
-      multiLine={field.name === 'description' ? true : false}
-      rows={field.name === 'description' ? 5 : 1}
-      rowsMax={field.name === 'description' ? 5 : 1}
+      multiLine={field.input.name === 'description' ? true : false}
+      rows={field.input.name === 'description' ? 5 : 1}
+      rowsMax={field.input.name === 'description' ? 5 : 1}
       placeholder=""
       autoComplete="off"
       className={field.className}
-      hintStyle={hintStyle}
+      style={styles.general}
       hintText={field.label}
+      hintStyle={styles.hintStyle}
       type={field.type}
       underlineShow={false}
       fullWidth={true}
@@ -95,14 +104,14 @@ class CreateSession extends Component {
       {...field.input}
     />
   );
-
   renderDatePicker = field => {
     const today = new Date();
     return (
       <DatePicker
         className={field.className}
         hintText="Select Date"
-        hintStyle={hintStyle}
+        hintStyle={styles.hintStyle}
+        style={styles.general}
         underlineShow={false}
         minDate={today}
         errorText={field.meta.touched && field.meta.error}
@@ -119,7 +128,8 @@ class CreateSession extends Component {
       <TimePicker
         className={field.className}
         hintText="Select Time"
-        hintStyle={hintStyle}
+        hintStyle={styles.hintStyle}
+        style={styles.general}
         minutesStep={5}
         underlineShow={false}
         errorText={field.meta.touched && field.meta.error}
@@ -133,7 +143,6 @@ class CreateSession extends Component {
 
   onSubmit = values => {
     const geocoder = new google.maps.Geocoder();
-    p;
     this.state.error ? null : this.setState({ error: '' });
     geocoder.geocode({ address: this.state.address }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
@@ -175,9 +184,10 @@ class CreateSession extends Component {
             values.exactGeoCode.lng
           }`
         );
+        delete values.location;
         console.log('values', values);
-        Meteor.call('sessions.saveNewSession', values);
-        this.props.history.push('/sessions');
+        // Meteor.call('sessions.saveNewSession', values);
+        // this.props.history.push('/sessions');
       } else {
         this.setState({
           error: 'No result found. Please verify your address'
@@ -229,7 +239,7 @@ class CreateSession extends Component {
         component: this.renderInput
       },
       {
-        className: 'Field',
+        className: 'Field Description',
         label: 'Session Description...',
         name: 'description',
         type: 'text',
@@ -254,20 +264,9 @@ class CreateSession extends Component {
                 component={item.component}
               />
             ))}
-            {/* <TextField
-              autoComplete="off"
-              
-              hintText={'Location'}
-              hintStyle={hintStyle}
-              className="Field"
-              id="autocomplete"
-              type="text"
-              underlineShow={false}
-              fullWidth={true}
-            /> */}
             <p> {this.state.error} </p>
             <button type="submit" className="Create-Session-Submit">
-              Submit
+              Create
             </button>
           </form>
         </div>
@@ -296,6 +295,9 @@ function validate(values) {
   }
   if (!values.time) {
     errors.time = 'Please choose a time';
+  }
+  if (!values.location) {
+    errors.location = 'Please enter an address';
   }
   return errors;
 }
