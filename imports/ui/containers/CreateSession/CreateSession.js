@@ -10,6 +10,12 @@ import { withTracker } from 'meteor/react-meteor-data';
 import './styles.css';
 import { withRouter } from 'react-router-dom';
 
+const hintStyle = {
+  fontFamily: 'Montserrat, sans-serif',
+  fontStyle: 'italic',
+  fontWeight: 'bold'
+};
+
 class CreateSession extends Component {
   constructor(props) {
     super(props);
@@ -73,10 +79,17 @@ class CreateSession extends Component {
 
   renderInput = field => (
     <TextField
+      id={field.label === 'Location' ? 'autocomplete' : null}
+      multiLine={field.name === 'description' ? true : false}
+      rows={field.name === 'description' ? 5 : 1}
+      rowsMax={field.name === 'description' ? 5 : 1}
+      placeholder=""
       autoComplete="off"
       className={field.className}
+      hintStyle={hintStyle}
       hintText={field.label}
       type={field.type}
+      underlineShow={false}
       fullWidth={true}
       errorText={field.meta.touched ? field.meta.error : null}
       {...field.input}
@@ -87,7 +100,10 @@ class CreateSession extends Component {
     const today = new Date();
     return (
       <DatePicker
-        hintText={moment().format('ddd MMM Do YYYY')}
+        className={field.className}
+        hintText="Select Date"
+        hintStyle={hintStyle}
+        underlineShow={false}
         minDate={today}
         errorText={field.meta.touched && field.meta.error}
         onChange={(event, date) =>
@@ -101,8 +117,11 @@ class CreateSession extends Component {
   renderTimePicker = field => {
     return (
       <TimePicker
-        hintText="12:00 AM "
+        className={field.className}
+        hintText="Select Time"
+        hintStyle={hintStyle}
         minutesStep={5}
+        underlineShow={false}
         errorText={field.meta.touched && field.meta.error}
         onChange={(event, time) =>
           field.input.onChange(moment(time).format('hh:mm A'))
@@ -114,6 +133,7 @@ class CreateSession extends Component {
 
   onSubmit = values => {
     const geocoder = new google.maps.Geocoder();
+    p;
     this.state.error ? null : this.setState({ error: '' });
     geocoder.geocode({ address: this.state.address }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
@@ -171,7 +191,7 @@ class CreateSession extends Component {
     const basicInfo = [
       {
         className: 'Field',
-        label: 'Title',
+        label: 'Session Title',
         name: 'title',
         type: 'text',
         component: this.renderInput
@@ -185,14 +205,7 @@ class CreateSession extends Component {
       },
       {
         className: 'Field',
-        label: 'Description',
-        name: 'description',
-        type: 'text',
-        component: this.renderInput
-      },
-      {
-        className: 'Field',
-        label: 'Capacity',
+        label: 'Session Capacity',
         name: 'capacity',
         type: 'number',
         component: this.renderInput
@@ -208,41 +221,54 @@ class CreateSession extends Component {
         label: '',
         name: 'time',
         component: this.renderTimePicker
+      },
+      {
+        className: 'Field',
+        label: 'Location',
+        name: 'location',
+        component: this.renderInput
+      },
+      {
+        className: 'Field',
+        label: 'Session Description...',
+        name: 'description',
+        type: 'text',
+        component: this.renderInput
       }
     ];
     return (
       <div className="Create-Session-Container">
         <div className="Create-Session-Box">
-          <h3> Create A Study Session </h3>
+          <h1> Create Session </h1>
           <form
             className="Create-Session-Form"
             onSubmit={handleSubmit(this.onSubmit.bind(this))}
           >
-            <div className="inputWrapper  ">
-              {basicInfo.map((item, i) => (
-                <Field
-                  key={i}
-                  className={item.className}
-                  label={item.label}
-                  name={item.name}
-                  type={item.type}
-                  component={item.component}
-                />
-              ))}
-              <TextField
-                autoComplete="off"
-                placeholder=""
-                hintText={'Address'}
-                className="Field"
-                id="autocomplete"
-                type="text"
-                fullWidth={true}
+            {basicInfo.map((item, i) => (
+              <Field
+                key={i}
+                className={item.className}
+                label={item.label}
+                name={item.name}
+                type={item.type}
+                component={item.component}
               />
-              <p> {this.state.error} </p>
-              <button type="submit" className="Create-Session-Submit">
-                Submit
-              </button>
-            </div>
+            ))}
+            {/* <TextField
+              autoComplete="off"
+              
+              hintText={'Location'}
+              hintStyle={hintStyle}
+              className="Field"
+              id="autocomplete"
+              type="text"
+              underlineShow={false}
+              fullWidth={true}
+            /> */}
+            <p> {this.state.error} </p>
+            <button type="submit" className="Create-Session-Submit">
+              Submit
+            </button>
           </form>
         </div>
       </div>
