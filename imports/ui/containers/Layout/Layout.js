@@ -35,12 +35,12 @@ class Header extends Component {
         </h1>
         <div className="Header-Button-Div">
           <button className="Header-profile">
-            <i class="fas fa-user" />
+            <i className="fas fa-user" />
 
             {/* <Link to={'/user/:id'}>My Profile</Link>Switch to history.push when you get userid */}
           </button>
           <button onClick={this.handleSignOut} className="Header-signout">
-            <i class="fas fa-sign-out-alt" />
+            <i className="fas fa-sign-out-alt" />
           </button>
         </div>
       </div>
