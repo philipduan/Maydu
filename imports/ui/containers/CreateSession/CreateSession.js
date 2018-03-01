@@ -1,62 +1,24 @@
-//AIzaSyDPLX_ninGSSp3B9Jk0iKSyFkhyco86hVc place
-//AIzaSyBZwHx5OGDGyYJm0oHQksjYKrrtv-hoSe8 map
-//AIzaSyDpRfCNlC3iEZlflpSlhrUtxVBZODM1B4c js
 import React, { Component } from 'react';
-import CreateSessionFields from './CreateSessionFields';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Field, reduxForm } from 'redux-form';
+import { image, helpers } from 'faker';
+import _ from 'lodash';
 import moment from 'moment';
+import { withTracker } from 'meteor/react-meteor-data';
 import './styles.css';
+import { withRouter } from 'react-router-dom';
 
 class CreateSession extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      courseCode: '',
-      capacity: '',
-      date: '',
-      time: '',
       error: ''
     };
   }
-
-  // //Setting state of user email and passworld on each keystroke
-  // handleInputChange = event => {
-  //   event.preventDefault();
-  //   const value = event.target.value;
-  //   const name = event.target.name;
-  //   console.log(name, value);
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
-
-  // handleDatePicker = (event, date) => {
-  //   this.setState({
-  //     date: moment(date).format('YYYY-MM-DD')
-  //   });
-  // };
-
-  // handleTimePicker = (event, time) => {
-  //   this.setState({
-  //     time: moment(time).format('hh:mm A')
-  //   });
-  // };
-
-  // //Checking DB if the user and password match - if no user exists or their password is inncorect, throw an error
-  // handleSignInSubmit = event => {
-  //   event.preventDefault();
-
-  //   Meteor.loginWithPassword(this.state.email, this.state.password, err => {
-  //     this.setState({ error: `${err.reason}, please try again!` });
-  //   });
-  //   Meteor.loggingIn();
-  // };
 
   renderInput = field => (
     <div className="inputWrapper  ">
@@ -73,21 +35,16 @@ class CreateSession extends Component {
     </div>
   );
 
-  renderDatePicker = ({
-    input,
-    meta: { touched, error },
-    children,
-    ...custom
-  }) => {
+  renderDatePicker = field => {
     const today = new Date();
     return (
       <div className="inputWrapper">
         <DatePicker
-          hintText={moment().format('YYYY-MM-DD')}
+          hintText={moment().format('ddd MMM Do YYYY')}
           minDate={today}
-          errorText={touched && error}
+          errorText={field.meta.touched && field.meta.error}
           onChange={(event, date) =>
-            input.onChange(moment(date).format('YYYY-MM-DD'))
+            field.input.onChange(moment(date).format('ddd MMM Do YYYY'))
           }
           fullWidth={true}
         />
@@ -95,20 +52,15 @@ class CreateSession extends Component {
     );
   };
 
-  renderTimePicker = ({
-    input,
-    meta: { touched, error },
-    children,
-    ...custom
-  }) => {
+  renderTimePicker = field => {
     return (
       <div className="inputWrapper  ">
         <TimePicker
           hintText="12:00 AM "
           minutesStep={5}
-          errorText={touched && error}
+          errorText={field.meta.touched && field.meta.error}
           onChange={(event, time) =>
-            input.onChange(moment(time).format('hh:mm A'))
+            field.input.onChange(moment(time).format('hh:mm A'))
           }
           fullWidth={true}
         />
@@ -116,45 +68,56 @@ class CreateSession extends Component {
     );
   };
 
-  renderSelectField = ({
-    className,
-    input,
-    label,
-    meta: { touched, error },
-    children,
-    ...custom
-  }) => (
+  renderSelectField = field => (
     <div className="inputWrapper  ">
       <SelectField
-        className={className}
-        floatingLabelText={label}
-        errorText={touched && error}
-        {...input}
-        onChange={(event, index, value) => input.onChange(value)}
-        children={children}
-        {...custom}
+        className={field.className}
+        floatingLabelText={field.label}
+        errorText={field.meta.touched && field.metaerror}
+        {...field.input}
+        onChange={(event, index, value) => field.input.onChange(value)}
+        children={field.children}
+        fullWidth={true}
       />
     </div>
   );
 
-  onSubmit(values) {
-    // console.table({
-    //   ...values,
-    //   courseCode: values.courseCode.replace(/\s/g, '').toUpperCase()
-    // });
+  onSubmit = values => {
     const geocoder = new google.maps.Geocoder();
     const address = `${values.street},${values.city},${values.province},${
       values.postalCode
     }`;
+    this.state.error ? null : this.setState({ error: '' });
     geocoder.geocode({ address }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
+        this.setState({ error: '' });
+        const { name, email, phone } = helpers.createCard(); //generates a full profile from faker library
+        const simpleInstitutionArray = [
+          'University of Toronto',
+          'Ryerson',
+          'RED'
+        ];
         values = {
           ...values,
+          courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
           exactGeoCode: {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           },
-          address
+          address,
+          institution: _.sample(simpleInstitutionArray),
+          sessionCreator: {
+            _id: `${Math.floor(
+              Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
+            ) + 1}`,
+            profile: {
+              fullName: name,
+              photo: email,
+              major: name,
+              year: name,
+              bio: name
+            }
+          }
         };
         fetch(
           `https://roads.googleapis.com/v1/nearestRoads?key=AIzaSyDpRfCNlC3iEZlflpSlhrUtxVBZODM1B4c&points=${
@@ -171,23 +134,29 @@ class CreateSession extends Component {
                 lng: data.snappedPoints[0].location.longitude
               }
             };
-            console.log(
-              'exact address',
-              `https://maps.google.com/maps?q=${values.exactGeoCode.lat},${
-                values.exactGeoCode.lng
-              }`
-            );
-            console.log(
-              'near address',
-              `https://maps.google.com/maps?q=${
-                values.closestIntersectionGeoCode.lat
-              },${values.closestIntersectionGeoCode.lng}`
-            );
+            // console.log(
+            //   'exact address',
+            //   `https://maps.google.com/maps?q=${values.exactGeoCode.lat},${
+            //     values.exactGeoCode.lng
+            //   }`
+            // );
+            // console.log(
+            //   'near address',
+            //   `https://maps.google.com/maps?q=${
+            //     values.closestIntersectionGeoCode.lat
+            //   },${values.closestIntersectionGeoCode.lng}`
+            // );
+
+            console.log('values', values);
+            Meteor.call('sessions.saveNewSession', values);
+            this.props.history.push('/sessions');
           })
           .catch(err => console.log(err));
+      } else {
+        this.setState({ error: 'No result found. Please verify your address' });
       }
     });
-  }
+  };
 
   menuItems = provinces => {
     return provinces.map(province => (
@@ -214,6 +183,72 @@ class CreateSession extends Component {
       { key: 10, primaryText: 'SK', value: 'Saskatchewan' },
       { key: 11, primaryText: 'YK', value: 'Yukon' }
     ];
+    const basicInfo = [
+      {
+        className: 'Field',
+        label: 'Title',
+        name: 'title',
+        type: 'text',
+        component: this.renderInput
+      },
+      {
+        className: 'Field',
+        label: 'Course Code',
+        name: 'courseCode',
+        type: 'text',
+        component: this.renderInput
+      },
+      {
+        className: 'Field',
+        label: 'Description',
+        name: 'description',
+        type: 'text',
+        component: this.renderInput
+      },
+      {
+        className: 'Field',
+        label: 'Capacity',
+        name: 'capacity',
+        type: 'number',
+        component: this.renderInput
+      },
+      {
+        className: 'Field DatePicker',
+        label: '',
+        name: 'date',
+        component: this.renderDatePicker
+      },
+      {
+        className: 'Field TimePicker',
+        label: '',
+        name: 'time',
+        component: this.renderTimePicker
+      },
+      {
+        className: 'Field',
+        label: 'Street Address',
+        name: 'street',
+        component: this.renderInput
+      },
+      {
+        className: 'Field',
+        label: 'City',
+        name: 'city',
+        component: this.renderInput
+      },
+      {
+        className: 'Field',
+        label: 'Province',
+        name: 'province',
+        component: this.renderSelectField
+      },
+      {
+        className: 'Field',
+        label: 'Postal Code',
+        name: 'postalCode',
+        component: this.renderInput
+      }
+    ];
     return (
       <div className="Create-Session-Container">
         <div className="Create-Session-Box">
@@ -222,83 +257,31 @@ class CreateSession extends Component {
             className="Create-Session-Form"
             onSubmit={handleSubmit(this.onSubmit.bind(this))}
           >
-            <Field
-              className="Field"
-              label="Title"
-              name="title"
-              type="text"
-              component={this.renderInput}
-            />
-            <Field
-              className="Field"
-              label="Course Code"
-              name="courseCode"
-              type="text"
-              component={this.renderInput}
-            />
-            <Field
-              className="Field"
-              label="Description"
-              name="description"
-              type="text"
-              component={this.renderInput}
-            />
-            <Field
-              className="Field"
-              label="Capacity"
-              name="capacity"
-              type="number"
-              component={this.renderInput}
-            />
-            <Field
-              name="date"
-              className="Field DatePicker"
-              component={this.renderDatePicker}
-            />
-
-            <Field
-              name="time"
-              className="Field TimePicker"
-              component={this.renderTimePicker}
-            />
-
-            <Field
-              className="Field"
-              label="Street Adress"
-              name="street"
-              type="text"
-              component={this.renderInput}
-            />
-
-            <Field
-              className="Field"
-              label="City"
-              name="city"
-              type="text"
-              component={this.renderInput}
-            />
-
-            <Field
-              className="Field"
-              label="Province"
-              name="province"
-              component={this.renderSelectField}
-            >
-              {this.menuItems(provinces)}
-            </Field>
-
-            <Field
-              className="Field"
-              label="Postal Code"
-              name="postalCode"
-              type="text"
-              component={this.renderInput}
-            />
-
+            {basicInfo.map((item, i) => {
+              return item.name !== 'province' ? (
+                <Field
+                  key={i}
+                  className={item.className}
+                  label={item.label}
+                  name={item.name}
+                  type={item.type}
+                  component={item.component}
+                />
+              ) : (
+                <Field
+                  key={i}
+                  className={item.className}
+                  label={item.label}
+                  name={item.name}
+                  component={item.component}
+                >
+                  {this.menuItems(provinces)}
+                </Field>
+              );
+            })}
             <p> {this.state.error} </p>
             <button type="submit" className="Sign-In-Submit">
-              {' '}
-              Submit{' '}
+              Submit
             </button>
           </form>
         </div>
@@ -306,29 +289,32 @@ class CreateSession extends Component {
     );
   }
 }
+
 function validate(values) {
   const errors = {};
   var postalCode = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+  courseCode = /^[a-zA-Z0-9 ]+$/;
   const address = `${values.street},${values.city},${values.province},${
     values.postalCode
   }`;
-  console.log('address', address);
-  // courseCode = /^[a-zA-Z0-9 ]+$/;
-  // if (!values.title) {
-  //   errors.title = 'Please enter a title';
-  // }
-  // if (!courseCode.test(values.courseCode)) {
-  //   errors.courseCode = 'Only letters and numbers';
-  // }
-  // if (!values.capacity) {
-  //   errors.capacity = 'Please enter a number';
-  // }
-  // if (!values.date) {
-  //   errors.date = 'Please choose a date';
-  // }
-  // if (!values.time) {
-  //   errors.time = 'Please choose a time';
-  // }
+  if (!values.title) {
+    errors.title = 'Please enter a title';
+  }
+  if (!values.courseCode) {
+    errors.courseCode = 'Please enter a course code';
+  }
+  if (!courseCode.test(values.courseCode)) {
+    errors.courseCode = 'Only letters and numbers';
+  }
+  if (!values.capacity) {
+    errors.capacity = 'Please enter a number';
+  }
+  if (!values.date) {
+    errors.date = 'Please choose a date';
+  }
+  if (!values.time) {
+    errors.time = 'Please choose a time';
+  }
   if (!values.street) {
     errors.street = 'This field is required';
   }
@@ -340,21 +326,21 @@ function validate(values) {
   }
   if (!values.postalCode) {
     errors.postalCode = 'This field is required';
-  } else if (!address.includes(undefined)) {
-    const geocoder = new google.maps.Geocoder();
-    errors.postalCode = geocoder.geocode({ address }, (results, status) => {
-      console.log(results, status);
-      if (status != google.maps.GeocoderStatus.OK) {
-        return 'No result found. Please verify your address';
-      }
-    });
-  } else if (!postalCode.test(values.postalCode)) {
+  }
+  if (!postalCode.test(values.postalCode)) {
     errors.postalCode = 'Please enter a valid postal code';
   }
   return errors;
 }
 
-export default reduxForm({
-  validate: validate,
-  form: 'createSessionForm'
-})(CreateSession);
+export default (CreateSession = withTracker(() => {
+  return {
+    currentUser: Meteor.user(),
+    currentId: Meteor.userId()
+  };
+})(
+  reduxForm({
+    validate: validate,
+    form: 'createSessionForm'
+  })(withRouter(CreateSession))
+));
