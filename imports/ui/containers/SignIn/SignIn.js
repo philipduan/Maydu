@@ -39,39 +39,30 @@ class SignIn extends Component {
   render() {
     return (
       <div className="Login-Container">
-        <div className="Login-Box">
-          <h3> MayDu </h3>
-          <p className="TagLine">
-            {' '}
-            Where students connect with fellow classmates{' '}
-          </p>
-          <form onSubmit={this.handleSignInSubmit}>
-            <input
-              onChange={this.handleEmailAndPasswordState}
-              ref={input => (this.emailInput = input)}
-              type="email"
-              placeholder="Email Address"
-              className="Email-Input"
-            />
-            <input
-              onChange={this.handleEmailAndPasswordState}
-              ref={input => (this.passwordInput = input)}
-              type="password"
-              placeholder="Password"
-              className="Password-Input"
-            />
-            <p> {this.state.error} </p>
-            <button type="submit" className="Sign-In-Submit">
-              {' '}
-              Sign In{' '}
-            </button>
-          </form>
-          <div className="Create-Account-SignIn">
-            <p> Don't have an account? </p>
-            <button type="submit" className="Create-Account-Submit">
-              <Link to={`/signup`}> Create An Account </Link>
-            </button>
-          </div>
+        <h3> MayDu </h3>
+        <form onSubmit={this.handleSignInSubmit}>
+          <input
+            onChange={this.handleEmailAndPasswordState}
+            ref={input => (this.emailInput = input)}
+            type="email"
+            placeholder="Email Address"
+            className="Email-Input"
+          />
+          <input
+            onChange={this.handleEmailAndPasswordState}
+            ref={input => (this.passwordInput = input)}
+            type="password"
+            placeholder="Password"
+            className="Password-Input"
+          />
+          <p id="signin-error-message"> {this.state.error} </p>
+          <button type="submit" className="Sign-In-Submit">
+            Sign In
+          </button>
+        </form>
+        <div className="Create-Account-SignIn">
+          <p> Don't have an account? </p>
+          <Link className="Create-Account" to={`/signup`}> Sign Up Now </Link>
         </div>
       </div>
     );
