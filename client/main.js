@@ -4,10 +4,10 @@ import './main.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SignUp from '../imports/ui/containers/SignUp/SignUp';
 import SignIn from '../imports/ui/containers/SignIn/SignIn';
-
 import Profile from '../imports/ui/containers/Profile/Profile';
 import CreateSession from '../imports/ui/containers/CreateSession';
 import SessionContainer from '../imports/ui/containers/SessionFeed/SessionContainer.js';
+import SessionExpand from '../imports/ui/containers/SessionFeed/SessionExpand.js';
 import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -21,6 +21,7 @@ class Maydu extends Component {
             <Switch>
               {/* <Layout> */}
               <Route exact path="/sessions" component={SessionContainer} />
+              <Route path="/sessions/:id" component={SessionExpand} />
               <Route exact path="/" component={SignIn} />
               <Route path="/signup" component={SignUp} />
               <Route path="/createsession" component={CreateSession} />
