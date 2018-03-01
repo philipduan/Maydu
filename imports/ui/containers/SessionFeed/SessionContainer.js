@@ -12,7 +12,7 @@ import Header from '../Layout/Layout';
 PER_PAGE = 20;
 
 // Find unique values in an array
-Array.prototype.unique = function () {
+Array.prototype.unique = function() {
   var arr = [];
   for (var i = 0; i < this.length; i++) {
     if (!arr.includes(this[i])) {
@@ -80,9 +80,6 @@ class SessionContainer extends Component {
 
     return (
       <div className="sessionContainer">
-        <div className="Header-Holder">
-          <Header />
-        </div>
         <h1 className="sessionHeader">Sessions</h1>
         <SessionFilter
           handleFilter={this.handleFilter}
