@@ -46,7 +46,7 @@ Meteor.methods({
           institution: Meteor.user().profile.institution
         }).fetch();
       }
-
+//nothing
       console.log('query is def');
       console.log('All Sessions ', Sessions.find({}).fetch());
       return Sessions.find({
