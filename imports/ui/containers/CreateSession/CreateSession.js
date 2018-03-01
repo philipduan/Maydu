@@ -4,33 +4,36 @@ import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import { Field, reduxForm } from 'redux-form';
 import { image, helpers } from 'faker';
-import _ from 'lodash';
 import moment from 'moment';
 import { withTracker } from 'meteor/react-meteor-data';
-import './styles.css';
 import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
+import './styles.css';
 
 const styles = {
   general: {
+    backgroundColor: 'white',
     borderRadius: '5px',
     margin: '10px 0',
-    backgroundColor: 'white',
     padding: '0 10px'
   },
   hintStyle: {
-    fontFamily: 'Montserrat, sans-serif',
     color: '#546E7A',
+    fontFamily: 'Montserrat, sans-serif',
     fontStyle: 'italic',
     fontWeight: '550'
   }
 };
+
 class CreateSession extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      error: '',
       address: '',
-      addressForm: {}
+      addressForm: {},
+      error: '',
+      geoCode: {}
     };
   }
 
@@ -42,11 +45,11 @@ class CreateSession extends Component {
         typeof window.google !== 'undefined' &&
         typeof window.google.maps !== 'undefined'
       ) {
-        console.log('i am here');
         const autocomplete = new window.google.maps.places.Autocomplete(
           input,
           options
         );
+
         autocomplete.addListener('place_changed', () => {
           const selectedPlace = autocomplete.getPlace();
           const componentForm = {
@@ -68,6 +71,7 @@ class CreateSession extends Component {
                 addressComponent[componentForm[addressType]];
             }
           }
+
           // input.value = selectedPlace.name // Code injection risk (check doc)
           input.value = `${selectedSuggest.street_number} ${
             selectedSuggest.route
@@ -76,7 +80,11 @@ class CreateSession extends Component {
           }, ${selectedSuggest.postal_code}`;
           this.setState({
             address: input.value,
-            addressForm: selectedSuggest
+            addressForm: selectedSuggest,
+            geoCode: {
+              lat: selectedPlace.geometry.location.lat(),
+              lng: selectedPlace.geometry.location.lng()
+            }
           });
         });
       } else {
@@ -142,58 +150,50 @@ class CreateSession extends Component {
   };
 
   onSubmit = values => {
-    const geocoder = new google.maps.Geocoder();
     this.state.error ? null : this.setState({ error: '' });
-    geocoder.geocode({ address: this.state.address }, (results, status) => {
-      if (status === google.maps.GeocoderStatus.OK) {
-        this.setState({ error: '' });
-        const { name, email, phone } = helpers.createCard(); //generates a full profile from faker library
-        const simpleInstitutionArray = [
-          'University of Toronto',
-          'Ryerson',
-          'RED'
-        ];
-        values = {
-          ...values,
-          courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
-          exactGeoCode: {
-            lat: results[0].geometry.location.lat(),
-            lng: results[0].geometry.location.lng()
-          },
-          address: this.state.address,
-          addressForm: this.state.addressForm,
-          attending: [this.props.currentUserId],
-          pending: [],
-          institution: _.sample(simpleInstitutionArray),
-          sessionCreator: {
-            _id: `${Math.floor(
-              Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
-            ) + 1}`,
-            profile: {
-              fullName: name,
-              photo: email,
-              major: name,
-              year: name,
-              bio: name
-            }
+    if (this.state.address) {
+      const { name, email, phone } = helpers.createCard(); //generates a full profile from faker library
+      const simpleInstitutionArray = [
+        'University of Toronto',
+        'Ryerson',
+        'RED'
+      ];
+      values = {
+        ...values,
+        courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
+        geoCode: this.state.geoCode,
+        address: this.state.address,
+        addressForm: this.state.addressForm,
+        attending: [this.props.currentUserId],
+        pending: [],
+        institution: _.sample(simpleInstitutionArray),
+        sessionCreator: {
+          _id: `${Math.floor(
+            Math.random() * (Math.floor(9999) - Math.ceil(1000) + 1)
+          ) + 1}`,
+          profile: {
+            fullName: name,
+            photo: email,
+            major: name,
+            year: name,
+            bio: name
           }
-        };
-        console.log(
-          'exact address',
-          `https://maps.google.com/maps?q=${values.exactGeoCode.lat},${
-            values.exactGeoCode.lng
-          }`
-        );
-        delete values.location;
-        console.log('values', values);
-        // Meteor.call('sessions.saveNewSession', values);
-        // this.props.history.push('/sessions');
-      } else {
-        this.setState({
-          error: 'No result found. Please verify your address'
-        });
-      }
-    });
+        }
+      };
+      // console.log(
+      //   'exact address',
+      //   `https://maps.google.com/maps?q=${values.geoCode.lat},${
+      //     values.geoCode.lng
+      //   }`
+      // );
+      delete values.location;
+      Meteor.call('sessions.saveNewSession', values);
+      this.props.history.push('/sessions');
+    } else {
+      this.setState({
+        error: 'No result found. Please verify your address'
+      });
+    }
   };
 
   render() {
