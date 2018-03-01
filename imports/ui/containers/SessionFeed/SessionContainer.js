@@ -76,8 +76,6 @@ class SessionContainer extends Component {
     console.log();
     const { sessions } = this.state;
 
-    // console.log('sessionmap', sessionMap);
-
     return (
       <div className="sessionContainer">
         <h1 className="sessionHeader">Sessions</h1>
