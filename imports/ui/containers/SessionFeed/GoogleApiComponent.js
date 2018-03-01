@@ -14,6 +14,5 @@ export const Location = withGoogleMap(props => (
     {props.isMarkerShown && (
       <Marker position={{ lat: props.lat, lng: props.lng }} />
     )}
-    {console.log('gooooogle', props)}
   </GoogleMap>
 ));
