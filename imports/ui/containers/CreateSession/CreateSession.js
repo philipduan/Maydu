@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import { Field, reduxForm } from 'redux-form';
 import { image, helpers } from 'faker';
 import _ from 'lodash';
@@ -12,83 +10,132 @@ import { withTracker } from 'meteor/react-meteor-data';
 import './styles.css';
 import { withRouter } from 'react-router-dom';
 
+const hintStyle = {
+  fontFamily: 'Montserrat, sans-serif',
+  fontStyle: 'italic',
+  fontWeight: 'bold'
+};
+
 class CreateSession extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: ''
+      error: '',
+      address: '',
+      addressForm: {}
     };
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      const input = document.getElementById('autocomplete');
+      const options = {};
+      if (
+        typeof window.google !== 'undefined' &&
+        typeof window.google.maps !== 'undefined'
+      ) {
+        console.log('i am here');
+        const autocomplete = new window.google.maps.places.Autocomplete(
+          input,
+          options
+        );
+        autocomplete.addListener('place_changed', () => {
+          const selectedPlace = autocomplete.getPlace();
+          const componentForm = {
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+          };
+
+          // Get each component of the address from the place details
+          // and fill the corresponding field on the form.
+          let selectedSuggest = {};
+          for (let addressComponent of selectedPlace.address_components) {
+            const addressType = addressComponent.types[0];
+            if (componentForm[addressType]) {
+              selectedSuggest[addressType] =
+                addressComponent[componentForm[addressType]];
+            }
+          }
+          // input.value = selectedPlace.name // Code injection risk (check doc)
+          input.value = `${selectedSuggest.street_number} ${
+            selectedSuggest.route
+          }, ${selectedSuggest.locality}, ${
+            selectedSuggest.administrative_area_level_1
+          }, ${selectedSuggest.postal_code}`;
+          this.setState({
+            address: input.value,
+            addressForm: selectedSuggest
+          });
+        });
+      } else {
+        console.error('Google API object is not defined');
+      }
+    }, 200);
+  }
+
   renderInput = field => (
-    <div className="inputWrapper  ">
-      <TextField
-        autoComplete="off"
-        className={field.className}
-        hintText={field.label}
-        name={field.name}
-        type={field.type}
-        fullWidth={true}
-        errorText={field.meta.touched ? field.meta.error : null}
-        {...field.input}
-      />
-    </div>
+    <TextField
+      id={field.label === 'Location' ? 'autocomplete' : null}
+      multiLine={field.name === 'description' ? true : false}
+      rows={field.name === 'description' ? 5 : 1}
+      rowsMax={field.name === 'description' ? 5 : 1}
+      placeholder=""
+      autoComplete="off"
+      className={field.className}
+      hintStyle={hintStyle}
+      hintText={field.label}
+      type={field.type}
+      underlineShow={false}
+      fullWidth={true}
+      errorText={field.meta.touched ? field.meta.error : null}
+      {...field.input}
+    />
   );
 
   renderDatePicker = field => {
     const today = new Date();
     return (
-      <div className="inputWrapper">
-        <DatePicker
-          hintText={moment().format('ddd MMM Do YYYY')}
-          minDate={today}
-          errorText={field.meta.touched && field.meta.error}
-          onChange={(event, date) =>
-            field.input.onChange(moment(date).format('ddd MMM Do YYYY'))
-          }
-          fullWidth={true}
-        />
-      </div>
+      <DatePicker
+        className={field.className}
+        hintText="Select Date"
+        hintStyle={hintStyle}
+        underlineShow={false}
+        minDate={today}
+        errorText={field.meta.touched && field.meta.error}
+        onChange={(event, date) =>
+          field.input.onChange(moment(date).format('ddd MMM Do YYYY'))
+        }
+        fullWidth={true}
+      />
     );
   };
 
   renderTimePicker = field => {
     return (
-      <div className="inputWrapper  ">
-        <TimePicker
-          hintText="12:00 AM "
-          minutesStep={5}
-          errorText={field.meta.touched && field.meta.error}
-          onChange={(event, time) =>
-            field.input.onChange(moment(time).format('hh:mm A'))
-          }
-          fullWidth={true}
-        />
-      </div>
+      <TimePicker
+        className={field.className}
+        hintText="Select Time"
+        hintStyle={hintStyle}
+        minutesStep={5}
+        underlineShow={false}
+        errorText={field.meta.touched && field.meta.error}
+        onChange={(event, time) =>
+          field.input.onChange(moment(time).format('hh:mm A'))
+        }
+        fullWidth={true}
+      />
     );
   };
 
-  renderSelectField = field => (
-    <div className="inputWrapper  ">
-      <SelectField
-        className={field.className}
-        floatingLabelText={field.label}
-        errorText={field.meta.touched && field.metaerror}
-        {...field.input}
-        onChange={(event, index, value) => field.input.onChange(value)}
-        children={field.children}
-        fullWidth={true}
-      />
-    </div>
-  );
-
   onSubmit = values => {
     const geocoder = new google.maps.Geocoder();
-    const address = `${values.street},${values.city},${values.province},${
-      values.postalCode
-    }`;
+    p;
     this.state.error ? null : this.setState({ error: '' });
-    geocoder.geocode({ address }, (results, status) => {
+    geocoder.geocode({ address: this.state.address }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
         this.setState({ error: '' });
         const { name, email, phone } = helpers.createCard(); //generates a full profile from faker library
@@ -104,7 +151,10 @@ class CreateSession extends Component {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           },
-          address,
+          address: this.state.address,
+          addressForm: this.state.addressForm,
+          attending: [this.props.currentUserId],
+          pending: [],
           institution: _.sample(simpleInstitutionArray),
           sessionCreator: {
             _id: `${Math.floor(
@@ -119,74 +169,29 @@ class CreateSession extends Component {
             }
           }
         };
-        fetch(
-          `https://roads.googleapis.com/v1/nearestRoads?key=AIzaSyDpRfCNlC3iEZlflpSlhrUtxVBZODM1B4c&points=${
-            values.exactGeoCode.lat
-          },${values.exactGeoCode.lng}`
-        )
-          .then(res => res.json())
-          .then(data => {
-            console.log('data', data);
-            values = {
-              ...values,
-              closestIntersectionGeoCode: {
-                lat: data.snappedPoints[0].location.latitude,
-                lng: data.snappedPoints[0].location.longitude
-              }
-            };
-            // console.log(
-            //   'exact address',
-            //   `https://maps.google.com/maps?q=${values.exactGeoCode.lat},${
-            //     values.exactGeoCode.lng
-            //   }`
-            // );
-            // console.log(
-            //   'near address',
-            //   `https://maps.google.com/maps?q=${
-            //     values.closestIntersectionGeoCode.lat
-            //   },${values.closestIntersectionGeoCode.lng}`
-            // );
-
-            console.log('values', values);
-            Meteor.call('sessions.saveNewSession', values);
-            this.props.history.push('/sessions');
-          })
-          .catch(err => console.log(err));
+        console.log(
+          'exact address',
+          `https://maps.google.com/maps?q=${values.exactGeoCode.lat},${
+            values.exactGeoCode.lng
+          }`
+        );
+        console.log('values', values);
+        Meteor.call('sessions.saveNewSession', values);
+        this.props.history.push('/sessions');
       } else {
-        this.setState({ error: 'No result found. Please verify your address' });
+        this.setState({
+          error: 'No result found. Please verify your address'
+        });
       }
     });
   };
 
-  menuItems = provinces => {
-    return provinces.map(province => (
-      <MenuItem
-        key={province.key}
-        value={province.value}
-        primaryText={province.primaryText}
-      />
-    ));
-  };
-
   render() {
     const { handleSubmit } = this.props;
-    const provinces = [
-      { key: 1, primaryText: 'AB', value: 'Alberta' },
-      { key: 2, primaryText: 'BC', value: 'British Columbia' },
-      { key: 3, primaryText: 'MB', value: 'Manitoba' },
-      { key: 4, primaryText: 'NB', value: 'New Brunswick' },
-      { key: 5, primaryText: 'NL', value: 'NewFoundland and Labrador' },
-      { key: 6, primaryText: 'NS', value: 'Nova Scotia' },
-      { key: 7, primaryText: 'ON', value: 'Ontario' },
-      { key: 8, primaryText: 'PE', value: 'Prince Edward Island' },
-      { key: 9, primaryText: 'QC', value: 'Quebec' },
-      { key: 10, primaryText: 'SK', value: 'Saskatchewan' },
-      { key: 11, primaryText: 'YK', value: 'Yukon' }
-    ];
     const basicInfo = [
       {
         className: 'Field',
-        label: 'Title',
+        label: 'Session Title',
         name: 'title',
         type: 'text',
         component: this.renderInput
@@ -200,14 +205,7 @@ class CreateSession extends Component {
       },
       {
         className: 'Field',
-        label: 'Description',
-        name: 'description',
-        type: 'text',
-        component: this.renderInput
-      },
-      {
-        className: 'Field',
-        label: 'Capacity',
+        label: 'Session Capacity',
         name: 'capacity',
         type: 'number',
         component: this.renderInput
@@ -226,61 +224,49 @@ class CreateSession extends Component {
       },
       {
         className: 'Field',
-        label: 'Street Address',
-        name: 'street',
+        label: 'Location',
+        name: 'location',
         component: this.renderInput
       },
       {
         className: 'Field',
-        label: 'City',
-        name: 'city',
-        component: this.renderInput
-      },
-      {
-        className: 'Field',
-        label: 'Province',
-        name: 'province',
-        component: this.renderSelectField
-      },
-      {
-        className: 'Field',
-        label: 'Postal Code',
-        name: 'postalCode',
+        label: 'Session Description...',
+        name: 'description',
+        type: 'text',
         component: this.renderInput
       }
     ];
     return (
       <div className="Create-Session-Container">
         <div className="Create-Session-Box">
-          <h3> Create A Study Session </h3>
+          <h1> Create Session </h1>
           <form
             className="Create-Session-Form"
             onSubmit={handleSubmit(this.onSubmit.bind(this))}
           >
-            {basicInfo.map((item, i) => {
-              return item.name !== 'province' ? (
-                <Field
-                  key={i}
-                  className={item.className}
-                  label={item.label}
-                  name={item.name}
-                  type={item.type}
-                  component={item.component}
-                />
-              ) : (
-                <Field
-                  key={i}
-                  className={item.className}
-                  label={item.label}
-                  name={item.name}
-                  component={item.component}
-                >
-                  {this.menuItems(provinces)}
-                </Field>
-              );
-            })}
+            {basicInfo.map((item, i) => (
+              <Field
+                key={i}
+                className={item.className}
+                label={item.label}
+                name={item.name}
+                type={item.type}
+                component={item.component}
+              />
+            ))}
+            {/* <TextField
+              autoComplete="off"
+              
+              hintText={'Location'}
+              hintStyle={hintStyle}
+              className="Field"
+              id="autocomplete"
+              type="text"
+              underlineShow={false}
+              fullWidth={true}
+            /> */}
             <p> {this.state.error} </p>
-            <button type="submit" className="Sign-In-Submit">
+            <button type="submit" className="Create-Session-Submit">
               Submit
             </button>
           </form>
@@ -292,11 +278,7 @@ class CreateSession extends Component {
 
 function validate(values) {
   const errors = {};
-  var postalCode = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
   courseCode = /^[a-zA-Z0-9 ]+$/;
-  const address = `${values.street},${values.city},${values.province},${
-    values.postalCode
-  }`;
   if (!values.title) {
     errors.title = 'Please enter a title';
   }
@@ -315,28 +297,13 @@ function validate(values) {
   if (!values.time) {
     errors.time = 'Please choose a time';
   }
-  if (!values.street) {
-    errors.street = 'This field is required';
-  }
-  if (!values.city) {
-    errors.city = 'This field is required';
-  }
-  if (!values.province) {
-    errors.province = 'This field is required';
-  }
-  if (!values.postalCode) {
-    errors.postalCode = 'This field is required';
-  }
-  if (!postalCode.test(values.postalCode)) {
-    errors.postalCode = 'Please enter a valid postal code';
-  }
   return errors;
 }
 
 export default (CreateSession = withTracker(() => {
   return {
     currentUser: Meteor.user(),
-    currentId: Meteor.userId()
+    currentUserId: Meteor.userId()
   };
 })(
   reduxForm({

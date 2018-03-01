@@ -2,7 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import _ from 'lodash';
 export const Sessions = new Mongo.Collection('sessions');
 
-const simpleInstitutionArray = ['University of Toronto', 'Ryerson'];
+const simpleInstitutionArray = ['University of Toronto', 'Ryerson', 'RED'];
 const sample = _.sample(simpleInstitutionArray);
 
 Sessions.schema = new SimpleSchema({

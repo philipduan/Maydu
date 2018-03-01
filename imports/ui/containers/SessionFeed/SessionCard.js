@@ -10,6 +10,7 @@ import {
 import FlatButton from 'material-ui/FlatButton';
 import './style.css';
 import { withRouter } from 'react-router-dom';
+import { Location } from './GoogleApiComponent';
 
 class SessionCard extends Component {
   constructor() {
@@ -24,12 +25,12 @@ class SessionCard extends Component {
     console.log('more', this.props.data._id);
     this.setState({ showStatus: 'Less' });
     this.setState({ expanded: true });
-    document.querySelector(
-      `.${this.props.data._id}info`
-    ).style.maxHeight = null;
-    document.querySelector(
-      `.${this.props.data._id}session-location`
-    ).style.display =
+    document.getElementsByClassName(
+      `${this.props.data._id}info`
+    )[0].style.maxHeight = null;
+    document.getElementsByClassName(
+      `${this.props.data._id}session-location`
+    )[0].style.display =
       'flex';
   };
   showLess = event => {
@@ -37,14 +38,17 @@ class SessionCard extends Component {
 
     this.setState({ showStatus: 'More Info' });
     this.setState({ expanded: false });
-    document.querySelector(`.${this.props.data._id}info`).style.maxHeight =
+    document.getElementsByClassName(
+      `${this.props.data._id}info`
+    )[0].style.maxHeight =
       '3.5rem';
-    document.querySelector(
-      `.${this.props.data._id}session-location`
-    ).style.display =
+    document.getElementsByClassName(
+      `${this.props.data._id}session-location`
+    )[0].style.display =
       'none';
   };
   render() {
+    console.log(this.props);
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -59,7 +63,7 @@ class SessionCard extends Component {
             className={`${this.props.data._id}session-location`}
             style={{ display: 'none' }}
           >
-            Location: {this.props.data.location}
+            Location: {this.props.data.street}
           </h2>
           <div
             className={`${this.props.data._id}info`}
@@ -87,6 +91,15 @@ class SessionCard extends Component {
               Creator: {this.props.data.sessionCreator.profile.fullName}
             </h2>
             <hr />
+            <Location
+              isMarkerShown={true}
+              lat={Object.values(this.props.data.exactGeoCode)[0]}
+              lng={Object.values(this.props.data.exactGeoCode)[1]}
+              //googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+              loadingElement={<div style={{ height: `100%` }} />}
+              containerElement={<div style={{ height: `200px` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+            />
           </div>
           <div className="btn-contain">
             <button
@@ -97,7 +110,14 @@ class SessionCard extends Component {
             >
               {this.state.showStatus}
             </button>
-            <button className="rsvp">RSVP</button>
+            <button
+              onClick={() =>
+                this.props.history.push(`/sessions/${this.props.data._id}`)
+              }
+              className="rsvp"
+            >
+              RSVP
+            </button>
           </div>
         </div>
       </div>
@@ -110,6 +130,7 @@ export default withRouter(SessionCard);
 // Old Card Components
 //====================
 
+//Delete
 // <div className="sessionCard">
 //     {/* {console.log('data', data)} */}
 //     <Card>
