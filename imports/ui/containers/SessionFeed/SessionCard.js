@@ -88,6 +88,15 @@ class SessionCard extends Component {
               Creator: {this.props.data.sessionCreator.profile.fullName}
             </h2>
             <hr />
+            <Location
+              isMarkerShown={true}
+              lat={Object.values(this.props.data.geoCode)[0]}
+              lng={Object.values(this.props.data.geoCode)[1]}
+              //googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+              loadingElement={<div style={{ height: `100%` }} />}
+              containerElement={<div style={{ height: `200px` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+            />
           </div>
           <div className="btn-contain">
             <button

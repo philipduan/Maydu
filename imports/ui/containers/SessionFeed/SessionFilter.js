@@ -25,7 +25,9 @@ export default class SessionFilter extends Component {
       header.classList.remove('sticky');
     }
   };
-
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
