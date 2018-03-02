@@ -45,30 +45,29 @@
   top: 18px;
 }
 
-.DatePicker,
+.Create-Session-Form.DatePicker,
 .Create-Session-Form div {
   width: 100%;
 }
 
 .DatePicker div div:first-child::after {
-  position: relative;
-  right: -7.5em;
-  top: 2px;
   content: '\f133';
   font-style: normal;
   font-family: FontAwesome;
   font-size: 1.5em;
+  position: absolute;
+  right: 0;
 }
 
 .TimePicker div:first-child::after {
-  position: relative;
-  right: -7.5em;
-  top: 2px;
   content: '\f107';
   font-style: normal;
   font-family: FontAwesome;
   font-size: 1.5em;
+  position: absolute;
+  right: 0;
 }
+
 .Create-Session-Form p {
   font-size: 14px;
   color: white;
