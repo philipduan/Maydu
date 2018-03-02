@@ -2,7 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import _ from 'lodash';
 export const Sessions = new Mongo.Collection('sessions');
 
-const simpleInstitutionArray = ['University of Toronto', 'Ryerson'];
+const simpleInstitutionArray = ['University of Toronto', 'Ryerson', 'RED'];
 const sample = _.sample(simpleInstitutionArray);
 
 Sessions.schema = new SimpleSchema({
@@ -29,8 +29,9 @@ if (Meteor.isServer) {
 
     //Faker data purposes
     //===================
+    console.log(Meteor.user());
 
-    return Sessions.find({ institution: sample });
+    return Sessions.find({ institution: Meteor.user().profile.institution });
   });
 }
 
@@ -41,17 +42,23 @@ Meteor.methods({
     try {
       if (!query) {
         console.log('query undef');
-        return Sessions.find({ institution: sample }).fetch();
+        return Sessions.find({
+          institution: Meteor.user().profile.institution
+        }).fetch();
       }
-
+//nothing
       console.log('query is def');
-      console.log(
-        'All Sessions ',
-        Sessions.find({}).fetch()
-      );
-      return Sessions.find({ courseCode: query, institution: sample }).fetch();
+      console.log('All Sessions ', Sessions.find({}).fetch());
+      return Sessions.find({
+        courseCode: query,
+        institution: Meteor.user().profile.institution
+      }).fetch();
     } catch (exception) {
       throw new Meteor.Error('500', exception.message);
     }
+  },
+
+  'sessions.saveNewSession'(session) {
+    Sessions.insert(session);
   }
 });

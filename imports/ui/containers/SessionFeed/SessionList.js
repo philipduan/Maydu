@@ -6,6 +6,7 @@ export default class SessionList extends Component {
   constructor() {
     super();
   }
+
   render() {
     const { sessions } = this.props;
     const list =
@@ -17,3 +18,4 @@ export default class SessionList extends Component {
     return <div className="session-list">{list}</div>;
   }
 }
+// sdfhdgjghksjvafshdjkfbvfdaruhsdxncvbrahiusfdknjvbhdarfskjdnkjsjdras

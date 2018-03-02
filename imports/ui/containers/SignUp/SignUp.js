@@ -339,7 +339,12 @@ class SignUp extends Component {
         bio: form.bio.value,
         facebook: form.facebook.value,
         instagram: form.instagram.value,
-        linkedIn: form.linkedIn.value
+        linkedIn: form.linkedIn.value,
+        acceptedSessions: [],
+        pendingSessions: [],
+        createdSessions: [],
+        imageURL:
+          'https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png'
       }
     };
   };
@@ -355,7 +360,10 @@ class SignUp extends Component {
         });
         scroll(0, 0);
       } else {
+<<<<<<< HEAD
         Modules.client.uploadToAmazonS3(this.state.imageData.file);
+=======
+>>>>>>> 70861570773ff4c9dca3a1a591e1753c66f29a1a
         this.props.history.push('/sessions');
       }
     });

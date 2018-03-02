@@ -7,6 +7,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Sessions } from '../../../api/Sessions';
 import _ from 'lodash';
+import Header from '../Layout/Layout';
 
 PER_PAGE = 20;
 
@@ -72,9 +73,10 @@ class SessionContainer extends Component {
   };
 
   render() {
+    if (this.props.currentUser) {
+      console.log(this.props.currentUser, 'meteor user');
+    }
     const { sessions } = this.state;
-
-    // console.log('sessionmap', sessionMap);
 
     return (
       <div className="sessionContainer">
@@ -83,7 +85,7 @@ class SessionContainer extends Component {
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}
         />
-        <SessionList sessions={sessions} />
+        {sessions ? <SessionList sessions={sessions} /> : null}
         <button
           className="create-session-link"
           onClick={() => this.props.history.push('/createsession')}

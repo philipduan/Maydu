@@ -34,12 +34,32 @@
   color: rgba(255, 255, 255, 0.733);
 }
 .session-brief-moreInfo {
+  height: 40px;
+  border-radius: 20px;
+  margin: 10px;
+  margin-top: 30px;
+  padding: 0px 10px;
+  color: white;
+  font-size: 16px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
   text-decoration: underline;
   text-decoration-style: solid;
   width: 30%;
   background-color: transparent;
 }
 .rsvp {
+  height: 40px;
+  border-radius: 20px;
+  margin: 10px;
+  margin-top: 30px;
+  padding: 0px 10px;
+  color: white;
+  font-size: 16px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
   background-color: #fbb506;
   width: 40%;
 }
@@ -76,7 +96,7 @@
 /* Session card Styling ends */
 .sessionContainer {
   font-family: 'Lato', sans-serif;
-
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,6 +113,16 @@
   margin: 1.5rem 0;
 }
 .create-session-link {
+  height: 40px;
+  border-radius: 20px;
+  margin: 10px;
+  margin-top: 30px;
+  padding: 0px 10px;
+  color: white;
+  font-size: 16px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
   position: fixed;
   z-index: 9999;
   bottom: 0.2rem;
