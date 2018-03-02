@@ -48,10 +48,15 @@ class SessionCard extends Component {
       'none';
   };
   handleRsvp = () => {
+    Meteor.call('users.pending', this.props.data._id);
+
     Meteor.call('sessions.RSVP', this.props.data._id);
+
+    Meteor.call('users.testing');
   };
 
   render() {
+    console.log('user', Meteor.user());
     console.log('props', this.props);
     return (
       <div className="session-brief-wrap">
