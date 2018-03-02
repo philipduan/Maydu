@@ -13,6 +13,31 @@ import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../imports/ui/redux/store.js';
+
+class ensureLoggedIn extends Component {
+  componentWillMount() {
+    setTimeout(() => {
+      if (!Meteor.userId()) {
+        //console.log("Not logged in")
+        this.props.history.push('/');
+      } else {
+        //console.log("login")
+      }
+    }, 200);
+  }
+
+  render() {
+    return (
+      <div>
+        <Route exact path="/sessions" component={SessionContainer} />
+        <Route path="/sessions/:id" component={SessionExpand} />
+        <Route path="/createsession" component={CreateSession} />
+        <Route path="/user/:id" component={Profile} />{' '}
+      </div>
+    );
+  }
+}
+
 class Maydu extends Component {
   render() {
     return (
@@ -21,12 +46,9 @@ class Maydu extends Component {
           <Provider store={store}>
             <Switch>
               <Layout>
-                <Route exact path="/sessions" component={SessionContainer} />
-                <Route path="/sessions/:id" component={SessionExpand} />
                 <Route exact path="/" component={SignIn} />
                 <Route path="/signup" component={SignUp} />
-                <Route path="/createsession" component={CreateSession} />
-                <Route path="/user/:id" component={Profile} />
+                <Route component={ensureLoggedIn} />
               </Layout>
             </Switch>
           </Provider>
