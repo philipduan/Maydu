@@ -13,6 +13,8 @@ import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../imports/ui/redux/store.js';
+
+
 class Maydu extends Component {
   render() {
     return (
@@ -20,14 +22,6 @@ class Maydu extends Component {
         <MuiThemeProvider>
           <Provider store={store}>
             <Switch>
-<<<<<<< HEAD
-              {/* <Layout> */}
-              <Route exact path="/sessions" component={SessionContainer} />
-              <Route path="/signup" component={SignUp} />
-              <Route path="/createsession" component={CreateSession} />
-              <Route path="/profile" component={Profile} />
-              {/* </Layout> */}
-=======
               <Layout>
                 <Route exact path="/sessions" component={SessionContainer} />
                 <Route path="/sessions/:id" component={SessionExpand} />
@@ -36,7 +30,6 @@ class Maydu extends Component {
                 <Route path="/createsession" component={CreateSession} />
                 <Route path="/user/:id" component={Profile} />
               </Layout>
->>>>>>> 70861570773ff4c9dca3a1a591e1753c66f29a1a
             </Switch>
           </Provider>
         </MuiThemeProvider>
