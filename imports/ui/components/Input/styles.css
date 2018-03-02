@@ -1,11 +1,30 @@
-input {
-  width: 100%;
-  border: 1px solid green;
-  height: 3rem;
-  margin-bottom: 2rem;
-  padding: 0.5rem;
+.signup_label {
+  color: white;
+  margin-bottom: 0.5rem;
 }
 
+.signup_input {
+  background-color: white;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px; 
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+}
+
+.signup_input::placeholder {
+  font-weight: 300;
+  color: lightgray;
+}
+
+.signup_input gray {
+  color: lightgray!important;
+}
+
+
+/* 
 select {
   width: 100%;
   border: 1px solid green;
@@ -20,8 +39,15 @@ textArea {
   height: 10rem;
   margin-bottom: 2rem;
   padding: 0.5rem;
+} */
+
+.signup_error {
+  font-size: 0.8rem;
+  color:#FFB6C1;
 }
 
-.error {
-  color: red;
+.signup_error:before {
+  font-family: FontAwesome;
+  content: "\f071";
+  margin-right: 0.5rem;
 }

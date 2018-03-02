@@ -12,7 +12,7 @@ const input = props => {
   switch (props.elementType) {
     case 'input':
       inputElement = (
-        <input
+        <input className="signup_input"
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
@@ -22,7 +22,7 @@ const input = props => {
       break;
     case 'textarea':
       inputElement = (
-        <textarea
+        <textarea className="signup_input"
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
@@ -33,13 +33,13 @@ const input = props => {
       break;
     case 'select':
       inputElement = (
-        <select
+        <select className="signup_input gray"
           defaultValue={props.elementConfig.defaultSelect}
           onChange={props.changed}
           onBlur={props.blurred}
         >
           <option disabled hidden>
-            {props.elementConfig.defaultSelect}
+           {props.elementConfig.defaultSelect}
           </option>
           {props.elementConfig.options.map(option => {
             return (
@@ -53,7 +53,7 @@ const input = props => {
       break;
     case 'input_image':
       inputElement = (
-        <input
+        <input className="signup_input"
           {...props.elementConfig}
           onChange={props.changed}
           value={props.value}
@@ -66,8 +66,8 @@ const input = props => {
 
   return (
     <div>
-      <p> {props.elementConfig.label} </p>
-      <p className="error">{validationError}</p>
+      <p className="signup_label"> {props.elementConfig.label} </p>
+      {validationError ? <p className="signup_error">{validationError}</p> : null}
       {inputElement}
     </div>
   );

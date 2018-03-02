@@ -295,7 +295,6 @@ class SignUp extends Component {
       file: file,
       error: error
     });
-    console.log("FILE: ", file);
     this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
@@ -305,11 +304,10 @@ class SignUp extends Component {
     reader.onloadend = () => {
       this.updateImageField(reader.result, file, '');
     };
-    console.log("FILE 2: ", file);
     reader.readAsDataURL(file);
   };
 
-  // If user's uploaded file is not an image, or exceeds 500kb, returns an error. Otherwise,
+  // If user's uploaded file is not an image, or exceeds 250kb, returns an error. Otherwise,
   // displays the uploaded image to the user and stores the file in state
   handleImageChange = e => {
     e.preventDefault();
@@ -317,7 +315,7 @@ class SignUp extends Component {
     var imageType = /^image\//;
     if (!imageType.test(file.type)) {
       this.updateImageField('', '', 'Invalid File Type. Must upload an image');
-    } else if (file.size > 500000) {
+    } else if (file.size > 250000) {
       this.updateImageField('', '', 'File too large. Max upload size: 500KB.');
     } else {
       this.displayAndSaveImage(file);
@@ -343,8 +341,6 @@ class SignUp extends Component {
         acceptedSessions: [],
         pendingSessions: [],
         createdSessions: [],
-        imageURL:
-          'https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png'
       }
     };
   };
@@ -361,30 +357,33 @@ class SignUp extends Component {
         scroll(0, 0);
       } else {
         Modules.client.uploadToAmazonS3(this.state.imageData.file);
-        this.props.history.push('/sessions');
+        this.props.history.push(`/sessions`);
       }
     });
   };
 
   render() {
     return (
-      <div className="container">
-        <form>
-          {this.state.backendError ? <p> {this.state.backendError} </p> : null}
-          {this.renderFormElements()}
-          <ImageUpload
-            label="Upload A Photo"
-            changed={e => this.handleImageChange(e)}
-            imgURL={this.state.imageData.imgURL}
-            error={this.state.imageData.error}
-          />
-          <button
-            disabled={!this.state.formIsValid}
-            onClick={this.handleSubmit}
-          >
-            SIGN UP
-          </button>
-        </form>
+      <div className="create-user-container ">
+        <div className="create-user-box">
+          <h1> Sign up </h1>
+          <form className="create-user-form">
+            {this.state.backendError ? <p> {this.state.backendError} </p> : null}
+            {this.renderFormElements()}
+            <ImageUpload
+              label="Upload A Photo"
+              changed={e => this.handleImageChange(e)}
+              imgURL={this.state.imageData.imgURL}
+              error={this.state.imageData.error}
+            />
+            <button
+              disabled={!this.state.formIsValid}
+              onClick={this.handleSubmit}
+            >
+              SIGN UP
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
