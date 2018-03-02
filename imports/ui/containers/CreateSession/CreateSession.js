@@ -162,6 +162,9 @@ class CreateSession extends Component {
           .toLowerCase()
           .replace(/\b\w/g, l => l.toUpperCase()),
         courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
+        description: values.description
+          ? values.description
+          : 'No Description Provided',
         geoCode: this.state.geoCode,
         address: this.state.address,
         addressForm: this.state.addressForm,

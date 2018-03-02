@@ -16,14 +16,12 @@ import store from '../imports/ui/redux/store.js';
 
 class ensureLoggedIn extends Component {
   componentWillMount() {
-    setTimeout(() => {
-      if (!Meteor.userId()) {
-        //console.log("Not logged in")
-        this.props.history.push('/');
-      } else {
-        //console.log("login")
-      }
-    }, 200);
+    if (!Meteor.userId()) {
+      //console.log("Not logged in")
+      this.props.history.push('/');
+    } else {
+      //console.log("login")
+    }
   }
 
   render() {
