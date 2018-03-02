@@ -51,6 +51,8 @@ class SessionCard extends Component {
     Meteor.call('users.pending', this.props.data._id);
 
     Meteor.call('sessions.RSVP', this.props.data._id);
+
+    Meteor.call('users.testing');
   };
 
   render() {
