@@ -360,10 +360,7 @@ class SignUp extends Component {
         });
         scroll(0, 0);
       } else {
-<<<<<<< HEAD
         Modules.client.uploadToAmazonS3(this.state.imageData.file);
-=======
->>>>>>> 70861570773ff4c9dca3a1a591e1753c66f29a1a
         this.props.history.push('/sessions');
       }
     });
