@@ -13,13 +13,8 @@ export default class SessionList extends Component {
     const list =
       sessions.length > 0
         ? sessions.map((session, index) => {
-<<<<<<< HEAD
-          return <SessionCard key={index} data={session} />;
-        })
-=======
             return <SessionCard key={index} data={session} />;
           })
->>>>>>> master
         : 'There are no sessions matching your search :( ';
     return <div className="session-list">{list}</div>;
   }
