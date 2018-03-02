@@ -75,10 +75,7 @@ class SessionCard extends Component {
             }}
           >
             <p className="session-brief-bio">
-              I'm going to lap some water out of my master's cup meow lick human
-              with sandpaper tongue. Throwup on your pillow climb a tree, wait
-              for a fireman jump to
-              {this.props.data.description}
+              {`Description: ${this.props.data.description}`}
             </p>
             <hr />
             {/* test comment */}
