@@ -10,6 +10,9 @@ export default class SessionFilter extends Component {
       value: ''
     };
   }
+  handleChange = () => {
+    
+  }
   handleScroll = () => {
     // Get the header
 

@@ -22,7 +22,7 @@ class SessionCard extends Component {
   }
   showMore = event => {
     //identification query bug
-    console.log('more', this.props.data._id);
+    // console.log('more', this.props.data._id);
     this.setState({ showStatus: 'Less' });
     this.setState({ expanded: true });
     document.getElementsByClassName(
@@ -34,7 +34,7 @@ class SessionCard extends Component {
       'flex';
   };
   showLess = event => {
-    console.log('less', this.props.data._id);
+    // console.log('less', this.props.data._id);
 
     this.setState({ showStatus: 'More Info' });
     this.setState({ expanded: false });
@@ -48,7 +48,7 @@ class SessionCard extends Component {
       'none';
   };
   render() {
-    console.log(this.props);
+    console.log('props',this.props);
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -70,12 +70,12 @@ class SessionCard extends Component {
             style={{
               maxHeight: '3.5rem',
               overflow: 'hidden',
-              transition: 'max-height 1s ease-in'
+              transition: 'height 1s ease-in'
               // note that we're transitioning max-height, not height!
             }}
           >
             <p className="session-brief-bio">
-              {`Description: ${this.props.data.description}`}
+              {` ${this.props.data.description}`}
             </p>
             <hr />
             {/* test comment */}
@@ -95,7 +95,6 @@ class SessionCard extends Component {
               isMarkerShown={true}
               lat={Object.values(this.props.data.geoCode)[0]}
               lng={Object.values(this.props.data.geoCode)[1]}
-              //googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `200px` }} />}
               mapElement={<div style={{ height: `100%` }} />}

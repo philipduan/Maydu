@@ -21,12 +21,23 @@ class Maydu extends Component {
           <Provider store={store}>
             <Switch>
               <Layout>
-                <Route exact path="/sessions" component={SessionContainer} />
-                <Route path="/sessions/:id" component={SessionExpand} />
                 <Route exact path="/" component={SignIn} />
                 <Route path="/signup" component={SignUp} />
-                <Route path="/createsession" component={CreateSession} />
-                <Route path="/user/:id" component={Profile} />
+
+                {Meteor.userId() ? (
+                  <div>
+                    <Route
+                      exact
+                      path="/sessions"
+                      component={SessionContainer}
+                    />
+                    <Route path="/sessions/:id" component={SessionExpand} />
+                    <Route path="/createsession" component={CreateSession} />
+                    <Route path="/user/:id" component={Profile} />{' '}
+                  </div>
+                ) : (
+                  <Route render={() => <Redirect to="/" />} />
+                )}
               </Layout>
             </Switch>
           </Provider>
