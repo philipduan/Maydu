@@ -27,7 +27,8 @@ class SessionContainer extends Component {
     super();
     this.state = {
       sessions: [],
-      allCourseCodes: []
+      allCourseCodes: [],
+      event: ''
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -62,9 +63,11 @@ class SessionContainer extends Component {
     // }, 550);
   }
   handleFilter = event => {
+    this.setState({ event });
     Meteor.call('sessions.filterByCourseCode', event, (error, sessions) => {
       if (sessions.length > 0 || sessions) {
         this.setState({ sessions });
+        this.setState({ event });
         // console.log(this.state.sessions, 'if state set triggered');
       } else {
         console.log('Error');
@@ -85,7 +88,9 @@ class SessionContainer extends Component {
           handleFilter={this.handleFilter}
           allCourseCodes={this.state.allCourseCodes}
         />
-        {sessions ? <SessionList sessions={sessions} /> : null}
+        {sessions ? (
+          <SessionList search={this.state.event} sessions={sessions} />
+        ) : null}
         <button
           className="create-session-link"
           onClick={() => this.props.history.push('/createsession')}

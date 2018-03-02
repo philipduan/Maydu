@@ -47,8 +47,12 @@ class SessionCard extends Component {
     )[0].style.display =
       'none';
   };
+  handleRsvp = () => {
+    Meteor.userId().push;
+  };
+
   render() {
-    console.log('props',this.props);
+    console.log('props', this.props);
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -109,12 +113,7 @@ class SessionCard extends Component {
             >
               {this.state.showStatus}
             </button>
-            <button
-              onClick={() =>
-                this.props.history.push(`/sessions/${this.props.data._id}`)
-              }
-              className="rsvp"
-            >
+            <button onClick={this.handleRsvp} className="rsvp">
               RSVP
             </button>
           </div>
@@ -125,43 +124,3 @@ class SessionCard extends Component {
 }
 
 export default withRouter(SessionCard);
-
-// Old Card Components
-//====================
-
-//Delete
-// <div className="sessionCard">
-//     {/* {console.log('data', data)} */}
-//     <Card>
-//       {/* <img src={data.imageurl} alt={data.title} /> */}
-//       <CardHeader
-//         style={{ cursor: 'pointer' }}
-//         onClick={() => history.push(`/user/${data.sessionCreator._id}`)}
-//         title={`Creator: ${data.sessionCreator.profile.fullName}`}
-//         subtitle={data.sessionCreator.profile.bio}
-//         // avatar={
-//         //   <Gravatar email={data.itemowner.email} className="GravatarImg" />
-//         // }
-//       />
-//       <CardTitle title={data.title} subtitle={data.courseCode} />
-//       <CardText>{data.intersection}</CardText>
-//       <CardText>{data.institution}</CardText>
-//       <CardActions>
-//         {data ? <FlatButton className="join-btn" label="Join" /> : ''}
-//       </CardActions>
-//     </Card>
-//   </div>
-
-// <CardMedia
-//         overlay={
-//           data.available === false ? (
-//             <CardTitle
-//               className="available-status"
-//               title="Unavailable"
-//               subtitle=""
-//             />
-//           ) : (
-//             ''
-//           )
-//         }
-//       >  </CardMedia>
