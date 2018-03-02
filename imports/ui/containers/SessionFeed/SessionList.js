@@ -8,7 +8,6 @@ export default class SessionList extends Component {
   }
 
   render() {
-    //test comment
     const { sessions } = this.props;
     const list =
       sessions.length > 0
