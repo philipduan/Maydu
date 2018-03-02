@@ -48,7 +48,7 @@ class SessionCard extends Component {
       'none';
   };
   handleRsvp = () => {
-    Meteor.userId().push;
+    Meteor.call('sessions.RSVP', this.props.data._id);
   };
 
   render() {

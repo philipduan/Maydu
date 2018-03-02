@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-
-
 Meteor.methods({
   // Update Users Basic Information
   'profiles.updateUserInformation'(updatedData) {
@@ -16,7 +14,16 @@ Meteor.methods({
         }
       }
     });
-  }
+  },
+  // 'profiles.pushCreatedSessions'(sessionId) {
+  //   Meteor.users.update(Meteor.userId(), {
+  //     $push: {
+  //       profile: {
+  //         createdSessions: sessionId
+  //       }
+  //     }
+  //   });
+  // }   Started created push session logic
 });
 
 export const Profiles = Meteor.users;

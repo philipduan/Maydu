@@ -58,5 +58,14 @@ Meteor.methods({
 
   'sessions.saveNewSession'(session) {
     Sessions.insert(session);
+  },
+  'sessions.RSVP'(session) {
+    Sessions.update(session, {
+      $push: {
+        pending: Meteor.userId()
+      }
+    });
+    console.log('session update', session)
   }
+ 
 });
