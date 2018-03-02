@@ -2,6 +2,16 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 Meteor.methods({
+  'users.pending'(sessionId) {
+    Meteor.users.update(Meteor.userId(), {
+      $push: {
+        profile: {
+          pendingSessions: sessionId
+        }
+      }
+    });
+    console.log('userr', Meteor.user());
+  },
   // Update Users Basic Information
   'profiles.updateUserInformation'(updatedData) {
     return Meteor.users.update(Meteor.userId(), {
@@ -14,16 +24,7 @@ Meteor.methods({
         }
       }
     });
-  },
-  // 'profiles.pushCreatedSessions'(sessionId) {
-  //   Meteor.users.update(Meteor.userId(), {
-  //     $push: {
-  //       profile: {
-  //         createdSessions: sessionId
-  //       }
-  //     }
-  //   });
-  // }   Started created push session logic
+  }
 });
 
 export const Profiles = Meteor.users;
