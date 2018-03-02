@@ -91,3 +91,15 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
 }
+
+@media screen and (min-width: 600px) {
+  .Create-Session-Box {
+    width: 61vw;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .Create-Session-Box {
+    width: 35vw;
+  }
+}
