@@ -11,21 +11,21 @@ import './styles.css';
 class SignUp extends Component {
   state = {
     form: {
-      fullName: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          placeholder: 'Harry Potter',
-          label: 'Full Name'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false,
-        validationMessage: 'Please enter your full name.'
-      },
+      // fullName: {
+      //   elementType: 'input',
+      //   elementConfig: {
+      //     type: 'text',
+      //     placeholder: 'Harry Potter',
+      //     label: 'Full Name'
+      //   },
+      //   value: '',
+      //   validation: {
+      //     required: true
+      //   },
+      //   valid: false,
+      //   touched: false,
+      //   validationMessage: 'Please enter your full name.'
+      // },
       username: {
         elementType: 'input',
         elementConfig: {
@@ -74,129 +74,130 @@ class SignUp extends Component {
         touched: false,
         validationMessage:
           'Your password must be at least 8 characters long and contain no white spaces'
-      },
-      major: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          placeholder: 'What are you studying?',
-          label: 'Major'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false,
-        validationMessage: 'Please enter your major.'
-      },
-      academicYear: {
-        elementType: 'select',
-        elementConfig: {
-          options: [
-            { displayName: 1, value: 1 },
-            { displayName: 2, value: 2 },
-            { displayName: 3, value: 3 },
-            { displayName: 4, value: 4 },
-            { displayName: 5, value: 5 },
-            { displayName: 6, value: 6 }
-          ],
-          label: 'Academic Year',
-          defaultSelect: 'Select'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false,
-        validationMessage: 'Please select your academic year'
-      },
-      institution: {
-        elementType: 'select',
-        elementConfig: {
-          options: [
-            {
-              displayName: 'University of Waterloo',
-              value: 'University of Waterloo'
-            },
-            {
-              displayName: 'University of Toronto',
-              value: 'University of Toronto'
-            }
-          ],
-          label: 'Institution Name',
-          defaultSelect: 'Select'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false,
-        validationMessage: 'Please select your institution'
-      },
-      bio: {
-        elementType: 'textarea',
-        elementConfig: {
-          placeholder: 'Bio: Tell us something intersting about yourself!',
-          label: 'Bio'
-        },
-        value: '',
-        validation: {
-          required: true,
-          minLength: 100,
-          maxLength: 400
-        },
-        valid: false,
-        touched: false,
-        validationMessage: 'Your bio must be between 100-400 characters'
-      },
-      facebook: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          placeholder: 'https://www.facebook.com/harrypotter',
-          label: 'Facebook'
-        },
-        value: '',
-        validation: {
-          url: true
-        },
-        valid: true,
-        touched: false,
-        validationMessage: 'Please enter a valid url'
-      },
-      instagram: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          placeholder: 'https://www.instagram.com/harrypotter/',
-          label: 'Instagram'
-        },
-        value: '',
-        validation: {
-          url: true
-        },
-        valid: true,
-        touched: false,
-        validationMessage: 'Please enter a valid url'
-      },
-      linkedIn: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          placeholder: 'https://www.linkedin.com/in/harrypotter/',
-          label: 'LinkedIn'
-        },
-        value: '',
-        validation: {
-          url: true
-        },
-        valid: true,
-        touched: false,
-        validationMessage: 'Please enter a valid url'
       }
+      //,
+    //   major: {
+    //     elementType: 'input',
+    //     elementConfig: {
+    //       type: 'text',
+    //       placeholder: 'What are you studying?',
+    //       label: 'Major'
+    //     },
+    //     value: '',
+    //     validation: {
+    //       required: true
+    //     },
+    //     valid: false,
+    //     touched: false,
+    //     validationMessage: 'Please enter your major.'
+    //   },
+    //   academicYear: {
+    //     elementType: 'select',
+    //     elementConfig: {
+    //       options: [
+    //         { displayName: 1, value: 1 },
+    //         { displayName: 2, value: 2 },
+    //         { displayName: 3, value: 3 },
+    //         { displayName: 4, value: 4 },
+    //         { displayName: 5, value: 5 },
+    //         { displayName: 6, value: 6 }
+    //       ],
+    //       label: 'Academic Year',
+    //       defaultSelect: 'Select'
+    //     },
+    //     value: '',
+    //     validation: {
+    //       required: true
+    //     },
+    //     valid: false,
+    //     touched: false,
+    //     validationMessage: 'Please select your academic year'
+    //   },
+    //   institution: {
+    //     elementType: 'select',
+    //     elementConfig: {
+    //       options: [
+    //         {
+    //           displayName: 'University of Waterloo',
+    //           value: 'University of Waterloo'
+    //         },
+    //         {
+    //           displayName: 'University of Toronto',
+    //           value: 'University of Toronto'
+    //         }
+    //       ],
+    //       label: 'Institution Name',
+    //       defaultSelect: 'Select'
+    //     },
+    //     value: '',
+    //     validation: {
+    //       required: true
+    //     },
+    //     valid: false,
+    //     touched: false,
+    //     validationMessage: 'Please select your institution'
+    //   },
+    //   bio: {
+    //     elementType: 'textarea',
+    //     elementConfig: {
+    //       placeholder: 'Bio: Tell us something intersting about yourself!',
+    //       label: 'Bio'
+    //     },
+    //     value: '',
+    //     validation: {
+    //       required: true,
+    //       minLength: 100,
+    //       maxLength: 400
+    //     },
+    //     valid: false,
+    //     touched: false,
+    //     validationMessage: 'Your bio must be between 100-400 characters'
+    //   },
+    //   facebook: {
+    //     elementType: 'input',
+    //     elementConfig: {
+    //       type: 'text',
+    //       placeholder: 'https://www.facebook.com/harrypotter',
+    //       label: 'Facebook'
+    //     },
+    //     value: '',
+    //     validation: {
+    //       url: true
+    //     },
+    //     valid: true,
+    //     touched: false,
+    //     validationMessage: 'Please enter a valid url'
+    //   },
+    //   instagram: {
+    //     elementType: 'input',
+    //     elementConfig: {
+    //       type: 'text',
+    //       placeholder: 'https://www.instagram.com/harrypotter/',
+    //       label: 'Instagram'
+    //     },
+    //     value: '',
+    //     validation: {
+    //       url: true
+    //     },
+    //     valid: true,
+    //     touched: false,
+    //     validationMessage: 'Please enter a valid url'
+    //   },
+    //   linkedIn: {
+    //     elementType: 'input',
+    //     elementConfig: {
+    //       type: 'text',
+    //       placeholder: 'https://www.linkedin.com/in/harrypotter/',
+    //       label: 'LinkedIn'
+    //     },
+    //     value: '',
+    //     validation: {
+    //       url: true
+    //     },
+    //     valid: true,
+    //     touched: false,
+    //     validationMessage: 'Please enter a valid url'
+    //   }
     },
     formIsValid: false,
     imageData: {
@@ -206,6 +207,9 @@ class SignUp extends Component {
     },
     backendError: null
   };
+
+
+ 
 
   // This method shows userInput on screen, validates it, and updates state.formIsValid accordingly
   inputHandler = (event, fieldName) => {
@@ -327,17 +331,16 @@ class SignUp extends Component {
       username: form.username.value,
       email: form.email.value,
       password: form.password.value,
-      profile: {
-        fullName: form.fullName.value,
-        major: form.major.value,
-        academicYear: form.academicYear.value,
-        institution: form.institution.value,
-        bio: form.bio.value,
-        facebook: form.facebook.value,
-        instagram: form.instagram.value,
-        linkedIn: form.linkedIn.value, 
-        file: this.state.imageData.file
-      }
+      // profile: {
+      //   fullName: form.fullName.value,
+      //   major: form.major.value,
+      //   academicYear: form.academicYear.value,
+      //   institution: form.institution.value,
+      //   bio: form.bio.value,
+      //   facebook: form.facebook.value,
+      //   instagram: form.instagram.value,
+      //   linkedIn: form.linkedIn.value
+      // }
     };
   };
 
@@ -352,6 +355,7 @@ class SignUp extends Component {
         });
         scroll(0, 0);
       } else {
+        Modules.client.uploadToAmazonS3(this.state.imageData.file);
         this.props.history.push('/sessions');
       }
     });
