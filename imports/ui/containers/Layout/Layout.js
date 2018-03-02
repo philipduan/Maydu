@@ -37,7 +37,6 @@ class Header extends Component {
           <button className="Header-profile">
             <i className="fas fa-user" />
 
-            {/* <Link to={'/user/:id'}>My Profile</Link>Switch to history.push when you get userid */}
           </button>
           <button onClick={this.handleSignOut} className="Header-signout">
             <i className="fas fa-sign-out-alt" />
