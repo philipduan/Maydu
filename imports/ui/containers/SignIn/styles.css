@@ -21,14 +21,14 @@ for button */
   line-height: 2;
 }
 
-form {
+.Login-Container form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-form input {
+.Login-Container form input {
   width: 80%;
   border-radius: 5px;
   margin: 2.5%;
@@ -36,13 +36,13 @@ form input {
   color: #20494c;
 }
 
-form ::placeholder{
+.Login-Container form ::placeholder{
   font-family: 'Montserrat', sans-serif;
   font-size: 14px; 
   font-style: italic;
 }
 
-form button {
+.Login-Container form button {
   width: 60%;
   background-color: #20494c;
   color: white;
@@ -88,11 +88,11 @@ form button {
   .Login-Container h3 {
     font-size: 70px;
   }
-  form input {
+  .Login-Container form input {
     margin: 1.5%;
     width: 70%;
   }
-  form button {
+  .Login-Container form button {
     margin-top: 4%;
   }
   .Create-Account-SignIn p {
@@ -105,11 +105,11 @@ form button {
 }
 
 @media screen and (min-width: 1440px) { 
-  form input {
+  .Login-Container form input {
     margin: 1.5%;
     width: 60%;
   }
-  form button {
+  .Login-Container form button {
     width: 50%;
   }
 }
