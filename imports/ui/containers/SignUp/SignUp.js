@@ -1,8 +1,8 @@
 // React
 import React, { Component } from 'react';
 // Components and Containers
-import Input from '../../components/UI/Input/Input';
-import ImageUpload from '../../components/UI/ImageUpload/ImageUpload';
+import Input from '../../components/Input/Input';
+import ImageUpload from '../../components/ImageUpload/ImageUpload';
 //Utility
 import { updateObject, checkValidity } from '../../shared/utility';
 // Styles
@@ -74,7 +74,8 @@ class SignUp extends Component {
         touched: false,
         validationMessage:
           'Your password must be at least 8 characters long and contain no white spaces'
-      },
+      }
+      ,
       major: {
         elementType: 'input',
         elementConfig: {
@@ -207,6 +208,9 @@ class SignUp extends Component {
     backendError: null
   };
 
+
+ 
+
   // This method shows userInput on screen, validates it, and updates state.formIsValid accordingly
   inputHandler = (event, fieldName) => {
     let field = this.state.form[fieldName];
@@ -291,6 +295,7 @@ class SignUp extends Component {
       file: file,
       error: error
     });
+    console.log("FILE: ", file);
     this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
@@ -300,6 +305,7 @@ class SignUp extends Component {
     reader.onloadend = () => {
       this.updateImageField(reader.result, file, '');
     };
+    console.log("FILE 2: ", file);
     reader.readAsDataURL(file);
   };
 
@@ -333,7 +339,12 @@ class SignUp extends Component {
         bio: form.bio.value,
         facebook: form.facebook.value,
         instagram: form.instagram.value,
-        linkedIn: form.linkedIn.value
+        linkedIn: form.linkedIn.value,
+        acceptedSessions: [],
+        pendingSessions: [],
+        createdSessions: [],
+        imageURL:
+          'https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png'
       }
     };
   };
@@ -348,6 +359,9 @@ class SignUp extends Component {
           backendError: err.reason
         });
         scroll(0, 0);
+      } else {
+        Modules.client.uploadToAmazonS3(this.state.imageData.file);
+        this.props.history.push('/sessions');
       }
     });
   };

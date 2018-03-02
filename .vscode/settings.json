@@ -1,0 +1,6 @@
+{ "terminal.integrated.env.osx": {
+    "AWS_ACCESS_KEY_ID": "AKIAIABIJBKFYMDLSHRQ",
+    "AWS_SECRET_KEY": "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",
+    "S3_BUCKET_NAME": "redmaydu", 
+  }
+}

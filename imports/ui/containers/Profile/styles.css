@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100,400,700');
+
+.Profile-Box-Outer {
+    height: 90vh; 
+    width: 100vw;
+    background-color: #66B9BF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Profile-Box {
+    height: 70vh; 
+    width: 50vw;
+    background-color: #07889B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 40px;
+}
+
+.Profile-Box h3 {
+    font-size:40px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    font-weight: 400;
+}
+
+.Profile-Picture{
+    margin-top: 2%;
+    height: 150px;
+    width: 150px; 
+    border-radius: 75px;
+    margin-bottom: 1%;
+}
+
+.Profile-Picture img {
+    margin-top: 2%;
+    height: 150px;
+    width: 150px; 
+    border-radius: 75px;
+}
+
+.Profile-Box p {
+    font-size:15px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    margin: 2% 5%;
+    font-weight: 400;
+    margin-bottom: 3%;
+}
+
+.Profile-Box h6 {
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    margin: 0% 5%;
+    line-height: .7;
+    font-weight: 100;
+    margin-bottom: 2%;
+}
+
+.Profile-Box h5{ 
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    font-weight: 100;
+    border-bottom: 1px solid #E37222;
+    margin-bottom: 1.25%;
+}
+
+#Edit-Profile {
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    font-weight: 100;
+    text-decoration: none;
+}
+
+.School-Info {
+    display: flex;
+}

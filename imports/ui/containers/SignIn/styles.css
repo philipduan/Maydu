@@ -1,0 +1,115 @@
+
+/*   background-color: #20494c;   font-family: 'Montserrat', sans-serif;
+for button */ 
+
+.Login-Container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #028389;
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Login-Container h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  color:white;
+  font-size: 60px;
+  line-height: 2;
+}
+
+.Login-Container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login-Container form input {
+  width: 80%;
+  border-radius: 5px;
+  margin: 2.5%;
+  font-size: 16px; 
+  color: #20494c;
+}
+
+.Login-Container form ::placeholder{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; 
+  font-style: italic;
+}
+
+.Login-Container form button {
+  width: 60%;
+  background-color: #20494c;
+  color: white;
+  height: 7vh;
+  border-radius: 50px;
+  border: none;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  margin-top: 8%;
+  margin-bottom: 5%;
+}
+
+#signin-error-message {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; 
+}
+
+.Create-Account {
+  color: white;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 1px solid white;
+  font-size: 14px;
+  margin-top: 2%;
+}
+
+.Create-Account-SignIn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Create-Account-SignIn p {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px; 
+}
+
+@media screen and (min-width: 1024px) { 
+  .Login-Container h3 {
+    font-size: 70px;
+  }
+  .Login-Container form input {
+    margin: 1.5%;
+    width: 70%;
+  }
+  .Login-Container form button {
+    margin-top: 4%;
+  }
+  .Create-Account-SignIn p {
+    font-size:20px;
+  }
+  .Create-Account {
+    font-size: 16px;
+  }
+
+}
+
+@media screen and (min-width: 1440px) { 
+  .Login-Container form input {
+    margin: 1.5%;
+    width: 60%;
+  }
+  .Login-Container form button {
+    width: 50%;
+  }
+}
