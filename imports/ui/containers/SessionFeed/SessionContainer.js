@@ -32,7 +32,7 @@ class SessionContainer extends Component {
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ sessions: nextProps.sessions });
-    console.log('props', nextProps.sessions);
+    // console.log('props', nextProps.sessions);
 
     let courseCodes = [];
     nextProps.sessions.filter(session => {
@@ -65,7 +65,7 @@ class SessionContainer extends Component {
     Meteor.call('sessions.filterByCourseCode', event, (error, sessions) => {
       if (sessions.length > 0 || sessions) {
         this.setState({ sessions });
-        console.log(this.state.sessions, 'if state set triggered');
+        // console.log(this.state.sessions, 'if state set triggered');
       } else {
         console.log('Error');
       }
@@ -74,7 +74,7 @@ class SessionContainer extends Component {
 
   render() {
     if (this.props.currentUser) {
-      console.log(this.props.currentUser, 'meteor user');
+      // console.log(this.props.currentUser, 'meteor user');
     }
     const { sessions } = this.state;
 

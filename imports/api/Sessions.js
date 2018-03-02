@@ -29,7 +29,6 @@ if (Meteor.isServer) {
 
     //Faker data purposes
     //===================
-    console.log(Meteor.user());
 
     return Sessions.find({ institution: Meteor.user().profile.institution });
   });
@@ -41,14 +40,13 @@ Meteor.methods({
     // console.log(query.toString(), 'query');
     try {
       if (!query) {
-        console.log('query undef');
         return Sessions.find({
           institution: Meteor.user().profile.institution
         }).fetch();
       }
 //nothing
-      console.log('query is def');
-      console.log('All Sessions ', Sessions.find({}).fetch());
+      // console.log('query is def');
+      // console.log('All Sessions ', Sessions.find({}).fetch());
       return Sessions.find({
         courseCode: query,
         institution: Meteor.user().profile.institution
