@@ -13,6 +13,8 @@ import { Meteor } from 'meteor/meteor';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../imports/ui/redux/store.js';
+
+
 class Maydu extends Component {
   render() {
     return (
