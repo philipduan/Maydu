@@ -9,10 +9,8 @@ Meteor.methods({
     Meteor.users.update(
       { _id: Meteor.userId() },
       {
-        $set: {
-          profile: {
-            pendingSessions: pendingSessionsArray
-          }
+        $push: {
+          'profile.pendingSessions': sessionId
         }
       }
     );
