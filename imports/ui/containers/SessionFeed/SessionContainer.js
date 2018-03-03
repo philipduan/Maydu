@@ -89,7 +89,11 @@ class SessionContainer extends Component {
           allCourseCodes={this.state.allCourseCodes}
         />
         {sessions ? (
-          <SessionList search={this.state.event} sessions={sessions} />
+          <SessionList
+            search={this.state.event}
+            sessions={sessions}
+            currentUser={this.props.currentUser}
+          />
         ) : null}
         <button
           className="create-session-link"
