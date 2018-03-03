@@ -73,7 +73,6 @@ const input = props => {
 
   return (
     <div>
-      <p className="signup_label"> {props.elementConfig.label} </p>
       {validationError ? <p className="signup_error">{validationError}</p> : null}
       {inputElement}
     </div>

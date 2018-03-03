@@ -9,14 +9,27 @@ class ImageUpload extends Component {
   }
 
   render() {
-    console.log("REFS: ", this.refs);
+    
+    console.log("Render")
+    console.log(this.props);
+    console.log("this.props.imageurl: ", this.props.imgURL)
+    
+
     return (
       <div>
-        <label className="signup_label"> {this.props.label} </label>
-        {this.props.error ? <p className="signup_error">{this.props.error}</p> : null}
-        <img className="image" src={this.props.imgURL} />
+        <div className="image_border">
+          {this.props.error ? <p className="signup_error">{this.props.error}</p> : null}
+          <div className="image_container">
+            <div className="dropbox">
+              <i className="fas fa-image" aria-hidden="true"></i>
+              <p> Your Image Will Appear Here </p>
+            </div>
+            <div className="preview" hidden>
+            </div>
+          </div>
+          <button className="image_upload_button" onClick={this.handleFileSelect}> Upload A Photo</button>
+        </div>
         <input type="file" onChange={this.props.changed} hidden ref="fileSelect"/>
-        <button className="image_upload_button" onClick={this.handleFileSelect}> Upload A Photo</button>
       </div>
     );
   }
