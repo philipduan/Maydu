@@ -1,7 +1,4 @@
-.imageUpload {
-  border: 2px solid green;
-}
-
-.error {
-  color: red;
+.image_upload_button {
+  background-color: #FBB506;
+  width: 100%;
 }
