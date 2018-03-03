@@ -118,9 +118,15 @@ class SessionCard extends Component {
             >
               {this.state.showStatus}
             </button>
-            <button onClick={this.handleRsvp} className="rsvp">
-              RSVP
-            </button>
+            {this.props.pending ? (
+              <button onClick={this.handleRsvp} className="rsvp" disabled>
+                Pending
+              </button>
+            ) : (
+              <button onClick={this.handleRsvp} className="rsvp">
+                RSVP
+              </button>
+            )}
           </div>
         </div>
       </div>

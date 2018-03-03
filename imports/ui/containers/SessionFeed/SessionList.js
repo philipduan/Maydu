@@ -16,7 +16,15 @@ export default class SessionList extends Component {
       sessions.length > 0 ? (
         sessions.map((session, index) => {
           return currentUser._id !== session.sessionCreator._id ? (
-            <SessionCard key={index} data={session} />
+            <SessionCard
+              key={index}
+              data={session}
+              pending={
+                currentUser.profile.pendingSessions.includes(session._id)
+                  ? true
+                  : false
+              }
+            />
           ) : null;
         })
       ) : (
