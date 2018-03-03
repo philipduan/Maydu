@@ -6,7 +6,6 @@ Meteor.methods({
     console.log('i am here');
     let pendingSessionsArray = Meteor.user().profile.pendingSessions;
     pendingSessionsArray.push(sessionId);
-    console.log(pendingSessions1);
     Meteor.users.update(
       { _id: Meteor.userId() },
       {
