@@ -377,6 +377,7 @@ class SignUp extends Component {
               error={this.state.imageData.error}
             />
             <button
+            className="signup_button"
               disabled={!this.state.formIsValid}
               onClick={this.handleSubmit}
             >
