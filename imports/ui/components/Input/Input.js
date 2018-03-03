@@ -22,32 +22,39 @@ const input = props => {
       break;
     case 'textarea':
       inputElement = (
-        <textarea className="signup_input"
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
-          onBlur={props.blurred}
-          maxLength={400}
-        />
+        <div>
+          <textarea className="signup_input signup_textarea"
+            {...props.elementConfig}
+            value={props.value}
+            onChange={props.changed}
+            onBlur={props.blurred}
+            maxLength={400}
+          />
+          {props.value.length > 0 ? <p className="bio_counter">Num Chars: {props.value.length} </p> : null}
+        </div>
       );
       break;
     case 'select':
+      let selectClass = "signup_input";
+      if(props.value === '') {
+        selectClass += " signup_select_gray"
+      }
       inputElement = (
-        <select className="signup_input gray"
+        <select className={selectClass}
           defaultValue={props.elementConfig.defaultSelect}
           onChange={props.changed}
           onBlur={props.blurred}
-        >
-          <option disabled hidden>
-           {props.elementConfig.defaultSelect}
-          </option>
-          {props.elementConfig.options.map(option => {
-            return (
-              <option key={option.value} value={option.value}>
-                {option.displayName}
-              </option>
-            );
-          })}
+        > 
+            <option disabled hidden>
+            {props.elementConfig.defaultSelect}
+            </option>
+            {props.elementConfig.options.map(option => {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.displayName}
+                </option>
+              );
+            })}
         </select>
       );
       break;
