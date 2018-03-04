@@ -110,7 +110,7 @@ class Profile extends Component {
         {/* Accepted Sessions  */}
         <div className="User-Accepted-Sessions-Container">
           <div className="Session-Container">
-            <SessionCard />
+
           </div>
         </div>
       </div>

@@ -37,7 +37,6 @@ class SessionCard extends Component {
     this.props.dispatch(getSessionInfo(this.props.data))
   }
 
-
   showMore = event => {
     //identification query bug
     console.log('more', this.props.data._id);
