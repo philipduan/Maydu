@@ -4,6 +4,9 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import Header from '../Layout/Layout';
 import index from 'material-ui/Card';
+import SessionCard from '../SessionFeed/SessionCard';
+import { connect } from 'react-redux';
+import { Sessions } from '../../../api/Sessions';
 
 class Profile extends Component {
   constructor(props) {
@@ -31,13 +34,17 @@ class Profile extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
       console.log(nextProps.user.profile);
+      console.log(nextProps.createdSessions);
       this.setState({
         editProfile: {
           fullName: nextProps.user.profile.fullName,
           major: nextProps.user.profile.major,
           academicYear: nextProps.user.profile.academicYear,
           institution: nextProps.user.profile.institution,
-          bio: nextProps.user.profile.bio
+          bio: nextProps.user.profile.bio,
+          createdSessions: nextProps.createdSessions,
+          pendingSessions: nextProps.pendingSessions,
+          acceptedSessions: nextProps.acceptedSessions
         }
       });
       // this.checkUserSessions()
@@ -89,90 +96,68 @@ class Profile extends Component {
   }
 
   render() {
+    console.log(
+      'MOMENT O TRUTH',
+      this.state.editProfile.createdSessions.length
+    );
+    console.log('state', this.state);
     return (
       <div className="Profile-Container">
-        <div className="Profile-Box-Outer">
-          <div className="Profile-Box">
-            <div className="Profile-Picture">
-              <img src="" />
-            </div>
-            <a
-              onClick={
-                this.state.edit === false
-                  ? this.handleEditProfile
-                  : this.handleUpdate
-              }
-              href="#"
-              id="Edit-Profile"
-            >
+        <h3>{this.state.editProfile.fullName}</h3>
+        <div className="User-Container">
+          <div className="Profile-Picture">
+            <img src="https://media.licdn.com/dms/image/C4D03AQGmcZ4ZQERkGQ/profile-displayphoto-shrink_200_200/0?e=1525201200&v=alpha&t=6OQtFwFcdFnMPTqIVuTfnh6ot6APAurrEam3vt6yvSQ" />
+            {Meteor.userId() ? (
+              <button onClick={() => console.log('hi')}> Edit Profile </button>
+            ) : (
+              ''
+            )}
+          </div>
+          <div className="User-Content">
+            <p className="User-Institution">
               {' '}
-              {this.state.edit === false ? 'Edit Profile' : 'Update Profile'}
-            </a>
-            {this.state.edit === false ? (
-              <h3> {this.state.editProfile.fullName} </h3>
-            ) : (
-              <input
-                id="Edit-Update-FullName"
-                type="text"
-                placeholder={this.state.editProfile.fullName}
-                onChange={this.handleUpdatedFields}
-              />
-            )}
-            <div className="School-Info">
-              {this.state.edit === false ? (
-                <p className="Edit-Profile-SchoolInfo">
-                  {' '}
-                  {this.state.editProfile.institution}{' '}
-                </p>
-              ) : (
-                <input
-                  className="Edit-Update-SchoolInfo"
-                  type="text"
-                  placeholder={this.state.editProfile.institution}
-                  onChange={this.handleUpdatedFields}
-                />
-              )}
-              {this.state.edit === false ? (
-                <p className="Edit-Profile-SchoolInfo">
-                  {' '}
-                  {this.state.editProfile.academicYear}{' '}
-                </p>
-              ) : (
-                <input
-                  className="Edit-Update-SchoolInfo"
-                  type="text"
-                  placeholder={this.state.editProfile.academicYear}
-                  onChange={this.handleUpdatedFields}
-                />
-              )}
-              {this.state.edit === false ? (
-                <p className="Edit-Profile-SchoolInfo">
-                  {' '}
-                  {this.state.editProfile.major}{' '}
-                </p>
-              ) : (
-                <input
-                  className="Edit-Update-SchoolInfo"
-                  type="text"
-                  placeholder={this.state.editProfile.major}
-                  onChange={this.handleUpdatedFields}
-                />
-              )}
-            </div>
-            {this.state.edit === false ? (
-              <p className="Edit-Profile-Bio"> {this.state.editProfile.bio} </p>
-            ) : (
-              <input
-                className="Edit-Update-Bio"
-                type="text"
-                placeholder={this.state.editProfile.bio}
-                onChange={this.handleUpdatedFields}
-              />
-            )}
-            <h5> My Session's </h5>
-            {/* <p> {this.state.postSessions <= 0 ? 'You haven\'t posted any sessions yet!' : this.state.postSessions} </p> */}
-            <h5> Accepted Sessions </h5>
-            {/* <p> {this.state.acceptedSessions <= 0 ? 'You haven\'t been accepted to any sessions yet!' : this.state.acceptedSessions} </p> */}
+              {this.state.editProfile.institution}{' '}
+            </p>
+            <p className="User-Major-Year">
+              {' '}
+              {this.state.editProfile.major} |{' '}
+              {this.state.editProfile.academicYear}{' '}
+            </p>
+            <p className="User-Bio"> {this.state.editProfile.bio} </p>
+          </div>
+        </div>
+        <h3 className="Accepted-Sessions-Title"> Created Sessions </h3>
+        <div className="User-Accepted-Sessions-Container">
+          <div className="Session-Container">
+            {this.state.editProfile.createdSessions &&
+            this.state.editProfile.createdSessions.length > 0
+              ? this.state.editProfile.createdSessions.map((session, index) =>
+                  console.log('created', session)
+                )
+              : null}
+          </div>
+        </div>
+
+        <h3 className="Accepted-Sessions-Title"> Accepted Sessions </h3>
+        <div className="User-Accepted-Sessions-Container">
+          <div className="Session-Container" />
+          {this.state.editProfile.acceptedSessions &&
+          this.state.editProfile.acceptedSessions.length > 0
+            ? this.state.editProfile.acceptedSessions.map((session, index) =>
+                console.log('accepted', session)
+              )
+            : null}
+        </div>
+
+        <h3 className="Accepted-Sessions-Title"> Pending Sessions </h3>
+        <div className="User-Accepted-Sessions-Container">
+          <div className="Session-Container">
+            {this.state.editProfile.pendingSessions &&
+            this.state.editProfile.pendingSessions.length > 0
+              ? this.state.editProfile.pendingSessions.map((session, index) =>
+                  console.log('pending', session)
+                )
+              : null}
           </div>
         </div>
       </div>
@@ -180,11 +165,27 @@ class Profile extends Component {
   }
 }
 
+// const mapStateToProps = (state) => ({
+//   profileData: state.profileData.profileData
+// })
+
+// const reduxProfile = connect(mapStateToProps)(Profile);
+
 export default withTracker(props => {
+  Meteor.subscribe('sessions');
   const id = props.match.params.id;
   const user = Meteor.users.findOne({ _id: id });
-
+  console.log('user', user);
   return {
-    user: user ? user : ''
+    user: user ? user : '',
+    createdSessions: user
+      ? Sessions.find({ _id: { $in: user.profile.createdSessions } }).fetch()
+      : [],
+    pendingSessions: user
+      ? Sessions.find({ _id: { $in: user.profile.pendingSessions } }).fetch()
+      : [],
+    acceptedSessions: user
+      ? Sessions.find({ _id: { $in: user.profile.acceptedSessions } }).fetch()
+      : []
   };
 })(Profile);

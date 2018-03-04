@@ -11,6 +11,9 @@ import FlatButton from 'material-ui/FlatButton';
 import './style.css';
 import { withRouter } from 'react-router-dom';
 import { Location } from './GoogleApiComponent';
+import Profile from '../Profile/Profile';
+import { connect } from 'react-redux';
+import { getSessionInfo } from '../../redux/profile';
 
 class SessionCard extends Component {
   constructor() {
@@ -20,6 +23,17 @@ class SessionCard extends Component {
       expanded: false
     };
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   !nextProps ? console.log('no props') : console.log(nextProps)
+  //   this.props.dispatch(getSessionInfo(nextProps.data))
+  // }
+
+  componentDidMount() {
+    console.log('PROPS', this.props.data);
+    this.props.dispatch(getSessionInfo(this.props.data));
+  }
+
   showMore = event => {
     //identification query bug
     // console.log('more', this.props.data._id);
@@ -138,4 +152,49 @@ class SessionCard extends Component {
   }
 }
 
-export default withRouter(SessionCard);
+const mapStateToProps = state => ({
+  profileData: state.profileData.profileData,
+  isLoading: state.profileData.isLoading
+});
+
+const SessionCardRouter = withRouter(SessionCard);
+export default connect(mapStateToProps)(SessionCardRouter);
+// Old Card Components
+//====================
+
+//Delete
+// <div className="sessionCard">
+//     {/* {console.log('data', data)} */}
+//     <Card>
+//       {/* <img src={data.imageurl} alt={data.title} /> */}
+//       <CardHeader
+//         style={{ cursor: 'pointer' }}
+//         onClick={() => history.push(`/user/${data.sessionCreator._id}`)}
+//         title={`Creator: ${data.sessionCreator.profile.fullName}`}
+//         subtitle={data.sessionCreator.profile.bio}
+//         // avatar={
+//         //   <Gravatar email={data.itemowner.email} className="GravatarImg" />
+//         // }
+//       />
+//       <CardTitle title={data.title} subtitle={data.courseCode} />
+//       <CardText>{data.intersection}</CardText>
+//       <CardText>{data.institution}</CardText>
+//       <CardActions>
+//         {data ? <FlatButton className="join-btn" label="Join" /> : ''}
+//       </CardActions>
+//     </Card>
+//   </div>
+
+// <CardMedia
+//         overlay={
+//           data.available === false ? (
+//             <CardTitle
+//               className="available-status"
+//               title="Unavailable"
+//               subtitle=""
+//             />
+//           ) : (
+//             ''
+//           )
+//         }
+//       >  </CardMedia>

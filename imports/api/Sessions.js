@@ -57,7 +57,11 @@ Meteor.methods({
   },
 
   'sessions.saveNewSession'(session) {
-    Sessions.insert(session);
+    Sessions.insert(session, (err, session) =>
+      Meteor.users.update(Meteor.userId(), {
+        $addToSet: { 'profile.createdSessions': session }
+      })
+    );
   },
   'sessions.RSVP'(session) {
     Sessions.update(session, {
