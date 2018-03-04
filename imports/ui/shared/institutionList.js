@@ -49,7 +49,6 @@ const schoolNames = [
     'Sheridan College'
 ];
 
-console.log("SCHOOLNAMES: ", schoolNames);
 export default schoolNames.map((school) => {
     return {
         displayName: school,

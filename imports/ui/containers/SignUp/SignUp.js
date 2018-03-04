@@ -17,7 +17,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Harry Potter',
+          placeholder: 'Full Name',
           label: 'Full Name'
         },
         value: '',
@@ -32,7 +32,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'harry_762',
+          placeholder: 'Username',
           label: 'Username'
         },
         value: '',
@@ -48,7 +48,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'harrypotter@gmail.com',
+          placeholder: 'Email Address',
           label: 'Email Address'
         },
         value: '',
@@ -64,7 +64,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'password',
-          placeholder: 'Pick a secure password',
+          placeholder: 'Password',
           label: 'Password'
         },
         value: '',
@@ -91,7 +91,7 @@ class SignUp extends Component {
         },
         valid: false,
         touched: false,
-        validationMessage: 'Please enter your major.'
+        validationMessage: 'Surely, you must be studying something?'
       },
       academicYear: {
         elementType: 'select',
@@ -105,7 +105,7 @@ class SignUp extends Component {
             { displayName: 6, value: 6 }
           ],
           label: 'Academic Year',
-          defaultSelect: 'Select'
+          defaultSelect: 'Select Academic Year'
         },
         value: '',
         validation: {
@@ -150,7 +150,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'https://www.facebook.com/harrypotter',
+          placeholder: 'Facebook (optional)',
           label: 'Facebook'
         },
         value: '',
@@ -165,7 +165,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'https://www.instagram.com/harrypotter/',
+          placeholder: 'Instagram (optional)',
           label: 'Instagram'
         },
         value: '',
@@ -180,7 +180,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'https://www.linkedin.com/in/harrypotter/',
+          placeholder: 'LinkedIn (optional)',
           label: 'LinkedIn'
         },
         value: '',

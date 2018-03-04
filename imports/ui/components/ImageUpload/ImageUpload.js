@@ -10,9 +10,6 @@ class ImageUpload extends Component {
 
   render() {
     
-    console.log("Render")
-    console.log(this.props);
-    
     // No image is uploaded
     let imageHolder = (           
        <div className="dropbox">

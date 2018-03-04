@@ -18,12 +18,12 @@
 
 .signup_input::placeholder {
   font-weight: 300;
-  color: lightgray;
+  color:darkgray;
 }
 
 .signup_select_gray {
   font-weight: 300;
-  color: lightgray;
+  color: darkgray;
 }
 
 .signup_select_option {
