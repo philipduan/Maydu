@@ -11,6 +11,10 @@ import FlatButton from 'material-ui/FlatButton';
 import './style.css';
 import { withRouter } from 'react-router-dom';
 import { Location } from './GoogleApiComponent';
+import Profile from '../Profile/Profile';
+import { connect } from 'react-redux';
+import { getSessionInfo } from '../../redux/profile';
+
 
 class SessionCard extends Component {
   constructor() {
@@ -20,6 +24,20 @@ class SessionCard extends Component {
       expanded: false
     };
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   !nextProps ? console.log('no props') : console.log(nextProps)
+  //   this.props.dispatch(getSessionInfo(nextProps.data))
+  // }
+
+
+
+  componentDidMount() {
+    console.log('PROPS', this.props.data);
+    this.props.dispatch(getSessionInfo(this.props.data))
+  }
+
+
   showMore = event => {
     //identification query bug
     console.log('more', this.props.data._id);
@@ -48,7 +66,6 @@ class SessionCard extends Component {
       'none';
   };
   render() {
-    console.log(this.props);
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -128,8 +145,13 @@ class SessionCard extends Component {
   }
 }
 
-export default withRouter(SessionCard);
+const mapStateToProps = (state) => ({
+  profileData: state.profileData.profileData,
+  isLoading: state.profileData.isLoading
+})
 
+const SessionCardRouter = withRouter(SessionCard);
+export default connect(mapStateToProps)(SessionCardRouter);
 // Old Card Components
 //====================
 
