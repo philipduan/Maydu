@@ -51,8 +51,12 @@ class SessionCard extends Component {
     Meteor.call('users.pending', this.props.data._id);
 
     Meteor.call('sessions.RSVP', this.props.data._id);
+  };
 
-    Meteor.call('users.testing');
+  handleCancel = () => {
+    Meteor.call('users.cancel', this.props.data._id);
+
+    Meteor.call('sessions.cancel', this.props.data._id);
   };
 
   render() {
@@ -119,8 +123,8 @@ class SessionCard extends Component {
               {this.state.showStatus}
             </button>
             {this.props.pending ? (
-              <button onClick={this.handleRsvp} className="rsvp" disabled>
-                Pending
+              <button onClick={this.handleCancel} className="rsvp">
+                Cancel
               </button>
             ) : (
               <button onClick={this.handleRsvp} className="rsvp">
