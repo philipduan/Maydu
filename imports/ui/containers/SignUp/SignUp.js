@@ -5,6 +5,8 @@ import Input from '../../components/Input/Input';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 //Utility
 import { updateObject, checkValidity } from '../../shared/utility';
+// Institutions
+import institutions from '../../shared/institutionList';
 // Styles
 import './styles.css';
 
@@ -116,16 +118,7 @@ class SignUp extends Component {
       institution: {
         elementType: 'select',
         elementConfig: {
-          options: [
-            {
-              displayName: 'University of Waterloo',
-              value: 'University of Waterloo'
-            },
-            {
-              displayName: 'University of Toronto',
-              value: 'University of Toronto'
-            }
-          ],
+          options: institutions,
           label: 'Institution Name',
           defaultSelect: 'Select'
         },
