@@ -291,6 +291,7 @@ class SignUp extends Component {
       file: file,
       error: error
     });
+    console.log('FILE: ', file);
     this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
@@ -300,6 +301,7 @@ class SignUp extends Component {
     reader.onloadend = () => {
       this.updateImageField(reader.result, file, '');
     };
+    console.log('FILE 2: ', file);
     reader.readAsDataURL(file);
   };
 
@@ -336,9 +338,7 @@ class SignUp extends Component {
         linkedIn: form.linkedIn.value,
         acceptedSessions: [],
         pendingSessions: [],
-        createdSessions: [],
-        imageURL:
-          'https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png'
+        createdSessions: []
       }
     };
   };
@@ -354,6 +354,7 @@ class SignUp extends Component {
         });
         scroll(0, 0);
       } else {
+        Modules.client.uploadToAmazonS3(this.state.imageData.file);
         this.props.history.push('/sessions');
       }
     });

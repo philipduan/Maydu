@@ -29,7 +29,6 @@ if (Meteor.isServer) {
 
     //Faker data purposes
     //===================
-    console.log(Meteor.user());
 
     return Sessions.find({ institution: Meteor.user().profile.institution });
   });
@@ -41,14 +40,13 @@ Meteor.methods({
     // console.log(query.toString(), 'query');
     try {
       if (!query) {
-        console.log('query undef');
         return Sessions.find({
           institution: Meteor.user().profile.institution
         }).fetch();
       }
-//nothing
-      console.log('query is def');
-      console.log('All Sessions ', Sessions.find({}).fetch());
+      //nothing
+      // console.log('query is def');
+      // console.log('All Sessions ', Sessions.find({}).fetch());
       return Sessions.find({
         courseCode: query,
         institution: Meteor.user().profile.institution
@@ -60,5 +58,24 @@ Meteor.methods({
 
   'sessions.saveNewSession'(session) {
     Sessions.insert(session);
+  },
+  'sessions.RSVP'(session) {
+    Sessions.update(session, {
+      $push: {
+        pending: Meteor.userId()
+      }
+    });
+    console.log('session update', session);
+  },
+
+  'sessions.cancel'(sessionId) {
+    Sessions.update(
+      { _id: sessionId },
+      {
+        $pull: {
+          pending: Meteor.userId()
+        }
+      }
+    );
   }
 });

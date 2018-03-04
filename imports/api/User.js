@@ -1,23 +1,30 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-// UserSchema = new SimpleSchema({
-//   // _id: ObjectId,
-//   Profile: {
-//     fullName: String,
-//     photo: String(url),
-//     major: String,
-//     year: Number,
-//     bio: String
-
-//     // SocialMedia: [ String (url) ],
-//     // Postedsession: [ Session id ],
-//     // Attendingsession: [ Session id ],
-//     // Pendingsession: [ Session.id ]
-//   }
-// });
-
 Meteor.methods({
+  'users.pending'(sessionId) {
+    let pendingSessionsArray = Meteor.user().profile.pendingSessions;
+    pendingSessionsArray.push(sessionId);
+    Meteor.users.update(
+      { _id: Meteor.userId() },
+      {
+        $addToSet: {
+          'profile.pendingSessions': sessionId
+        }
+      }
+    );
+    console.log('userr', Meteor.user());
+  },
+  'users.cancel'(sessionId) {
+    Meteor.users.update(
+      { _id: Meteor.userId() },
+      {
+        $pull: {
+          'profile.pendingSessions': sessionId
+        }
+      }
+    );
+  },
   // Update Users Basic Information
   'profiles.updateUserInformation'(updatedData) {
     return Meteor.users.update(Meteor.userId(), {
@@ -31,13 +38,6 @@ Meteor.methods({
       }
     });
   }
-
-  // Update Posted Sessions: Add ID of created session to postedSession
-
-  // Update Attending Sessions: Add ID of session user is attending to attendingSession
-  // Update Pending Sessions: Add ID of session user is waiting to get accepted at into pendingSession
 });
-
-// Meteor.users.attachSchema(UserSchema);
 
 export const Profiles = Meteor.users;

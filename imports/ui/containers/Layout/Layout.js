@@ -25,6 +25,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log('user id', Meteor.user());
     return (
       <div className="Header-Container">
         <h1
@@ -34,7 +35,10 @@ class Header extends Component {
           MayDu
         </h1>
         <div className="Header-Button-Div">
-          <button className="Header-profile">
+          <button
+            onClick={() => this.props.history.push(`/user/${Meteor.userId()}`)}
+            className="Header-profile"
+          >
             <i className="fas fa-user" />
 
           </button>
@@ -50,7 +54,7 @@ class Header extends Component {
 const Layout = ({ children, history }) => {
   return (
     <div>
-      <Header history={history} />
+      {Meteor.userId() ? <Header history={history} /> : null}
       <div>{children}</div>
     </div>
   );
