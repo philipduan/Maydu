@@ -22,3 +22,4 @@ accounts-ui-unstyled
 accounts-password
 aldeed:simple-schema
 edgee:slingshot
+dburles:collection-helpers
