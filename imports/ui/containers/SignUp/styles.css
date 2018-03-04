@@ -3,7 +3,7 @@
   height: 100%;
   width: 100vw;
   background-color: #028389;
-  text-align: center;
+  
 }
 
 .create-user-box {
@@ -36,3 +36,6 @@
   font-weight: bold;
 }
 
+.button_box {
+  text-align: center;
+}

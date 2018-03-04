@@ -376,13 +376,15 @@ class SignUp extends Component {
               imgURL={this.state.imageData.imgURL}
               error={this.state.imageData.error}
             />
-            <button
-            className="signup_button"
-              disabled={!this.state.formIsValid}
-              onClick={this.handleSubmit}
-            >
-              SIGN UP
-            </button>
+            <div className="button_box">
+              <button
+              className="signup_button"
+                disabled={!this.state.formIsValid}
+                onClick={this.handleSubmit}
+              >
+                SIGN UP
+              </button>
+            </div>
           </form>
         </div>
       </div>
