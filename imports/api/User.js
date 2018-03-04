@@ -3,20 +3,27 @@ import { Mongo } from 'meteor/mongo';
 
 Meteor.methods({
   'users.pending'(sessionId) {
-    console.log('i am here');
     let pendingSessionsArray = Meteor.user().profile.pendingSessions;
     pendingSessionsArray.push(sessionId);
     Meteor.users.update(
       { _id: Meteor.userId() },
       {
-        $set: {
-          profile: {
-            pendingSessions: pendingSessionsArray
-          }
+        $addToSet: {
+          'profile.pendingSessions': sessionId
         }
       }
     );
     console.log('userr', Meteor.user());
+  },
+  'users.cancel'(sessionId) {
+    Meteor.users.update(
+      { _id: Meteor.userId() },
+      {
+        $pull: {
+          'profile.pendingSessions': sessionId
+        }
+      }
+    );
   },
   // Update Users Basic Information
   'profiles.updateUserInformation'(updatedData) {
