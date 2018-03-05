@@ -153,12 +153,7 @@ class Profile extends Component {
         <h3>{this.state.editProfile.fullName}</h3>
         <div className="User-Container">
           <div className="Profile-Picture">
-            <img src="https://media.licdn.com/dms/image/C4D03AQGmcZ4ZQERkGQ/profile-displayphoto-shrink_200_200/0?e=1525201200&v=alpha&t=6OQtFwFcdFnMPTqIVuTfnh6ot6APAurrEam3vt6yvSQ" />
-            {Meteor.userId() ? (
-              <button onClick={() => console.log('hi')}> Edit Profile </button>
-            ) : (
-              ''
-            )}
+            <img src="http://www.sciencerendezvousuoft.ca/wp-content/uploads/2017/03/Headshot-Placeholder.jpg" />
           </div>
           <div className="User-Content">
             <p className="User-Institution">
@@ -177,34 +172,50 @@ class Profile extends Component {
         <div className="User-Accepted-Sessions-Container">
           <div className="Session-Container">
             {this.state.editProfile.createdSessions &&
-            this.state.editProfile.createdSessions.length > 0
-              ? this.state.editProfile.createdSessions.map((session, index) => (
-                  <SessionCard key={index} data={session} pending={false} />
-                ))
-              : null}
+            this.state.editProfile.createdSessions.length > 0 ? (
+              this.state.editProfile.createdSessions.map((session, index) => (
+                <SessionCard key={index} data={session} pending={false} />
+              ))
+            ) : (
+              <p className="empty-message">
+                {' '}
+                You haven't created any sessions yet!{' '}
+              </p>
+            )}
           </div>
         </div>
 
         <h3 className="Accepted-Sessions-Title"> Accepted Sessions </h3>
         <div className="User-Accepted-Sessions-Container">
-          <div className="Session-Container" />
+          <div className="Session-Container-Accepted" />
           {this.state.editProfile.acceptedSessions &&
-          this.state.editProfile.acceptedSessions.length > 0
-            ? this.state.editProfile.acceptedSessions.map((session, index) => (
-                <SessionCard key={index} data={session} pending={false} />
-              ))
-            : null}
+          this.state.editProfile.acceptedSessions.length > 0 ? (
+            this.state.editProfile.acceptedSessions.map((session, index) => (
+              <SessionCard key={index} data={session} pending={false} />
+            ))
+          ) : (
+            <p className="empty-message">
+              {' '}
+              You don't have any accepted sessions yet!{' '}
+            </p>
+          )}
         </div>
 
         <h3 className="Accepted-Sessions-Title"> Pending Sessions </h3>
         <div className="User-Accepted-Sessions-Container">
-          <div className="Session-Container">
+          <div className="Session-Container-Pending">
             {this.state.editProfile.pendingSessions &&
-            this.state.editProfile.pendingSessions.length > 0
-              ? this.state.editProfile.pendingSessions.map((session, index) => (
-                  <SessionCard key={index} data={session} pending={false} />
-                ))
-              : null}
+            this.state.editProfile.pendingSessions.length > 0 ? (
+              this.state.editProfile.pendingSessions.map((session, index) => (
+                <SessionCard key={index} data={session} pending={false} />
+              ))
+            ) : (
+              <p className="empty-message">
+                {' '}
+                You don't have any pending sessions, people must really like
+                you!{' '}
+              </p>
+            )}
           </div>
         </div>
       </div>

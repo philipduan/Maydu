@@ -127,10 +127,10 @@ class SessionCard extends Component {
                 Cancel
               </button>
             ) : (
-              <button onClick={this.handleRsvp} className="rsvp">
-                RSVP
+                <button onClick={this.handleRsvp} className="rsvp">
+                  RSVP
               </button>
-            )}
+              )}
           </div>
         </div>
       </div>

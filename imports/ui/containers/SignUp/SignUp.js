@@ -342,7 +342,7 @@ class SignUp extends Component {
     const form = this.state.form; // for readability
     Accounts.createUser(this.getProfile(), err => {
       if (err) {
-        this.setState({
+        this.setStatez({
           backendError: err.reason
         });
         scroll(0, 0);

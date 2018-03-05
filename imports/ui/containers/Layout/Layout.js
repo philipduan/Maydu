@@ -32,7 +32,7 @@ class Header extends Component {
           onClick={() => this.props.history.push('/sessions')}
           className="Header-Title"
         >
-          MayDu
+          May<span>Du</span>
         </h1>
         <div className="Header-Button-Div">
           <button
