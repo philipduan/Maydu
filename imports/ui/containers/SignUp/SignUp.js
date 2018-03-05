@@ -5,6 +5,8 @@ import Input from '../../components/Input/Input';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 //Utility
 import { updateObject, checkValidity } from '../../shared/utility';
+// Institutions
+import institutions from '../../shared/institutionList';
 // Styles
 import './styles.css';
 
@@ -15,7 +17,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'Harry Potter',
+          placeholder: 'Full Name',
           label: 'Full Name'
         },
         value: '',
@@ -30,7 +32,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'harry_762',
+          placeholder: 'Username',
           label: 'Username'
         },
         value: '',
@@ -46,7 +48,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'harrypotter@gmail.com',
+          placeholder: 'Email Address',
           label: 'Email Address'
         },
         value: '',
@@ -62,7 +64,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'password',
-          placeholder: 'Pick a secure password',
+          placeholder: 'Password',
           label: 'Password'
         },
         value: '',
@@ -88,7 +90,7 @@ class SignUp extends Component {
         },
         valid: false,
         touched: false,
-        validationMessage: 'Please enter your major.'
+        validationMessage: 'Surely, you must be studying something?'
       },
       academicYear: {
         elementType: 'select',
@@ -102,7 +104,7 @@ class SignUp extends Component {
             { displayName: 6, value: 6 }
           ],
           label: 'Academic Year',
-          defaultSelect: 'Select'
+          defaultSelect: 'Select Academic Year'
         },
         value: '',
         validation: {
@@ -115,16 +117,7 @@ class SignUp extends Component {
       institution: {
         elementType: 'select',
         elementConfig: {
-          options: [
-            {
-              displayName: 'University of Waterloo',
-              value: 'University of Waterloo'
-            },
-            {
-              displayName: 'University of Toronto',
-              value: 'University of Toronto'
-            }
-          ],
+          options: institutions,
           label: 'Institution Name',
           defaultSelect: 'Select'
         },
@@ -156,7 +149,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'https://www.facebook.com/harrypotter',
+          placeholder: 'Facebook (optional)',
           label: 'Facebook'
         },
         value: '',
@@ -171,7 +164,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'https://www.instagram.com/harrypotter/',
+          placeholder: 'Instagram (optional)',
           label: 'Instagram'
         },
         value: '',
@@ -186,7 +179,7 @@ class SignUp extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'https://www.linkedin.com/in/harrypotter/',
+          placeholder: 'LinkedIn (optional)',
           label: 'LinkedIn'
         },
         value: '',
@@ -291,7 +284,6 @@ class SignUp extends Component {
       file: file,
       error: error
     });
-    console.log('FILE: ', file);
     this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
@@ -301,11 +293,10 @@ class SignUp extends Component {
     reader.onloadend = () => {
       this.updateImageField(reader.result, file, '');
     };
-    console.log('FILE 2: ', file);
     reader.readAsDataURL(file);
   };
 
-  // If user's uploaded file is not an image, or exceeds 500kb, returns an error. Otherwise,
+  // If user's uploaded file is not an image, or exceeds 250kb, returns an error. Otherwise,
   // displays the uploaded image to the user and stores the file in state
   handleImageChange = e => {
     e.preventDefault();
@@ -313,7 +304,7 @@ class SignUp extends Component {
     var imageType = /^image\//;
     if (!imageType.test(file.type)) {
       this.updateImageField('', '', 'Invalid File Type. Must upload an image');
-    } else if (file.size > 500000) {
+    } else if (file.size > 250000) {
       this.updateImageField('', '', 'File too large. Max upload size: 500KB.');
     } else {
       this.displayAndSaveImage(file);
@@ -355,30 +346,38 @@ class SignUp extends Component {
         scroll(0, 0);
       } else {
         Modules.client.uploadToAmazonS3(this.state.imageData.file);
-        this.props.history.push('/sessions');
+        this.props.history.push(`/sessions`);
       }
     });
   };
 
   render() {
     return (
-      <div className="container">
-        <form>
-          {this.state.backendError ? <p> {this.state.backendError} </p> : null}
-          {this.renderFormElements()}
-          <ImageUpload
-            label="Upload A Photo"
-            changed={e => this.handleImageChange(e)}
-            imgURL={this.state.imageData.imgURL}
-            error={this.state.imageData.error}
-          />
-          <button
-            disabled={!this.state.formIsValid}
-            onClick={this.handleSubmit}
-          >
-            SIGN UP
-          </button>
-        </form>
+      <div className="create-user-container ">
+        <div className="create-user-box">
+          <h1> Sign up </h1>
+          <form className="create-user-form">
+            {this.state.backendError ? (
+              <p> {this.state.backendError} </p>
+            ) : null}
+            {this.renderFormElements()}
+            <ImageUpload
+              label="Upload A Photo"
+              changed={e => this.handleImageChange(e)}
+              imgURL={this.state.imageData.imgURL}
+              error={this.state.imageData.error}
+            />
+            <div className="button_box">
+              <button
+                className="signup_button"
+                disabled={!this.state.formIsValid}
+                onClick={this.handleSubmit}
+              >
+                SIGN UP
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

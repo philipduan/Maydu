@@ -44,7 +44,7 @@ Meteor.methods({
           institution: Meteor.user().profile.institution
         }).fetch();
       }
-//nothing
+      //nothing
       // console.log('query is def');
       // console.log('All Sessions ', Sessions.find({}).fetch());
       return Sessions.find({
@@ -57,7 +57,11 @@ Meteor.methods({
   },
 
   'sessions.saveNewSession'(session) {
-    Sessions.insert(session);
+    Sessions.insert(session, (err, session) =>
+      Meteor.users.update(Meteor.userId(), {
+        $addToSet: { 'profile.createdSessions': session }
+      })
+    );
   },
   'sessions.RSVP'(session) {
     Sessions.update(session, {
@@ -65,7 +69,17 @@ Meteor.methods({
         pending: Meteor.userId()
       }
     });
-    console.log('session update', session)
+    console.log('session update', session);
+  },
+
+  'sessions.cancel'(sessionId) {
+    Sessions.update(
+      { _id: sessionId },
+      {
+        $pull: {
+          pending: Meteor.userId()
+        }
+      }
+    );
   }
- 
 });
