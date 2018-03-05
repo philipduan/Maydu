@@ -11,7 +11,7 @@ export default class SessionList extends Component {
     const { sessions, currentUser } = this.props;
     const search = this.props.search
       ? ` matching the code '${this.props.search}'`
-      : ' created.';
+      : ' created. Try reloading?';
     const list =
       sessions.length > 0 ? (
         sessions.map((session, index) => {
