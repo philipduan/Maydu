@@ -34,3 +34,10 @@ export default class SessionList extends Component {
   }
 }
 // sdfhdgjghksjvafshdjkfbvfdaruhsdxncvbrahiusfdknjvbhdarfskjdnkjsjdras
+
+//Pending prop
+// pending={
+//   currentUser.profile.pendingSessions.includes(session._id)
+//     ? true
+//     : false
+// }
