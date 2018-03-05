@@ -69,3 +69,38 @@
   border: none;
   background-color: #028389;
 }
+@media screen and (min-width: 37.5rem) {
+}
+@media screen and (min-width: 64rem) {
+  .Header-Container {
+    padding: 2rem;
+    height: 10vh;
+
+    width: 100vw;
+  }
+
+  .Header-Title {
+    font-size: 3rem;
+  }
+
+  .Header-Button-Div {
+    padding-right: 1rem;
+    flex-direction: row;
+    width: 30%;
+    justify-content: space-between;
+  }
+  .Header-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 1.3rem;
+  }
+  .Header-signout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 1.3rem;
+  }
+}

@@ -270,9 +270,9 @@
     height: 23.6rem;
   }
   .session-brief-wrap {
-    width: 65vw;
-    margin: 1rem;
-    max-width: 550px;
+    display: inline-block;
+    margin: 0 0 1rem;
+    width: 100%;
   }
 
   .session-brief-header {
@@ -317,9 +317,7 @@
   }
   .session-brief-contain {
     border: 1px solid #015458;
-    max-width: 550px;
-
-    width: 65vw;
+    width: 100%;
     margin: 0 0 0.7rem 0;
     padding: 0.2rem 0.5rem;
     font-size: 1.1rem;
@@ -341,16 +339,27 @@
     margin: 1.5rem 0;
   }
   .create-session-link {
-    height: 40px;
-    border-radius: 20px;
+    height: 3.3rem;
+    width: 3.3rem;
+    border-radius: 50%;
     margin: 10px;
     margin-top: 30px;
     padding: 0px 10px;
-    color: white;
-    font-size: 1rem;
+    font-size: 16px;
+
+    right: 1.3rem;
   }
   .session-list {
-    flex-flow: row wrap;
+    column-count: 2;
+    width: 65rem;
+    column-gap: 1rem;
+
+    margin-top: 2rem;
+    display: block;
+    flex-direction: none;
+    justify-content: none;
+    align-items: none;
+    margin-bottom: 3.5rem;
   }
   .SearchBar {
   }

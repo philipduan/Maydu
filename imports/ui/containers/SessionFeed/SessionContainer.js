@@ -99,7 +99,11 @@ class SessionContainer extends Component {
           className="create-session-link"
           onClick={() => this.props.history.push('/createsession')}
         >
-          Create Session
+          {!window.innerWidth > 1023 ? (
+            'Create Session'
+          ) : (
+            <i class="fas fa-plus" />
+          )}
         </button>
       </div>
     );
