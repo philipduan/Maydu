@@ -178,9 +178,9 @@ class Profile extends Component {
           <div className="Session-Container">
             {this.state.editProfile.createdSessions &&
             this.state.editProfile.createdSessions.length > 0
-              ? this.state.editProfile.createdSessions.map((session, index) =>
-                  console.log('created', session)
-                )
+              ? this.state.editProfile.createdSessions.map((session, index) => (
+                  <SessionCard key={index} data={session} pending={false} />
+                ))
               : null}
           </div>
         </div>
@@ -190,9 +190,9 @@ class Profile extends Component {
           <div className="Session-Container" />
           {this.state.editProfile.acceptedSessions &&
           this.state.editProfile.acceptedSessions.length > 0
-            ? this.state.editProfile.acceptedSessions.map((session, index) =>
-                console.log('accepted', session)
-              )
+            ? this.state.editProfile.acceptedSessions.map((session, index) => (
+                <SessionCard key={index} data={session} pending={false} />
+              ))
             : null}
         </div>
 
@@ -201,9 +201,9 @@ class Profile extends Component {
           <div className="Session-Container">
             {this.state.editProfile.pendingSessions &&
             this.state.editProfile.pendingSessions.length > 0
-              ? this.state.editProfile.pendingSessions.map((session, index) =>
-                  console.log('pending', session)
-                )
+              ? this.state.editProfile.pendingSessions.map((session, index) => (
+                  <SessionCard key={index} data={session} pending={false} />
+                ))
               : null}
           </div>
         </div>

@@ -284,10 +284,7 @@ class SignUp extends Component {
       file: file,
       error: error
     });
-<<<<<<< HEAD
-=======
     console.log('FILE: ', file);
->>>>>>> d103d9121b982d521d47245c256202f40d729569
     this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
@@ -297,10 +294,7 @@ class SignUp extends Component {
     reader.onloadend = () => {
       this.updateImageField(reader.result, file, '');
     };
-<<<<<<< HEAD
-=======
     console.log('FILE 2: ', file);
->>>>>>> d103d9121b982d521d47245c256202f40d729569
     reader.readAsDataURL(file);
   };
 
@@ -337,11 +331,7 @@ class SignUp extends Component {
         linkedIn: form.linkedIn.value,
         acceptedSessions: [],
         pendingSessions: [],
-<<<<<<< HEAD
-        createdSessions: [],
-=======
         createdSessions: []
->>>>>>> d103d9121b982d521d47245c256202f40d729569
       }
     };
   };
@@ -369,7 +359,9 @@ class SignUp extends Component {
         <div className="create-user-box">
           <h1> Sign up </h1>
           <form className="create-user-form">
-            {this.state.backendError ? <p> {this.state.backendError} </p> : null}
+            {this.state.backendError ? (
+              <p> {this.state.backendError} </p>
+            ) : null}
             {this.renderFormElements()}
             <ImageUpload
               label="Upload A Photo"
@@ -379,7 +371,7 @@ class SignUp extends Component {
             />
             <div className="button_box">
               <button
-              className="signup_button"
+                className="signup_button"
                 disabled={!this.state.formIsValid}
                 onClick={this.handleSubmit}
               >
