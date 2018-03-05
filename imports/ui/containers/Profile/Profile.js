@@ -31,22 +31,73 @@ class Profile extends Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.user) {
-      console.log(nextProps.user.profile);
-      console.log(nextProps.createdSessions);
-      this.setState({
-        editProfile: {
-          fullName: nextProps.user.profile.fullName,
-          major: nextProps.user.profile.major,
-          academicYear: nextProps.user.profile.academicYear,
-          institution: nextProps.user.profile.institution,
-          bio: nextProps.user.profile.bio,
-          createdSessions: nextProps.createdSessions,
-          pendingSessions: nextProps.pendingSessions,
-          acceptedSessions: nextProps.acceptedSessions
-        }
+  componentDidMount() {
+    if (this.props.user) {
+      const { user } = this.props;
+      console.log('will mount');
+
+      console.log('inside if');
+      Promise.all([
+        Sessions.find({
+          _id: { $in: user.profile.createdSessions }
+        }).fetch(),
+        Sessions.find({
+          _id: { $in: user.profile.pendingSessions }
+        }).fetch(),
+        Sessions.find({
+          _id: { $in: user.profile.acceptedSessions }
+        }).fetch()
+      ]).then(data => {
+        const [createdSessions, pendingSessions, acceptedSessions] = data;
+        console.log(data);
+        this.setState({
+          editProfile: {
+            fullName: user.profile.fullName,
+            major: user.profile.major,
+            academicYear: user.profile.academicYear,
+            institution: user.profile.institution,
+            bio: user.profile.bio,
+            createdSessions: createdSessions,
+            pendingSessions: pendingSessions,
+            acceptedSessions: acceptedSessions
+          }
+        });
       });
+    }
+  }
+
+  componentWillUpdate(nextProps) {
+    console.log('will Update', nextProps);
+    console.log(this.props.user, this.state);
+    if (this.state.editProfile.fullName !== nextProps.user.profile.fullName) {
+      console.log('inside if');
+      Promise.all([
+        Sessions.find({
+          _id: { $in: nextProps.user.profile.createdSessions }
+        }).fetch(),
+        Sessions.find({
+          _id: { $in: nextProps.user.profile.pendingSessions }
+        }).fetch(),
+        Sessions.find({
+          _id: { $in: nextProps.user.profile.acceptedSessions }
+        }).fetch()
+      ]).then(data => {
+        const [createdSessions, pendingSessions, acceptedSessions] = data;
+        console.log(data);
+        this.setState({
+          editProfile: {
+            fullName: nextProps.user.profile.fullName,
+            major: nextProps.user.profile.major,
+            academicYear: nextProps.user.profile.academicYear,
+            institution: nextProps.user.profile.institution,
+            bio: nextProps.user.profile.bio,
+            createdSessions: createdSessions,
+            pendingSessions: pendingSessions,
+            acceptedSessions: acceptedSessions
+          }
+        });
+      });
+
       // this.checkUserSessions()
       // this.checkUserAcceptedSessions()
     }
@@ -96,11 +147,7 @@ class Profile extends Component {
   }
 
   render() {
-    console.log(
-      'MOMENT O TRUTH',
-      this.state.editProfile.createdSessions.length
-    );
-    console.log('state', this.state);
+    console.log(this.state);
     return (
       <div className="Profile-Container">
         <h3>{this.state.editProfile.fullName}</h3>
@@ -175,17 +222,7 @@ export default withTracker(props => {
   Meteor.subscribe('sessions');
   const id = props.match.params.id;
   const user = Meteor.users.findOne({ _id: id });
-  console.log('user', user);
   return {
-    user: user ? user : '',
-    createdSessions: user
-      ? Sessions.find({ _id: { $in: user.profile.createdSessions } }).fetch()
-      : [],
-    pendingSessions: user
-      ? Sessions.find({ _id: { $in: user.profile.pendingSessions } }).fetch()
-      : [],
-    acceptedSessions: user
-      ? Sessions.find({ _id: { $in: user.profile.acceptedSessions } }).fetch()
-      : []
+    user: user ? user : ''
   };
 })(Profile);
