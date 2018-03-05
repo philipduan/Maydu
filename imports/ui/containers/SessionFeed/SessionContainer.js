@@ -108,7 +108,7 @@ class SessionContainer extends Component {
           {!window.innerWidth > 1023 ? (
             'Create Session'
           ) : (
-            <i class="fas fa-plus" />
+            <i className="fas fa-plus" />
           )}
         </button>
       </div>
