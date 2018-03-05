@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 // Components and Containers
 import Input from '../../components/Input/Input';
+import { withRouter } from 'react-router-dom';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 //Utility
 import { updateObject, checkValidity } from '../../shared/utility';
@@ -342,7 +343,8 @@ class SignUp extends Component {
     const form = this.state.form; // for readability
     Accounts.createUser(this.getProfile(), err => {
       if (err) {
-        this.setStatez({
+        console.log(err);
+        this.setState({
           backendError: err.reason
         });
         scroll(0, 0);
@@ -363,12 +365,12 @@ class SignUp extends Component {
               <p> {this.state.backendError} </p>
             ) : null}
             {this.renderFormElements()}
-            {/* <ImageUpload
+            <ImageUpload
               label="Upload A Photo"
               changed={e => this.handleImageChange(e)}
               imgURL={this.state.imageData.imgURL}
               error={this.state.imageData.error}
-            /> */}
+            />
             <div className="button_box">
               <button
                 className="signup_button"
@@ -385,4 +387,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);
