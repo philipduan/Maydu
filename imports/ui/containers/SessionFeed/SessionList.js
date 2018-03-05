@@ -15,7 +15,7 @@ export default class SessionList extends Component {
     const list =
       sessions.length > 0 ? (
         sessions.map((session, index) => {
-          return (
+          return currentUser._id !== session.sessionCreator._id ? (
             <SessionCard
               pending={
                 currentUser.profile.pendingSessions.includes(session._id)
@@ -25,7 +25,7 @@ export default class SessionList extends Component {
               key={index}
               data={session}
             />
-          );
+          ) : null;
         })
       ) : (
         <div className="null-sessions">{`There are no sessions ${search}`}</div>
