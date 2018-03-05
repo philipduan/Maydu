@@ -41,12 +41,17 @@
   justify-content: space-between;
   flex-direction: row;
   width: 100vw;
+  border-bottom: 2px solid white;
 }
 
 .Header-Title {
-  font-size: 2.3rem;
-  text-decoration: underline;
-  text-decoration-color: #fbb506;
+  font-size: 2.1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.Header-Title span {
+  color: #fbb506
 }
 
 .Header-Button-Div {
