@@ -40,7 +40,7 @@ class CreateSession extends Component {
   componentDidMount() {
     setTimeout(() => {
       const input = document.getElementById('autocomplete');
-      const options = {};
+      const options = { componentRestrictions: { country: 'ca' } };
       if (
         typeof window.google !== 'undefined' &&
         typeof window.google.maps !== 'undefined'
@@ -65,14 +65,18 @@ class CreateSession extends Component {
           // and fill the corresponding field on the form.
           let selectedSuggest = {};
           for (let addressComponent of selectedPlace.address_components) {
-            const addressType = addressComponent.types[0];
+            let addressType = '';
+            for (let type of addressComponent.types) {
+              if (componentForm[type]) {
+                addressType = type;
+              }
+            }
             if (componentForm[addressType]) {
               selectedSuggest[addressType] =
                 addressComponent[componentForm[addressType]];
             }
           }
 
-          // input.value = selectedPlace.name // Code injection risk (check doc)
           input.value = `${selectedSuggest.street_number} ${
             selectedSuggest.route
           }, ${selectedSuggest.locality}, ${
@@ -151,11 +155,16 @@ class CreateSession extends Component {
 
   onSubmit = values => {
     this.state.error ? null : this.setState({ error: '' });
-    if (this.state.address) {
+    if (!this.state.address.includes(undefined)) {
       values = {
         ...values,
-        title: values.title.replace(/\b\w/g, l => l.toUpperCase()),
+        title: values.title
+          .toLowerCase()
+          .replace(/\b\w/g, l => l.toUpperCase()),
         courseCode: values.courseCode.replace(/\s/g, '').toUpperCase(),
+        description: values.description
+          ? values.description
+          : 'No Description Provided',
         geoCode: this.state.geoCode,
         address: this.state.address,
         addressForm: this.state.addressForm,
@@ -175,7 +184,7 @@ class CreateSession extends Component {
       this.props.history.push('/sessions');
     } else {
       this.setState({
-        error: 'No result found. Please verify your address'
+        error: 'Please enter a complete address'
       });
     }
   };

@@ -94,6 +94,19 @@
 } */
 
 /* Session card Styling ends */
+.null-sessions {
+  display: flex;
+  height: 30vh;
+  margin-top: 2rem;
+  width: 80vw;
+  padding: 1rem;
+  border-radius: 25%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: #028389;
+  color: #ffffff;
+}
 .sessionContainer {
   font-family: 'Lato', sans-serif;
   height: auto;

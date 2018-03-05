@@ -11,6 +11,9 @@ import FlatButton from 'material-ui/FlatButton';
 import './style.css';
 import { withRouter } from 'react-router-dom';
 import { Location } from './GoogleApiComponent';
+import Profile from '../Profile/Profile';
+import { connect } from 'react-redux';
+import { getSessionInfo } from '../../redux/profile';
 
 class SessionCard extends Component {
   constructor() {
@@ -20,9 +23,20 @@ class SessionCard extends Component {
       expanded: false
     };
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   !nextProps ? console.log('no props') : console.log(nextProps)
+  //   this.props.dispatch(getSessionInfo(nextProps.data))
+  // }
+
+  componentDidMount() {
+    console.log('PROPS', this.props.data);
+    this.props.dispatch(getSessionInfo(this.props.data));
+  }
+
   showMore = event => {
     //identification query bug
-    console.log('more', this.props.data._id);
+    // console.log('more', this.props.data._id);
     this.setState({ showStatus: 'Less' });
     this.setState({ expanded: true });
     document.getElementsByClassName(
@@ -34,7 +48,7 @@ class SessionCard extends Component {
       'flex';
   };
   showLess = event => {
-    console.log('less', this.props.data._id);
+    // console.log('less', this.props.data._id);
 
     this.setState({ showStatus: 'More Info' });
     this.setState({ expanded: false });
@@ -47,8 +61,21 @@ class SessionCard extends Component {
     )[0].style.display =
       'none';
   };
+  handleRsvp = () => {
+    Meteor.call('users.pending', this.props.data._id);
+
+    Meteor.call('sessions.RSVP', this.props.data._id);
+  };
+
+  handleCancel = () => {
+    Meteor.call('users.cancel', this.props.data._id);
+
+    Meteor.call('sessions.cancel', this.props.data._id);
+  };
+
   render() {
-    console.log(this.props);
+    console.log('user', Meteor.user());
+    console.log('props', this.props);
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -70,12 +97,12 @@ class SessionCard extends Component {
             style={{
               maxHeight: '3.5rem',
               overflow: 'hidden',
-              transition: 'max-height 1s ease-in'
+              transition: 'height 1s ease-in'
               // note that we're transitioning max-height, not height!
             }}
           >
             <p className="session-brief-bio">
-              {`Description: ${this.props.data.description}`}
+              {` ${this.props.data.description}`}
             </p>
             <hr />
             {/* test comment */}
@@ -95,7 +122,6 @@ class SessionCard extends Component {
               isMarkerShown={true}
               lat={Object.values(this.props.data.geoCode)[0]}
               lng={Object.values(this.props.data.geoCode)[1]}
-              //googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `200px` }} />}
               mapElement={<div style={{ height: `100%` }} />}
@@ -110,14 +136,15 @@ class SessionCard extends Component {
             >
               {this.state.showStatus}
             </button>
-            <button
-              onClick={() =>
-                this.props.history.push(`/sessions/${this.props.data._id}`)
-              }
-              className="rsvp"
-            >
-              RSVP
-            </button>
+            {this.props.pending ? (
+              <button onClick={this.handleCancel} className="rsvp">
+                Cancel
+              </button>
+            ) : (
+              <button onClick={this.handleRsvp} className="rsvp">
+                RSVP
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -125,8 +152,13 @@ class SessionCard extends Component {
   }
 }
 
-export default withRouter(SessionCard);
+const mapStateToProps = state => ({
+  profileData: state.profileData.profileData,
+  isLoading: state.profileData.isLoading
+});
 
+const SessionCardRouter = withRouter(SessionCard);
+export default connect(mapStateToProps)(SessionCardRouter);
 // Old Card Components
 //====================
 

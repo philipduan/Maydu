@@ -76,8 +76,7 @@ class SignUp extends Component {
         touched: false,
         validationMessage:
           'Your password must be at least 8 characters long and contain no white spaces'
-      }
-      ,
+      },
       major: {
         elementType: 'input',
         elementConfig: {
@@ -201,9 +200,6 @@ class SignUp extends Component {
     backendError: null
   };
 
-
- 
-
   // This method shows userInput on screen, validates it, and updates state.formIsValid accordingly
   inputHandler = (event, fieldName) => {
     let field = this.state.form[fieldName];
@@ -288,6 +284,10 @@ class SignUp extends Component {
       file: file,
       error: error
     });
+<<<<<<< HEAD
+=======
+    console.log('FILE: ', file);
+>>>>>>> d103d9121b982d521d47245c256202f40d729569
     this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
@@ -297,6 +297,10 @@ class SignUp extends Component {
     reader.onloadend = () => {
       this.updateImageField(reader.result, file, '');
     };
+<<<<<<< HEAD
+=======
+    console.log('FILE 2: ', file);
+>>>>>>> d103d9121b982d521d47245c256202f40d729569
     reader.readAsDataURL(file);
   };
 
@@ -333,7 +337,11 @@ class SignUp extends Component {
         linkedIn: form.linkedIn.value,
         acceptedSessions: [],
         pendingSessions: [],
+<<<<<<< HEAD
         createdSessions: [],
+=======
+        createdSessions: []
+>>>>>>> d103d9121b982d521d47245c256202f40d729569
       }
     };
   };
