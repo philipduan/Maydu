@@ -1,27 +1,57 @@
-input {
-  width: 100%;
-  border: 1px solid green;
-  height: 3rem;
-  margin-bottom: 2rem;
-  padding: 0.5rem;
+.signup_label {
+  color: white;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
-select {
+.signup_input {
+  background-color: white;
+  border-radius: 5px;
   width: 100%;
-  border: 1px solid green;
-  height: 3rem;
+  padding: 10px; 
   margin-bottom: 2rem;
-  padding: 0.5rem;
+  margin-top: 0.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  border: 0;
 }
 
-textArea {
-  width: 100%;
-  border: 1px solid green;
-  height: 10rem;
-  margin-bottom: 2rem;
-  padding: 0.5rem;
+.signup_input::placeholder {
+  font-weight: 300;
+  color:darkgray;
 }
 
-.error {
-  color: red;
+.signup_select_gray {
+  font-weight: 300;
+  color: darkgray;
+}
+
+.signup_select_option {
+  border: 10px solid blue;
+  color: green;
+  font-size: 5rem;
+  width: 100%; 
+}
+
+
+.signup_textarea {
+  height: 6rem;
+}
+
+.bio_counter{
+  margin-top: -1.8rem;
+  color: #FFB6C1;
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.signup_error {
+  font-size: 0.8rem;
+  color:#FFB6C1;
+}
+
+.signup_error:before {
+  font-family: FontAwesome;
+  content: "\f071";
+  margin-right: 0.5rem;
 }

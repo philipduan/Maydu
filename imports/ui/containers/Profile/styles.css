@@ -1,107 +1,105 @@
 .Profile-Container {
-    background-color: #028389;
-    height: 100vh; 
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background-color: #028389;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Profile-Container h3 {
-    font-family: 'Montserrat', sans-serif; 
-    color: white;
-    padding-top: 2.5%;
-    text-align: center;
-    font-size: 25px;
-    padding-bottom: 2.5%;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  padding-top: 2.5%;
+  text-align: center;
+  font-size: 25px;
+  padding-bottom: 2.5%;
 }
 
 .User-Container {
-    height: auto; 
-    padding: 3%;
-    width: 90%;
-    border: 2px solid white;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 3.5%;
+  height: auto;
+  padding: 3%;
+  width: 90%;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3.5%;
 }
 
 .User-Container .Profile-Picture {
-    width: 35%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .User-Container .Profile-Picture img {
-    height: 100px; 
-    width: 100px;
-    border-radius: 50px;
-    margin-bottom: 5%;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  margin-bottom: 5%;
 }
 
 .User-Container .Profile-Picture button {
-    color: white;
-    font-family: 'Montserrat', sans-serif; 
-    font-weight: lighter;
-    font-size: 14px;
-    border-bottom: 1px solid white;
-    background-color: transparent;
-    border-left: none;
-    border-right: none;
-    border-top: none;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 14px;
+  border-bottom: 1px solid white;
+  background-color: transparent;
+  border-left: none;
+  border-right: none;
+  border-top: none;
 }
 
-
 .User-Container .User-Content {
-    width: 65%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .User-Content .User-Institution {
-    font-family: 'Montserrat', sans-serif; 
-    font-weight: bold;
-    color: white;
-    font-size: 18px;
-    margin-top: 2%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 18px;
+  margin-top: 2%;
 }
 
 .User-Content .User-Major-Year {
-    font-family: 'Montserrat', sans-serif; 
-    font-weight: lighter;
-    font-style: italic; 
-    color: white;
-    font-size: 12px;
-    margin-bottom: 2%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-style: italic;
+  color: white;
+  font-size: 12px;
+  margin-bottom: 2%;
 }
 
 .User-Content .User-Bio {
-    font-family: 'Montserrat', sans-serif; 
-    font-weight: lighter;
-    color: white;
-    font-size: 12px;
-    text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  color: white;
+  font-size: 12px;
+  text-align: center;
 }
 
 .User-Accepted-Sessions-Container {
-    height: auto; 
-    padding: 4%;
-    width: 90%;
-    border: 2px solid white;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2%;
+  padding: 4%;
+  width: 90%;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2%;
 }
 
 .Profile-Container .Accepted-Sessions-Title {
-    font-family: 'Montserrat', sans-serif; 
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 0.5;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 0.5;
 }

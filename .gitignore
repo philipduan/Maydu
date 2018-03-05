@@ -2,12 +2,7 @@ node_modules/
 settings.json
 settings-development.json
 settings-production.json
-<<<<<<< HEAD
-<<<<<<< HEAD
 .vscode
-=======
-.vscode
->>>>>>> master
-=======
-.vscode
->>>>>>> master
+
+
+
