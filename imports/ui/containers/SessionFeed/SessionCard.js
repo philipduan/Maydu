@@ -74,11 +74,8 @@ class SessionCard extends Component {
   };
 
   render() {
-<<<<<<< HEAD
-=======
     console.log('user', Meteor.user());
     console.log('props', this.props);
->>>>>>> master
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -155,11 +152,7 @@ class SessionCard extends Component {
   }
 }
 
-<<<<<<< HEAD
-const mapStateToProps = (state) => ({
-=======
 const mapStateToProps = state => ({
->>>>>>> master
   profileData: state.profileData.profileData,
   isLoading: state.profileData.isLoading
 });

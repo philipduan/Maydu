@@ -110,8 +110,8 @@ class Profile extends Component {
             {Meteor.userId() ? (
               <button onClick={() => console.log('hi')}> Edit Profile </button>
             ) : (
-              ''
-            )}
+                ''
+              )}
           </div>
           <div className="User-Content">
             <p className="User-Institution">
@@ -130,10 +130,10 @@ class Profile extends Component {
         <div className="User-Accepted-Sessions-Container">
           <div className="Session-Container">
             {this.state.editProfile.createdSessions &&
-            this.state.editProfile.createdSessions.length > 0
+              this.state.editProfile.createdSessions.length > 0
               ? this.state.editProfile.createdSessions.map((session, index) =>
-                  console.log('created', session)
-                )
+                console.log('created', session)
+              )
               : null}
           </div>
         </div>
@@ -142,26 +142,22 @@ class Profile extends Component {
         <div className="User-Accepted-Sessions-Container">
           <div className="Session-Container" />
           {this.state.editProfile.acceptedSessions &&
-          this.state.editProfile.acceptedSessions.length > 0
+            this.state.editProfile.acceptedSessions.length > 0
             ? this.state.editProfile.acceptedSessions.map((session, index) =>
-                console.log('accepted', session)
-              )
+              console.log('accepted', session)
+            )
             : null}
         </div>
 
         <h3 className="Accepted-Sessions-Title"> Pending Sessions </h3>
         <div className="User-Accepted-Sessions-Container">
           <div className="Session-Container">
-<<<<<<< HEAD
-
-=======
             {this.state.editProfile.pendingSessions &&
-            this.state.editProfile.pendingSessions.length > 0
+              this.state.editProfile.pendingSessions.length > 0
               ? this.state.editProfile.pendingSessions.map((session, index) =>
-                  console.log('pending', session)
-                )
+                console.log('pending', session)
+              )
               : null}
->>>>>>> master
           </div>
         </div>
       </div>

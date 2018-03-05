@@ -22,8 +22,3 @@
 //       return this.userId + "." + fileExtension;
 //     }
 
-<<<<<<< HEAD
-//   });
-=======
-//   });
->>>>>>> master
