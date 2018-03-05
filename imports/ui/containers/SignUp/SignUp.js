@@ -284,6 +284,7 @@ class SignUp extends Component {
       file: file,
       error: error
     });
+    console.log('FILE: ', file);
     this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
   };
 
@@ -293,6 +294,7 @@ class SignUp extends Component {
     reader.onloadend = () => {
       this.updateImageField(reader.result, file, '');
     };
+    console.log('FILE 2: ', file);
     reader.readAsDataURL(file);
   };
 
