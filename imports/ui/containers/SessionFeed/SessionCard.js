@@ -77,11 +77,6 @@ class SessionCard extends Component {
   };
 
   render() {
-<<<<<<< HEAD
-=======
-    console.log('user', Meteor.user());
-    console.log('props', this.props);
->>>>>>> master
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -147,10 +142,10 @@ class SessionCard extends Component {
                 Cancel
               </button>
             ) : (
-              <button onClick={this.handleRsvp} className="rsvp">
-                RSVP
+                <button onClick={this.handleRsvp} className="rsvp">
+                  RSVP
               </button>
-            )}
+              )}
           </div>
         </div>
       </div>
@@ -158,7 +153,6 @@ class SessionCard extends Component {
   }
 }
 
-<<<<<<< HEAD
 const mapStateToProps = (state) => ({
   profileData: state.profileData.profileData,
   isLoading: state.profileData.isLoading
@@ -205,6 +199,3 @@ export default connect(mapStateToProps)(SessionCardRouter);
 //           )
 //         }
 //       >  </CardMedia>
-=======
-export default withRouter(SessionCard);
->>>>>>> master
