@@ -17,13 +17,13 @@ export default class SessionList extends Component {
         sessions.map((session, index) => {
           return currentUser._id !== session.sessionCreator._id ? (
             <SessionCard
-              key={index}
-              data={session}
               pending={
                 currentUser.profile.pendingSessions.includes(session._id)
                   ? true
                   : false
               }
+              key={index}
+              data={session}
             />
           ) : null;
         })
@@ -34,3 +34,8 @@ export default class SessionList extends Component {
   }
 }
 // sdfhdgjghksjvafshdjkfbvfdaruhsdxncvbrahiusfdknjvbhdarfskjdnkjsjdras
+
+// sdfhdgjghksjvafshdjkfbvfdaruhsdxncvbrahiusfdknjvbhdarfskjdnkjsjdras
+
+//Pending prop
+//
