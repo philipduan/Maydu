@@ -15,17 +15,17 @@ export default class SessionList extends Component {
     const list =
       sessions.length > 0 ? (
         sessions.map((session, index) => {
-          return currentUser._id !== session.sessionCreator._id ? (
+          return (
             <SessionCard
-              key={index}
-              data={session}
               pending={
                 currentUser.profile.pendingSessions.includes(session._id)
                   ? true
                   : false
               }
+              key={index}
+              data={session}
             />
-          ) : null;
+          );
         })
       ) : (
         <div className="null-sessions">{`There are no sessions ${search}`}</div>
@@ -34,3 +34,8 @@ export default class SessionList extends Component {
   }
 }
 // sdfhdgjghksjvafshdjkfbvfdaruhsdxncvbrahiusfdknjvbhdarfskjdnkjsjdras
+
+// sdfhdgjghksjvafshdjkfbvfdaruhsdxncvbrahiusfdknjvbhdarfskjdnkjsjdras
+
+//Pending prop
+//
