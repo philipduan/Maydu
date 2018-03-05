@@ -61,17 +61,6 @@ class SessionCard extends Component {
     )[0].style.display =
       'none';
   };
-  handleRsvp = () => {
-    Meteor.call('users.pending', this.props.data._id);
-
-    Meteor.call('sessions.RSVP', this.props.data._id);
-  };
-
-  handleCancel = () => {
-    Meteor.call('users.cancel', this.props.data._id);
-
-    Meteor.call('sessions.cancel', this.props.data._id);
-  };
 
   render() {
     console.log('user', Meteor.user());
@@ -136,15 +125,6 @@ class SessionCard extends Component {
             >
               {this.state.showStatus}
             </button>
-            {this.props.pending ? (
-              <button onClick={this.handleCancel} className="rsvp">
-                Cancel
-              </button>
-            ) : (
-              <button onClick={this.handleRsvp} className="rsvp">
-                RSVP
-              </button>
-            )}
           </div>
         </div>
       </div>
@@ -162,39 +142,28 @@ export default connect(mapStateToProps)(SessionCardRouter);
 // Old Card Components
 //====================
 
-//Delete
-// <div className="sessionCard">
-//     {/* {console.log('data', data)} */}
-//     <Card>
-//       {/* <img src={data.imageurl} alt={data.title} /> */}
-//       <CardHeader
-//         style={{ cursor: 'pointer' }}
-//         onClick={() => history.push(`/user/${data.sessionCreator._id}`)}
-//         title={`Creator: ${data.sessionCreator.profile.fullName}`}
-//         subtitle={data.sessionCreator.profile.bio}
-//         // avatar={
-//         //   <Gravatar email={data.itemowner.email} className="GravatarImg" />
-//         // }
-//       />
-//       <CardTitle title={data.title} subtitle={data.courseCode} />
-//       <CardText>{data.intersection}</CardText>
-//       <CardText>{data.institution}</CardText>
-//       <CardActions>
-//         {data ? <FlatButton className="join-btn" label="Join" /> : ''}
-//       </CardActions>
-//     </Card>
-//   </div>
+// Rsvp button
+// ==========
+// {this.props.pending ? (
+//   <button onClick={this.handleCancel} className="rsvp">
+//     Cancel
+//   </button>
+// ) : (
+//   <button onClick={this.handleRsvp} className="rsvp">
+//     RSVP
+//   </button>
+// )}
 
-// <CardMedia
-//         overlay={
-//           data.available === false ? (
-//             <CardTitle
-//               className="available-status"
-//               title="Unavailable"
-//               subtitle=""
-//             />
-//           ) : (
-//             ''
-//           )
-//         }
-//       >  </CardMedia>
+//MEthods
+// =================
+// handleRsvp = () => {
+//   Meteor.call('users.pending', this.props.data._id);
+
+//   Meteor.call('sessions.RSVP', this.props.data._id);
+// };
+
+// handleCancel = () => {
+//   Meteor.call('users.cancel', this.props.data._id);
+
+//   Meteor.call('sessions.cancel', this.props.data._id);
+// };
