@@ -107,7 +107,9 @@ class SessionCard extends Component {
               lat={Object.values(this.props.data.geoCode)[0]}
               lng={Object.values(this.props.data.geoCode)[1]}
               loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: `200px` }} />}
+              containerElement={
+                <div className="gMap"  />
+              }
               mapElement={<div style={{ height: `100%` }} />}
             />
           </div>
@@ -125,10 +127,10 @@ class SessionCard extends Component {
                 Cancel
               </button>
             ) : (
-              <button onClick={this.handleRsvp} className="rsvp">
-                RSVP
+                <button onClick={this.handleRsvp} className="rsvp">
+                  RSVP
               </button>
-            )}
+              )}
           </div>
         </div>
       </div>

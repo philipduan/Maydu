@@ -31,9 +31,15 @@ class SessionContainer extends Component {
       event: ''
     };
   }
+
+  componentWillMount() {
+    if (this.props.sessions.length !== 0) {
+      this.setState({ sessions: this.props.sessions });
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({ sessions: nextProps.sessions });
-    // console.log('props', nextProps.sessions);
 
     let courseCodes = [];
     nextProps.sessions.filter(session => {
@@ -80,7 +86,7 @@ class SessionContainer extends Component {
       // console.log(this.props.currentUser, 'meteor user');
     }
     const { sessions } = this.state;
-
+    console.log('render', sessions);
     return (
       <div className="sessionContainer">
         <h1 className="sessionHeader">Sessions</h1>
@@ -99,7 +105,11 @@ class SessionContainer extends Component {
           className="create-session-link"
           onClick={() => this.props.history.push('/createsession')}
         >
-          Create Session
+          {!window.innerWidth > 1023 ? (
+            'Create Session'
+          ) : (
+            <i class="fas fa-plus" />
+          )}
         </button>
       </div>
     );

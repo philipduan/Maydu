@@ -1,6 +1,6 @@
 .Profile-Container {
   background-color: #028389;
-  height: 100vh;
+  height: auto;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -10,20 +10,19 @@
 .Profile-Container h3 {
   font-family: 'Montserrat', sans-serif;
   color: white;
-  padding-top: 2.5%;
   text-align: center;
   font-size: 25px;
-  padding-bottom: 2.5%;
+  padding: 2.5% 0%;
 }
 
 .User-Container {
   height: auto;
-  padding: 3%;
   width: 90%;
   border: 2px solid white;
   display: flex;
   justify-content: center;
-  margin-bottom: 3.5%;
+  align-items: center;
+  margin-bottom: 3%;
 }
 
 .User-Container .Profile-Picture {
@@ -32,25 +31,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 3% 0%;
 }
 
 .User-Container .Profile-Picture img {
   height: 100px;
   width: 100px;
   border-radius: 50px;
-  margin-bottom: 5%;
-}
-
-.User-Container .Profile-Picture button {
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: lighter;
-  font-size: 14px;
-  border-bottom: 1px solid white;
-  background-color: transparent;
-  border-left: none;
-  border-right: none;
-  border-top: none;
 }
 
 .User-Container .User-Content {
@@ -59,6 +46,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  margin: 3% 0%;
 }
 
 .User-Content .User-Institution {
@@ -93,6 +81,11 @@
   display: flex;
   justify-content: center;
   margin-bottom: 2%;
+  height: auto;
+}
+
+.Session-Container {
+  height: auto; 
 }
 
 .Profile-Container .Accepted-Sessions-Title {
@@ -102,4 +95,72 @@
   font-weight: bold;
   font-size: 18px;
   line-height: 0.5;
+}
+
+.empty-message {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  color: white;
+  font-size: 13px;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .empty-message {
+    font-size: 15px;
+  }
+  .Profile-Container .Accepted-Sessions-Title {
+    font-size: 22px; 
+  }
+  .Profile-Container h3 {
+    font-size: 30px;
+  }
+  .User-Content .User-Institution {
+    font-size: 22px;
+  }
+  .User-Content .User-Major-Year {
+    font-size: 15px;
+  }
+  .User-Content .User-Bio {
+    font-size: 15px;
+  }
+  .User-Container .Profile-Picture img {
+    height: 125px; 
+    width: 125px; 
+    border-radius: 62.5px; 
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .Profile-Container h3 {
+    font-size: 35px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .Profile-Container h3 {
+    font-size:40px;
+    padding: 1.75%;
+  }
+  .User-Container .Profile-Picture img {
+    height: 150px; 
+    width: 150px; 
+    border-radius: 75px; 
+  }
+  .Profile-Container .Accepted-Sessions-Title {
+    font-size: 25px;
+  }
+  .empty-message {
+    font-size: 18px;
+  }
+  .User-Content .User-Institution {
+    font-size: 25px;
+  }
+  .User-Content .User-Major-Year {
+    font-size: 18px;
+  }
+  .User-Content .User-Bio {
+    font-size: 18px;
+    padding: 0px 10px;
+  }
 }
