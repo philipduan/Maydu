@@ -40,10 +40,13 @@ class Header extends Component {
             className="Header-profile"
           >
             <i className="fas fa-user" />
-
+            &nbsp;
+            {window.innerWidth > 1023 ? <p>&nbsp;&nbsp;My Profile</p> : null}
           </button>
           <button onClick={this.handleSignOut} className="Header-signout">
             <i className="fas fa-sign-out-alt" />
+            &nbsp;
+            {window.innerWidth > 1023 ? <p>&nbsp;&nbsp;Logout</p> : null}
           </button>
         </div>
       </div>

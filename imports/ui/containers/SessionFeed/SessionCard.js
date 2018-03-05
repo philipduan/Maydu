@@ -107,7 +107,9 @@ class SessionCard extends Component {
               lat={Object.values(this.props.data.geoCode)[0]}
               lng={Object.values(this.props.data.geoCode)[1]}
               loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: `200px` }} />}
+              containerElement={
+                <div className="gMap"  />
+              }
               mapElement={<div style={{ height: `100%` }} />}
             />
           </div>
