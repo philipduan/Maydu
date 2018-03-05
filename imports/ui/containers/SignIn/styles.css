@@ -33,7 +33,9 @@ for button */
   border-radius: 5px;
   margin: 2.5%;
   font-size: 16px; 
+  padding: 2% 2%;
   color: #20494c;
+  border: none;
 }
 
 .Login-Container form ::placeholder{
@@ -90,6 +92,7 @@ for button */
   }
   .Login-Container form input {
     margin: 1.5%;
+    padding: 1.5%;
     width: 70%;
   }
   .Login-Container form button {
@@ -107,6 +110,7 @@ for button */
 @media screen and (min-width: 1440px) { 
   .Login-Container form input {
     margin: 1.5%;
+    padding: 1.25%;
     width: 60%;
   }
   .Login-Container form button {

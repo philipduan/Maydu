@@ -13,7 +13,6 @@ export const getSessionLoading = () => ({
 //Middleware 
 
 //Reducer 
-
 export default function (state = { profileData: {}, isLoading: false }, action) {
     switch (action.type) {
         case GET_SESSION_INFO_LOADING:
