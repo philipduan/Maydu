@@ -347,7 +347,7 @@ class SignUp extends Component {
         });
         scroll(0, 0);
       } else {
-        Modules.client.uploadToAmazonS3(this.state.imageData.file);
+        //Modules.client.uploadToAmazonS3(this.state.imageData.file);
         this.props.history.push(`/sessions`);
       }
     });
@@ -363,12 +363,12 @@ class SignUp extends Component {
               <p> {this.state.backendError} </p>
             ) : null}
             {this.renderFormElements()}
-            <ImageUpload
+            {/* <ImageUpload
               label="Upload A Photo"
               changed={e => this.handleImageChange(e)}
               imgURL={this.state.imageData.imgURL}
               error={this.state.imageData.error}
-            />
+            /> */}
             <div className="button_box">
               <button
                 className="signup_button"
