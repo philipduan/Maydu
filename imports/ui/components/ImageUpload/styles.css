@@ -1,7 +1,59 @@
-.imageUpload {
-  border: 2px solid green;
+.image_upload_button {
+  background-color: #FBB506;
+  width: 100%;
+  border-radius: 5px;
+  height: 2.5rem;
+  margin-bottom: 2rem;
 }
 
-.error {
-  color: red;
+.imageBorder {
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: 2px;
+  width: 100%;
+  margin-top: 0.2rem;
+  
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dropbox {
+  border-radius: 5px;
+  text-align: center;
+  color: gray;
+  background-color: rgba(231, 231, 231,0.5);
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 250px;
+  padding: 1rem;
+  text-align: center;
+}
+
+
+.dropbox p::before {
+  font-family: FontAwesome;
+  content: '\f03e';
+  display: block;
+  margin-top: 1rem;
+  color: white;
+  font-size: 2rem;
+}
+
+.dropbox p {
+  margin-top: 1rem;
+  color: white;
+}
+
+.preview {
+  text-align: center;
+  margin-bottom: 2%;
+  padding: 0px;
+  height: 250px;
+  
 }
