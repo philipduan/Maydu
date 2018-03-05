@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> master
 // let upload = file => {
 //     const uploader = new Slingshot.Upload("uploadToAmazonS3");
 //     uploader.send(file, (error, url) => {
@@ -11,7 +14,11 @@
 //     })
 // }
 
+<<<<<<< HEAD
 
 
 
 // Modules.client.uploadToAmazonS3 = upload;
+=======
+// Modules.client.uploadToAmazonS3 = upload;
+>>>>>>> master

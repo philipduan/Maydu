@@ -15,7 +15,6 @@ import Profile from '../Profile/Profile';
 import { connect } from 'react-redux';
 import { getSessionInfo } from '../../redux/profile';
 
-
 class SessionCard extends Component {
   constructor() {
     super();
@@ -30,11 +29,9 @@ class SessionCard extends Component {
   //   this.props.dispatch(getSessionInfo(nextProps.data))
   // }
 
-
-
   componentDidMount() {
     console.log('PROPS', this.props.data);
-    this.props.dispatch(getSessionInfo(this.props.data))
+    this.props.dispatch(getSessionInfo(this.props.data));
   }
 
   showMore = event => {
@@ -77,6 +74,11 @@ class SessionCard extends Component {
   };
 
   render() {
+<<<<<<< HEAD
+=======
+    console.log('user', Meteor.user());
+    console.log('props', this.props);
+>>>>>>> master
     return (
       <div className="session-brief-wrap">
         <header className="session-brief-header">
@@ -153,10 +155,14 @@ class SessionCard extends Component {
   }
 }
 
+<<<<<<< HEAD
 const mapStateToProps = (state) => ({
+=======
+const mapStateToProps = state => ({
+>>>>>>> master
   profileData: state.profileData.profileData,
   isLoading: state.profileData.isLoading
-})
+});
 
 const SessionCardRouter = withRouter(SessionCard);
 export default connect(mapStateToProps)(SessionCardRouter);
