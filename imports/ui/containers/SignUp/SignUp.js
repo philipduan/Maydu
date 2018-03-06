@@ -138,13 +138,14 @@ class SignUp extends Component {
         },
         value: '',
         validation: {
-          required: true,
-          minLength: 100,
-          maxLength: 400
+          required: false,
+          minLength: 0,
+          maxLength: 0
         },
         valid: false,
         touched: false,
-        validationMessage: 'Your bio must be between 100-400 characters'
+        //validationMessage: 'Your bio must be between 100-400 characters'
+        validationMessage: ''
       },
       facebook: {
         elementType: 'input',
@@ -193,18 +194,22 @@ class SignUp extends Component {
       }
     },
     formIsValid: false,
-    imageData: {
-      url: '',
-      file: '',
-      error: ''
-    },
+    // imageData: {
+    //   url: '',
+    //   file: '',
+    //   error: ''
+    // },
     backendError: null
   };
 
   // This method shows userInput on screen, validates it, and updates state.formIsValid accordingly
   inputHandler = (event, fieldName) => {
     let field = this.state.form[fieldName];
-    if (!field.validation.required && event.target.value === '') {
+    if (
+      !field.validation.required &&
+      fieldName !== 'bio' &&
+      event.target.value === ''
+    ) {
       this.updateField(
         { value: event.target.value, valid: true, touched: false },
         fieldName,
@@ -247,13 +252,13 @@ class SignUp extends Component {
   updateFormIsValidState = () => {
     let formIsValid = true;
     // Ensure there is an uploaded image
-    if (this.state.imageData.file === '') {
-      formIsValid = false;
-    } else {
-      for (let field in this.state.form) {
-        formIsValid = this.state.form[field].valid && formIsValid;
-      }
+    // if (this.state.imageData.file === '') {
+    //   formIsValid = false;
+    // } else {
+    for (let field in this.state.form) {
+      formIsValid = this.state.form[field].valid && formIsValid;
     }
+    // }
     this.setState({ formIsValid: formIsValid });
   };
 
@@ -279,40 +284,40 @@ class SignUp extends Component {
   };
 
   // Updates state.imageData with incoming parameters
-  updateImageField = (imgURL, file, error) => {
-    let updatedImageData = updateObject(this.state.imageData, {
-      imgURL: imgURL,
-      file: file,
-      error: error
-    });
-    console.log('FILE: ', file);
-    this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
-  };
+  // updateImageField = (imgURL, file, error) => {
+  //   let updatedImageData = updateObject(this.state.imageData, {
+  //     imgURL: imgURL,
+  //     file: file,
+  //     error: error
+  //   });
+  //   console.log('FILE: ', file);
+  //   this.setState({ imageData: updatedImageData }, this.updateFormIsValidState);
+  // };
 
   // Displays image on screen, saves associated file in state
-  displayAndSaveImage = file => {
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      this.updateImageField(reader.result, file, '');
-    };
-    console.log('FILE 2: ', file);
-    reader.readAsDataURL(file);
-  };
+  // displayAndSaveImage = file => {
+  //   let reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     this.updateImageField(reader.result, file, '');
+  //   };
+  //   console.log('FILE 2: ', file);
+  //   reader.readAsDataURL(file);
+  // };
 
   // If user's uploaded file is not an image, or exceeds 250kb, returns an error. Otherwise,
   // displays the uploaded image to the user and stores the file in state
-  handleImageChange = e => {
-    e.preventDefault();
-    let file = e.target.files[0];
-    var imageType = /^image\//;
-    if (!imageType.test(file.type)) {
-      this.updateImageField('', '', 'Invalid File Type. Must upload an image');
-    } else if (file.size > 250000) {
-      this.updateImageField('', '', 'File too large. Max upload size: 500KB.');
-    } else {
-      this.displayAndSaveImage(file);
-    }
-  };
+  // handleImageChange = e => {
+  //   e.preventDefault();
+  //   let file = e.target.files[0];
+  //   var imageType = /^image\//;
+  //   if (!imageType.test(file.type)) {
+  //     this.updateImageField('', '', 'Invalid File Type. Must upload an image');
+  //   } else if (file.size > 250000) {
+  //     this.updateImageField('', '', 'File too large. Max upload size: 500KB.');
+  //   } else {
+  //     this.displayAndSaveImage(file);
+  //   }
+  // };
 
   // Get users information from state (excluding username, password, email)
   getProfile = () => {
@@ -365,12 +370,12 @@ class SignUp extends Component {
               <p> {this.state.backendError} </p>
             ) : null}
             {this.renderFormElements()}
-            <ImageUpload
+            {/* <ImageUpload
               label="Upload A Photo"
               changed={e => this.handleImageChange(e)}
               imgURL={this.state.imageData.imgURL}
               error={this.state.imageData.error}
-            />
+            /> */}
             <div className="button_box">
               <button
                 className="signup_button"

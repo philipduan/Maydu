@@ -12,7 +12,8 @@ const input = props => {
   switch (props.elementType) {
     case 'input':
       inputElement = (
-        <input className="signup_input"
+        <input
+          className="signup_input"
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
@@ -23,44 +24,49 @@ const input = props => {
     case 'textarea':
       inputElement = (
         <div>
-          <textarea className="signup_input signup_textarea"
+          <textarea
+            className="signup_input signup_textarea"
             {...props.elementConfig}
             value={props.value}
             onChange={props.changed}
             onBlur={props.blurred}
             maxLength={400}
           />
-          {props.value.length > 0 ? <p className="bio_counter">Num Chars: {props.value.length} </p> : null}
+          {props.value.length > 0 ? (
+            <p className="bio_counter">Num Chars: {props.value.length} </p>
+          ) : null}
         </div>
       );
       break;
     case 'select':
-      let selectClass = "signup_input";
-      if(props.value === '') {
-        selectClass += " signup_select_gray"
+      let selectClass = 'signup_input';
+      if (props.value === '') {
+        selectClass += ' signup_select_gray';
       }
       inputElement = (
-        <select className={selectClass}
+        <select
+          className={selectClass}
           defaultValue={props.elementConfig.defaultSelect}
           onChange={props.changed}
           onBlur={props.blurred}
-        > 
-            <option disabled hidden>
+        >
+          <option disabled hidden>
             {props.elementConfig.defaultSelect}
-            </option>
-            {props.elementConfig.options.map(option => {
-              return (
-                <option key={option.value} value={option.value}>
-                  {option.displayName}
-                </option>
-              );
-            })}
+          </option>
+          {props.elementConfig.options.map(option => {
+            return (
+              <option key={option.value} value={option.value}>
+                {option.displayName}
+              </option>
+            );
+          })}
         </select>
       );
       break;
     case 'input_image':
       inputElement = (
-        <input className="signup_input"
+        <input
+          className="signup_input"
           {...props.elementConfig}
           onChange={props.changed}
           value={props.value}
@@ -73,7 +79,9 @@ const input = props => {
 
   return (
     <div>
-      {validationError ? <p className="signup_error">{validationError}</p> : null}
+      {validationError ? (
+        <p className="signup_error">{validationError}</p>
+      ) : null}
       {inputElement}
     </div>
   );
